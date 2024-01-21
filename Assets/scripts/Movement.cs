@@ -67,7 +67,7 @@ public class Movement : MonoBehaviour
     void MoveToTarget(Vector2 LastMousePosition)
     {
         // Применяем перемещение вдоль вектора направления с постоянной скоростью
-        transform.position = Vector2.MoveTowards(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
+        transform.position = Vector2.Lerp(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
     }
 
     // Функція, що повертає світові координати миші
