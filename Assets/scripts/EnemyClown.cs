@@ -3,8 +3,8 @@ using System.Collections;
 
 public class EnemyClown : MonoBehaviour
 {
-    [SerializeField] float speed = 3f; // Скорость движения врага
-    [SerializeField] float attackRange = 2f; // Радиус атаки врага
+    [SerializeField] float speed = 2f; // Скорость движения врага
+    [SerializeField] float attackRange = 4f; // Радиус атаки врага
     [SerializeField] float attackCooldown = 2f; // Время между атаками
 
     private Transform player; // Ссылка на трансформ игрока
