@@ -1,33 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Movement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 5f;
+    private float moveSpeed = 7f; // Швидкість польоту у стрибку
     [SerializeField]
-    private float maxJumpDistance = 5f;
+    private float maxJumpDistance = 5f; // Максимальна дальність стрибку
     [SerializeField]
-    private float chargedJumpDistance = 0;
+    private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
     [SerializeField]
-    private float chargedJumpDistanceMultiplier = 0.05f;
+    private float chargedJumpDistanceMultiplier = 0.4f; // Приріст заряду
 
-    private Vector2 mousePosition;
-    private Vector2 LastMousePosition;
-    private bool IsMoving = false;
-    private bool IsSpacePressed = false;
+    private Vector2 mousePosition; // Координати миші
+    private Vector2 LastMousePosition; // Останні координати миші
+    private bool IsMoving = false; // Прапорець стану руху
+    private bool IsButtonMovePressed = false; // Прапорець утримання кнопки руху
 
     void FixedUpdate()
     {
         // Получаем позицию мыши в мировых координатах
         mousePosition = GetMouseWorldPosition();
 
-        if (!IsMoving && IsSpacePressed)
+        if (!IsMoving && IsButtonMovePressed)
         {
             if (maxJumpDistance > chargedJumpDistance)
                 chargedJumpDistance += chargedJumpDistanceMultiplier;
@@ -47,16 +41,19 @@ public class Movement : MonoBehaviour
         // Получаем позицию мыши в мировых координатах
         mousePosition = GetMouseWorldPosition();
 
-        if (Input.GetKey(KeyCode.Space))
+        // Додали підтримку ЛКМ
+        // Якщо натискаємо кнопку пересування
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))
         {
-            IsMoving = false; 
-            IsSpacePressed = true;
+            IsMoving = false;
+            IsButtonMovePressed = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        // Якщо відпустили кнопку пересування
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0))
         {
             IsMoving = true;
-            IsSpacePressed = false;
+            IsButtonMovePressed = false;
             // Вычисляем вектор направления от текущей позиции до позиции мыши
             Vector2 direction = (mousePosition - (Vector2)transform.position);
 
@@ -66,12 +63,14 @@ public class Movement : MonoBehaviour
         }
     }
 
+    // Метод пересування до заданої точки
     void MoveToTarget(Vector2 LastMousePosition)
     {
         // Применяем перемещение вдоль вектора направления с постоянной скоростью
         transform.position = Vector2.MoveTowards(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
     }
 
+    // Функція, що повертає світові координати миші
     Vector2 GetMouseWorldPosition()
     {
         Vector2 mousePosition = Input.mousePosition;
