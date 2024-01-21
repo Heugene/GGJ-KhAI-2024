@@ -1,0 +1,4 @@
+repository "Game(test)@Ner4viy@cloud"
+  path "/"
+    br "/main"
+    co "/main"
