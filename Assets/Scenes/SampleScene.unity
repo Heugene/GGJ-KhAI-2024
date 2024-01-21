@@ -570,9 +570,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deea2f4b76ddc3144b932bb9609217e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForceMultiplier: 5
-  maxJumpForce: 20
-  stoppingDistance: 2
+  moveSpeed: 5
+  maxJumpDistance: 2
+  chargedJumpDistance: 0
+  chargedJumpDistanceMultiplier: 0.05
 --- !u!23 &1132792254
 MeshRenderer:
   m_ObjectHideFlags: 0
