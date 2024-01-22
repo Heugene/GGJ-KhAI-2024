@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
     private Vector2 LastMousePosition; // Останні координати миші
     private bool IsMoving = false; // Прапорець стану руху
     private bool IsButtonMovePressed = false; // Прапорець утримання кнопки руху
+    private bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
 
     void FixedUpdate()
     {
@@ -29,7 +30,7 @@ public class Movement : MonoBehaviour
                 chargedJumpDistance = maxJumpDistance;
         }
 
-        if (IsMoving)
+        if (IsMoving && !isPlayerHitEnemy)
         {
             // Перемещаем персонаж
             MoveToTarget(LastMousePosition);
@@ -54,6 +55,7 @@ public class Movement : MonoBehaviour
         {
             IsMoving = true;
             IsButtonMovePressed = false;
+            isPlayerHitEnemy = false;
             // Вычисляем вектор направления от текущей позиции до позиции мыши
             Vector2 direction = (mousePosition - (Vector2)transform.position);
 
@@ -63,17 +65,39 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // Метод пересування до заданої точки
+    /// <summary>
+    /// Метод пересування до заданої точки
+    /// </summary>
     void MoveToTarget(Vector2 LastMousePosition)
     {
         // Применяем перемещение вдоль вектора направления с постоянной скоростью
         transform.position = Vector2.Lerp(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
     }
 
-    // Функція, що повертає світові координати миші
+    /// <summary>
+    /// Функція, що повертає світові координати миші
+    /// </summary>
     Vector2 GetMouseWorldPosition()
     {
         Vector2 mousePosition = Input.mousePosition;
         return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
+
+    /// <summary>
+    /// остановка игрока когда он сталкиваеться с противником
+    /// </summary>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Enemy")
+        {
+            isPlayerHitEnemy = true;
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Enemy")
+        {
+            isPlayerHitEnemy = true;
+        }
     }
 }
