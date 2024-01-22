@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class GenerateArea : MonoBehaviour
     private int _numOfCorners = 18; // Количество углов
     [SerializeField]
     private float _radius = 5.0f; // Радиус многоугольника
+    [SerializeField]
+    [Header("Удалить предыдущий меш?")]
+    private bool _delete = false;
     [SerializeField]
     [Header("Сохранить сгенерируемый меш?")]
     private bool _save = false;
@@ -42,13 +46,25 @@ public class GenerateArea : MonoBehaviour
     {
         get => _save;
         private set { }
-    } 
+    }
+    
+    public bool delete
+    {
+        get => _delete;
+        private set { }
+    }
 
     private Vector3[] _vertices; // Массив вершин
     private Mesh _mesh; // Полигональная сетка
 
     void Start()
     {
+        // Удаление предыдущего меша по флагу
+        if (_delete)
+        {
+            DeleteMesh();
+        }
+
         // Сгенерировать и сохранить меш если преустановленный пустой 
         if (GetComponent<MeshFilter>().sharedMesh == null) {
             Debug.Log("Mesh Arena generated");
@@ -106,6 +122,13 @@ public class GenerateArea : MonoBehaviour
     {
         Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
         AssetDatabase.CreateAsset(mesh, "Assets/Meshes/AreaMesh.asset");
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+    void DeleteMesh()
+    {
+        AssetDatabase.DeleteAsset($"Assets/Meshes/AreaMesh.asset");
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
