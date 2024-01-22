@@ -1,57 +1,103 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Movement : MonoBehaviour
 {
-    // сила прыжка
-    public float jumpForceMultiplier = 5f;
-    // максимальная сила прыжка
-    public float maxJumpForce = 20f;
-    // максимальная дистанция на которую может прыгнуть герой
-    public float stoppingDistance = 2f;
+    [SerializeField]
+    private float moveSpeed = 7f; // Швидкість польоту у стрибку
+    [SerializeField]
+    private float maxJumpDistance = 5f; // Максимальна дальність стрибку
+    [SerializeField]
+    private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
+    [SerializeField]
+    private float chargedJumpDistanceMultiplier = 0.4f; // Приріст заряду
 
-    // Заряжен ли на максимум прыжок
-    private bool isChargingJump = false;
-    private float jumpForce;
+    private Vector2 mousePosition; // Координати миші
+    private Vector2 LastMousePosition; // Останні координати миші
+    private bool IsMoving = false; // Прапорець стану руху
+    private bool IsButtonMovePressed = false; // Прапорець утримання кнопки руху
+    private bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
 
-    void Update()
+    void FixedUpdate()
     {
-        // Запускаем зарядку прыжка при удерживании клавиши Пробел
-        if (Input.GetKey(KeyCode.Space))
+        // Получаем позицию мыши в мировых координатах
+        mousePosition = GetMouseWorldPosition();
+
+        if (!IsMoving && IsButtonMovePressed)
         {
-            isChargingJump = true;
-            jumpForce += Time.deltaTime * jumpForceMultiplier;
-            jumpForce = Mathf.Clamp(jumpForce, 0f, maxJumpForce);
+            if (maxJumpDistance > chargedJumpDistance)
+                chargedJumpDistance += chargedJumpDistanceMultiplier;
+            else
+                chargedJumpDistance = maxJumpDistance;
         }
 
-        // Отпускаем клавишу Пробел - выполняем прыжок
-        if (Input.GetKeyUp(KeyCode.Space) && isChargingJump)
+        if (IsMoving && !isPlayerHitEnemy)
         {
-            Jump();
+            // Перемещаем персонаж
+            MoveToTarget(LastMousePosition);
         }
     }
 
-    void Jump()
+    void Update()
     {
-        // Получаем направление мыши
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = Camera.main.nearClipPlane;
-        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector3 jumpDirection = (targetPosition - transform.position).normalized;
+        // Получаем позицию мыши в мировых координатах
+        mousePosition = GetMouseWorldPosition();
 
-        // Применяем силу рывка в направлении мыши
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
+        // Додали підтримку ЛКМ
+        // Якщо натискаємо кнопку пересування
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))
+        {
+            IsMoving = false;
+            IsButtonMovePressed = true;
+        }
 
-        // Задаем ускорение в противоположную сторону для замедления и остановки
-        float decelerationForce = -rb.velocity.normalized.magnitude * rb.mass / stoppingDistance;
-        rb.AddForce(decelerationForce * rb.velocity.normalized, ForceMode2D.Impulse);
+        // Якщо відпустили кнопку пересування
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            IsMoving = true;
+            IsButtonMovePressed = false;
+            isPlayerHitEnemy = false;
+            // Вычисляем вектор направления от текущей позиции до позиции мыши
+            Vector2 direction = (mousePosition - (Vector2)transform.position);
 
-        // Сбрасываем переменные зарядки
-        isChargingJump = false;
-        jumpForce = 0f;
+            // Ограничиваем длину вектора до maxJumpDistance
+            LastMousePosition = (Vector2)transform.position + Vector2.ClampMagnitude(direction, chargedJumpDistance);
+            chargedJumpDistance = 0;
+        }
+    }
+
+    /// <summary>
+    /// Метод пересування до заданої точки
+    /// </summary>
+    void MoveToTarget(Vector2 LastMousePosition)
+    {
+        // Применяем перемещение вдоль вектора направления с постоянной скоростью
+        transform.position = Vector2.Lerp(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Функція, що повертає світові координати миші
+    /// </summary>
+    Vector2 GetMouseWorldPosition()
+    {
+        Vector2 mousePosition = Input.mousePosition;
+        return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
+
+    /// <summary>
+    /// остановка игрока когда он сталкиваеться с противником
+    /// </summary>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Enemy")
+        {
+            isPlayerHitEnemy = true;
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Enemy")
+        {
+            isPlayerHitEnemy = true;
+        }
     }
 }
