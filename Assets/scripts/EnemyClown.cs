@@ -3,12 +3,16 @@ using System.Collections;
 
 public class EnemyClown : MonoBehaviour
 {
-    [SerializeField] float speed = 2f; // Скорость движения врага
-    [SerializeField] float attackRange = 4f; // Радиус атаки врага
-    [SerializeField] float attackCooldown = 2f; // Время между атаками
+    [SerializeField] float moveSpeed = 2f; // Швидкість руху клоуна
+    [SerializeField] float attackRange = 4f; // Радіус атаки врогів
+    [SerializeField] float attackCooldown = 2f; // Час між атаками
+    [SerializeField] int clownDamage = 1; // Значення дамагу
 
-    private Transform player; // Ссылка на трансформ игрока
-    private bool canAttack = true; // Флаг разрешения атаки
+    [SerializeField, Header("Показати радіус атаки?")]
+    private bool drawAtackRange = false;
+
+    private Transform player; // Посилання на трансформ гравця
+    private bool canAttack = true; // Флаг для дозвілу атаки
 
     private void Start()
     {
@@ -19,42 +23,47 @@ public class EnemyClown : MonoBehaviour
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // Проверка, находится ли игрок в радиусе атаки
+        // Перевірка, чи гравець перебуває в радіусі атаки
         if (distanceToPlayer <= attackRange)
         {
-            // Если атака не на перезарядке атакуем игрока
+            // Якщо атака не на перезарядці атакуємо гравця
             if (canAttack) 
                 StartCoroutine(AttackWithCooldown());
         }
         else
         {
-            // Если находится в радиусе следовать за игроку
+            // Якщо знаходиться в радіусі слідувати за гравцем
             ChasePlayer();
         }
     }
 
-    // Следовать за игроком
+    // Слідувати за гравцем
     void ChasePlayer()
     {
         Vector2 direction = (player.position - transform.position).normalized;
 
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction * moveSpeed * Time.deltaTime);
     }
 
     IEnumerator AttackWithCooldown()
     {
-        Debug.Log("Attack!");  // TODO: Тут должна быть логика анимки и нанесения дамага.
-        int testClownDMG = 1; // Тестове значення дамагу
-
+        Debug.Log("Attack!");  // TODO: Тут має бути логіка анімки.
 
         if (canAttack)
         {
-            player.GetComponent<PlayerHealthController>().TakeDamage(testClownDMG);
             canAttack = false;
+            player.GetComponent<PlayerHealthController>().TakeDamage(clownDamage);
         }
 
-        // Блокируем атаку до момента пока не пройдёт время перезарядки
+        // Блокуємо атаку до моменту, поки не пройде час перезарядки
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
+    }
+
+    // Відображення радіусу атаки клоуна
+    private void OnDrawGizmosSelected()
+    {
+        if (drawAtackRange)
+            Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
