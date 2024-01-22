@@ -922,6 +922,8 @@ MonoBehaviour:
   speed: 2
   attackRange: 4
   attackCooldown: 2
+  testClownDMG: 1
+  drawAtackRange: 1
 --- !u!61 &1116388757
 BoxCollider2D:
   m_ObjectHideFlags: 0
