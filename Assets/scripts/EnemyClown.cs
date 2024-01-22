@@ -44,9 +44,16 @@ public class EnemyClown : MonoBehaviour
     IEnumerator AttackWithCooldown()
     {
         Debug.Log("Attack!");  // TODO: Тут должна быть логика анимки и нанесения дамага.
+        int testClownDMG = 1; // Тестове значення дамагу
+
+
+        if (canAttack)
+        {
+            player.GetComponent<PlayerHealthController>().TakeDamage(testClownDMG);
+            canAttack = false;
+        }
 
         // Блокируем атаку до момента пока не пройдёт время перезарядки
-        canAttack = false;
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
