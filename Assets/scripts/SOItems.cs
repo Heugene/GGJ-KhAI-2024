@@ -21,4 +21,5 @@ public class SOItems : ScriptableObject
     public int Protection = 0;
     public Sprite ItemImage;
     public int Heal = 1;
+    public int MaxStackSize = 1;
 }

@@ -19,3 +19,4 @@ MonoBehaviour:
   Protection: 0
   ItemImage: {fileID: 21300000, guid: a8e50152c6544e744acf137da17b3ea2, type: 3}
   Heal: 0
+  MaxStackSize: 2
