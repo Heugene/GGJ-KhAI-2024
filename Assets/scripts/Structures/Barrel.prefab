@@ -38,15 +38,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -62,15 +62,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3534541494449584185, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_Size.x
-      value: 0.24081601
+      value: 0.22997558
       objectReference: {fileID: 0}
     - target: {fileID: 3534541494449584185, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_Size.y
-      value: 0.17033465
+      value: 0.19901274
       objectReference: {fileID: 0}
     - target: {fileID: 3534541494449584185, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_Offset.y
-      value: -0.077026166
+      value: -0.05286055
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534541494449584185, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3534541494449584185, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
@@ -112,6 +116,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9a920a49b1b565245b116ee38babc14c, type: 3}
+    - target: {fileID: 5025086781343388784, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5025086781343388784, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
