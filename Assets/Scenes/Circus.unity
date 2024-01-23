@@ -447,7 +447,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525208227}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &525208230
 Camera:
   m_ObjectHideFlags: 0
@@ -506,7 +506,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525208227}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9db44eee41106b1429bfd6827ff55963, type: 3}
@@ -1705,8 +1705,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   maxJumpDistance: 5
-  chargedJumpDistance: 0
   chargedJumpDistanceMultiplier: 0.4
+  DashSpeed: 15
+  DashCooldown: 0.5
+  DashSpeedReducer: 0.1
+  item: 1
+  isCanDash: 0
+  isDashing: 0
 --- !u!61 &2085322831
 BoxCollider2D:
   m_ObjectHideFlags: 0
