@@ -111,6 +111,9 @@ public class GenerateBleacher : MonoBehaviour
 
         //ѕередача массива полигонов в меш
         _bleacherMesh.triangles = _triangles;
+        Unwrapping.GenerateSecondaryUVSet(_bleacherMesh);
+        _bleacherMesh.uv = _bleacherMesh.uv2;
+
         //пересчет нормалей. Ќе факт что будет работать без этого
         _bleacherMesh.RecalculateNormals();
     }
