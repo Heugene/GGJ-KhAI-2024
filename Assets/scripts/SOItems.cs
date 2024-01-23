@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum ItemType
 {
+    None,
     Ketchup,
     Mustard,
     Mayonnaise,
