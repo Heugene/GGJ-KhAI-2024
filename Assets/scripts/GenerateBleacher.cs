@@ -20,6 +20,7 @@ public class GenerateBleacher : MonoBehaviour
     private Mesh _bleacherMesh;
     private Vector2[] _edgeCollaiderVertices; 
     private float _radius; //Радиус
+    private float _sector; // Градус угла (Точка N, центр, Точка N+1)
     private int _numOfCorners; //Количество сторон
     private Vector3[] _vertices; //Вершины сетки трибун. Внутренние перечиляются до индекса _numOfCorners, внешние после него
 
@@ -45,8 +46,10 @@ public class GenerateBleacher : MonoBehaviour
         }
         else {
             //Подгрузка переменных для GenerateEdgeCollaider
-            _vertices = GetComponent<MeshFilter>().sharedMesh.vertices;
-            _numOfCorners = _vertices.Length / 2;
+            Mesh mesh= GetComponent<MeshFilter>().sharedMesh;
+            _radius = mesh.vertices[0].y;
+            _numOfCorners = mesh.vertices.Length / 2;
+            _sector = (Mathf.PI * 2) / _numOfCorners;
         }
         GenerateEdgeCollaider();
     }
@@ -65,7 +68,7 @@ public class GenerateBleacher : MonoBehaviour
         _bleacherMesh = new Mesh();
         GetComponent<MeshFilter>().sharedMesh = _bleacherMesh;
 
-        float _sector = (Mathf.PI * 2) / _numOfCorners; // Вычисление угла поворота между точками ( угол (точка N, центр, точка N+1) )
+        _sector = (Mathf.PI * 2) / _numOfCorners; // Вычисление угла поворота между точками ( угол (точка N, центр, точка N+1) )
 
         // Создание двух окружностей из вершин. Расстояние между ними - _thickness
         for (int i = 0; i < _numOfCorners; i++)
@@ -115,16 +118,21 @@ public class GenerateBleacher : MonoBehaviour
     // Генерация коллайдера на основе внутренних вершин меша трибуны
     void GenerateEdgeCollaider()
     {
+        EdgeCollider2D edgeCollider = GetComponent<EdgeCollider2D>();
+        float radiusCollaider = _thickness / 2;
         _edgeCollaiderVertices = new Vector2[_numOfCorners + 1];
+
         for(int i = 0; i < _numOfCorners; i++)
         {
-            _edgeCollaiderVertices[i] = new Vector2(_vertices[i].x, _vertices[i].y);
+            _edgeCollaiderVertices[i] =         new Vector2(Mathf.Sin(_sector * i) * (radiusCollaider + _radius),                         Mathf.Cos(_sector * i) * (radiusCollaider + _radius));
         }
         // Закрывающая вершина
-        _edgeCollaiderVertices[_numOfCorners] = new Vector2(_vertices[0].x, _vertices[0].y);
+        _edgeCollaiderVertices[_numOfCorners] = new Vector2(Mathf.Sin(_sector * _numOfCorners) * (radiusCollaider + _radius), Mathf.Cos(_sector * _numOfCorners) * (radiusCollaider + _radius));
 
         //Передача вершин в коллайдер
-        GetComponent<EdgeCollider2D>().points = _edgeCollaiderVertices;
+        edgeCollider.points = _edgeCollaiderVertices;
+        // Установка толщины EdgeCollider2D
+        edgeCollider.edgeRadius = radiusCollaider;
     }
 
     // Сохранение меша !!Только во время разработки!!
