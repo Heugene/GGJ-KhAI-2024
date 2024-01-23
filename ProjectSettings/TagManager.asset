@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - HealthBarPart
+  - grid
   layers:
   - Default
   - TransparentFX
