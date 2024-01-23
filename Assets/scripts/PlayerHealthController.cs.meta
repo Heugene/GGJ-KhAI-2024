@@ -3,7 +3,13 @@ guid: ff88a6fed0d8c364ca65c98dcb1e1b29
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fullBodyPart: {fileID: -1965590483, guid: 236dab61bec60404aa3ad8f535b16e81, type: 3}
+  - emptyBodyPart: {fileID: -416155981, guid: 236dab61bec60404aa3ad8f535b16e81, type: 3}
+  - fullTailPart: {fileID: -883180696, guid: 236dab61bec60404aa3ad8f535b16e81, type: 3}
+  - emptyTailPart: {fileID: -696739903, guid: 236dab61bec60404aa3ad8f535b16e81, type: 3}
+  - fullHeadPart: {fileID: 1383010723, guid: 236dab61bec60404aa3ad8f535b16e81, type: 3}
+  - emptyHeadPart: {fileID: -504833841, guid: 236dab61bec60404aa3ad8f535b16e81, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
