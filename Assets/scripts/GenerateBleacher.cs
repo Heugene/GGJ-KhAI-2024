@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -14,7 +15,7 @@ public class GenerateBleacher : MonoBehaviour
     [SerializeField]
     private float _thickness = 4f; //толщина трибуны
     [SerializeField]
-    private GameObject _arena; // Поместить сюда ссылку на арену для передачи радиуса и количество вершин
+    private GenerateArea _arena;
 
     private Mesh _bleacherMesh;
     private Vector2[] _edgeCollaiderVertices; 
@@ -26,6 +27,12 @@ public class GenerateBleacher : MonoBehaviour
 
     void Start()
     {
+        // Удаление предыдущего меша по флагу
+        if (_arena.delete)
+        {
+            DeleteMesh("Assets/Meshes/BleacherMesh.asset");
+        }
+
         //Генерация меша, если нет предустановленного
         if (GetComponent<MeshFilter>().sharedMesh == null)
         {
@@ -124,6 +131,13 @@ public class GenerateBleacher : MonoBehaviour
     void SaveMesh(Mesh mesh, string path)
     {
         AssetDatabase.CreateAsset(mesh, path);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+    void DeleteMesh(string path)
+    {
+        AssetDatabase.DeleteAsset(path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
