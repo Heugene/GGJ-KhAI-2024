@@ -77,11 +77,6 @@ public class GenerateArea : MonoBehaviour
         }        
     }
 
-    void Update()
-    {
-        
-    }
-
     void Generate()
     {
         _mesh = new Mesh();
