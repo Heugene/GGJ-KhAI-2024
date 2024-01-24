@@ -114,6 +114,8 @@ public class GenerateArea : MonoBehaviour
 
         _mesh.triangles = _triangles;
         //пересчет нормалей. Не факт что будет работать без этого
+        Unwrapping.GenerateSecondaryUVSet(_mesh);
+        _mesh.uv = _mesh.uv2;
         _mesh.RecalculateNormals();
     }
     
