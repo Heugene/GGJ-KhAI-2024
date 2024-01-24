@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -22,18 +23,19 @@ public class Movement : MonoBehaviour
 
     private Vector2 mousePosition; // Координати миші
     private Vector2 LastMousePosition; // Останні координати миші
-    private bool IsMoving = false; // Прапорець стану руху
-    private bool IsButtonJumpPressed = false; // Прапорець утримання кнопки руху
-    private bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
+    public bool IsMoving = false; // Прапорець стану руху
+    public bool IsButtonJumpPressed = false; // Прапорець утримання кнопки руху
+    public bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
     [SerializeField]
-    private bool isCanDash = false; // может ли игрок сделать деш
+    public bool isCanDash = false; // может ли игрок сделать деш
     [SerializeField]
-    private bool isDashing = false; // делает ли игрок деш
+    public bool isDashing = false; // делает ли игрок деш
 
 
     private void Start()
     {
         DashSpeedTemp = DashSpeed;
+        LastMousePosition = transform.position;
     }
 
     // логика
@@ -89,6 +91,13 @@ public class Movement : MonoBehaviour
             chargedJumpDistance = 0;
         }
 
+        var distance = ((Vector2)transform.position - LastMousePosition);
+        if(distance.magnitude < 0.1)
+        {
+            IsMoving = false;
+        }
+
+
         if (Input.GetKeyUp(KeyCode.Mouse1) && item == ItemType.Ketchup && !isDashing)
         {
             isCanDash = true;
@@ -140,7 +149,7 @@ public class Movement : MonoBehaviour
     void MoveToTarget(Vector2 LastMousePosition)
     {
         // Применяем перемещение вдоль вектора направления с постоянной скоростью
-        transform.position = Vector2.Lerp(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
     }
 
     // Создание деша
@@ -157,7 +166,7 @@ public class Movement : MonoBehaviour
     }
 
     // Функція, що повертає світові координати миші
-    Vector2 GetMouseWorldPosition()
+    public Vector2 GetMouseWorldPosition()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
