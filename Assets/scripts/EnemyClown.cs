@@ -16,7 +16,6 @@ public class EnemyClown : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(UserSetings.musicValue);
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
