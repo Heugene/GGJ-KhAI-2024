@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8ca93743cdcf540af2b0483e4e581b, type: 3}
   m_Name: Ketchup
   m_EditorClassIdentifier: 
-  ItemType: 0
+  ItemType: 1
   Damage: 10
   Speed: 0
   JumpRadius: 0
