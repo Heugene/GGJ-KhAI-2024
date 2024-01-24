@@ -37,8 +37,9 @@ public class CastsceneAnimator : MonoBehaviour
     }
 
     // Метод для прерывания кастсцены
-    public void StopCastscene()
+    public void StopCastscene(Animator animCast, string titleAnimation)
     {
+        animCast.StopPlayback();
         animator.Play("StopCastscene");
     }
 }
