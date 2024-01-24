@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 // Представляє собою логіку взаємодії з анімаціями
-public class AnimationManager : MonoBehaviour
+public class CastsceneAnimator : MonoBehaviour
 {
     private Animator animator; // Аніматор в якому находяться рамки для кастсцен
 
@@ -37,8 +37,9 @@ public class AnimationManager : MonoBehaviour
     }
 
     // Метод для прерывания кастсцены
-    public void StopCastscene()
+    public void StopCastscene(Animator animCast, string titleAnimation)
     {
+        animCast.StopPlayback();
         animator.Play("StopCastscene");
     }
 }

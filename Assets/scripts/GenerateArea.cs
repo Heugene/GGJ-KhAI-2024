@@ -69,17 +69,13 @@ public class GenerateArea : MonoBehaviour
         if (GetComponent<MeshFilter>().sharedMesh == null) {
             Debug.Log("Mesh Arena generated");
             Generate();
+            GenerateUV();
             // Сохранить сгенерированный меш, если установлен соотвествующий флаг
             if (save) {
                 SaveMesh();
                 Debug.Log("Mesh Arena saved");
             }
         }        
-    }
-
-    void Update()
-    {
-        
     }
 
     void Generate()
@@ -112,11 +108,24 @@ public class GenerateArea : MonoBehaviour
             _triangles[i + 2] = j + 2;
         };
 
+        //Костыль
+        transform.rotation.Set(0, 0, 0, 0);
+        //
+
         _mesh.triangles = _triangles;
         //пересчет нормалей. Не факт что будет работать без этого
-        Unwrapping.GenerateSecondaryUVSet(_mesh);
-        _mesh.uv = _mesh.uv2;
         _mesh.RecalculateNormals();
+    }
+
+    void GenerateUV()
+    {
+        Vector2[] MeshUV = new Vector2[_vertices.Length];
+        
+        for(int i = 0; i < _vertices.Length; i++)
+        {
+            MeshUV[i] = new Vector2(_vertices[i].x / _radius, _vertices[i].y / _radius);
+        }
+        GetComponent<MeshFilter>().sharedMesh.uv = MeshUV;
     }
     
     // Сохранение меша !!Только во время разработки!!
