@@ -113,6 +113,10 @@ public class GenerateArea : MonoBehaviour
             _triangles[i + 2] = j + 2;
         };
 
+        //Костыль
+        transform.rotation.Set(0, 0, 0, 0);
+        //
+
         _mesh.triangles = _triangles;
         //пересчет нормалей. Не факт что будет работать без этого
         _mesh.RecalculateNormals();
