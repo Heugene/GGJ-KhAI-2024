@@ -26,9 +26,9 @@ public class Movement : MonoBehaviour
     private bool IsButtonJumpPressed = false; // Прапорець утримання кнопки руху
     private bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
     [SerializeField]
-    private bool isCanDash = false;
+    private bool isCanDash = false; // может ли игрок сделать деш
     [SerializeField]
-    private bool isDashing = false;
+    private bool isDashing = false; // делает ли игрок деш
 
 
     private void Start()
@@ -36,6 +36,7 @@ public class Movement : MonoBehaviour
         DashSpeedTemp = DashSpeed;
     }
 
+    // логика
     void FixedUpdate()
     {
         // Получаем позицию мыши в мировых координатах
@@ -59,6 +60,7 @@ public class Movement : MonoBehaviour
             MoveToTarget(LastMousePosition);// Перемещаем персонаж}
     }
 
+    // input процесы
     void Update()
     {
         // Получаем позицию мыши в мировых координатах
@@ -94,7 +96,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-
+    // зарядка прыжка
     void CalculateJumpDistance()
     {
         if (!IsMoving && IsButtonJumpPressed)
@@ -105,6 +107,8 @@ public class Movement : MonoBehaviour
                 chargedJumpDistance = maxJumpDistance;
         }
     }
+
+    // уменьшение скорости деша на заданое значение DashSpeedReducer
     void CalculateDash()
     {
         if (isCanDash && isDashing)
@@ -118,6 +122,7 @@ public class Movement : MonoBehaviour
         }
     }
 
+    // перезарядка деша в секундах
     void CalculateDashReload()
     {
         if (!isCanDash)
@@ -131,7 +136,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    /// Метод пересування до заданої точки
+    // Метод пересування до заданої точки
     void MoveToTarget(Vector2 LastMousePosition)
     {
         // Применяем перемещение вдоль вектора направления с постоянной скоростью
@@ -141,19 +146,27 @@ public class Movement : MonoBehaviour
     // Создание деша
     void MakeDash()
     {
-        // Применяем перемещение вдоль вектора направления с постоянной скоростью
-        transform.position = Vector2.MoveTowards(transform.position, mousePosition, DashSpeed * Time.deltaTime);
-        LastMousePosition = (Vector2)transform.position;
+        // Вычисляем вектор направления от текущей позиции до позиции мыши
+        Vector2 direction = mousePosition - (Vector2)transform.position;
+
+        // Если длина вектора меньше 5, то не изменяем его, иначе ограничиваем до 5
+        if (direction.magnitude > 5f)
+            direction = direction.normalized * 5f;
+
+        // Применяем MoveTowards для движения к курсору
+        transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction, DashSpeed * Time.deltaTime);
+
+        // Обновляем LastMousePosition
+        LastMousePosition = transform.position;
     }
 
-    /// Функція, що повертає світові координати миші
+    // Функція, що повертає світові координати миші
     Vector2 GetMouseWorldPosition()
     {
-        Vector2 mousePosition = Input.mousePosition;
-        return Camera.main.ScreenToWorldPoint(mousePosition);
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    /// остановка игрока когда он сталкиваеться с противником
+    // остановка игрока когда он сталкиваеться с противником
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Enemy")
