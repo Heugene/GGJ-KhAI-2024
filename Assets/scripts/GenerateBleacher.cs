@@ -64,7 +64,7 @@ public class GenerateBleacher : MonoBehaviour
     {
         _radius = _arena.GetComponent<GenerateArea>().radius - 1; // Радиус внутреннего колица вершин
         _numOfCorners = _arena.GetComponent<GenerateArea>().numOfCornes * 4; // Умножаем на 4 чтобы трибуны не были рваными
-        _vertices = new Vector3[_numOfCorners*2]; // Умножаем на 2 так как будет две окружности из вершин
+        _vertices = new Vector3[_numOfCorners*2 + 2]; // Умножаем на 2 так как будет две окружности из вершин
         _bleacherMesh = new Mesh();
         GetComponent<MeshFilter>().sharedMesh = _bleacherMesh;
 
@@ -78,6 +78,11 @@ public class GenerateBleacher : MonoBehaviour
             // Генерация внешних вершин 
             _vertices[i + _numOfCorners] = new Vector3(Mathf.Sin(_sector * i) * (_radius + _thickness), Mathf.Cos(_sector * i) * (_radius + _thickness), 0f);
         };
+        {
+            _vertices[_numOfCorners*2] =     new Vector3(Mathf.Sin(_sector * 0) * _radius,                Mathf.Cos(_sector * _numOfCorners) * _radius,                0f);
+            _vertices[_numOfCorners*2 + 1] = new Vector3(Mathf.Sin(_sector * 0) * (_radius + _thickness), Mathf.Cos(_sector * _numOfCorners) * (_radius + _thickness), 0f);
+        }
+        
 
         // Загрузка сгенерированных вершин в меш
         _bleacherMesh.vertices = _vertices;
@@ -96,24 +101,21 @@ public class GenerateBleacher : MonoBehaviour
             _triangles[i + 4] = _numOfCorners + j + 1;
             _triangles[i + 5] = j + 1;
         };
-        // Дорисовка 2 полигонов вручную, ибо через цикл не сделать
         {
-            _triangles[_numOfCorners * 3 * 2] = _numOfCorners * 2 - 1;
-            _triangles[_numOfCorners * 3 * 2 + 1] = 0;
-            _triangles[_numOfCorners * 3 * 2 + 2] = _numOfCorners - 1;
+            _triangles[^6] = _numOfCorners * 2;
+            _triangles[^5] = _numOfCorners * 2 - 1;
+            _triangles[^4] = _numOfCorners * 2 + 1;
         }
         {
-            _triangles[_numOfCorners * 3 * 2 + 3] = _numOfCorners;
-            _triangles[_numOfCorners * 3 * 2 + 4] = 0;
-            _triangles[_numOfCorners * 3 * 2 + 5] = _numOfCorners * 2 - 1;
+            _triangles[^3] = _numOfCorners * 2 - 1;
+            _triangles[^2] = _numOfCorners * 2;
+            _triangles[^1] = _numOfCorners - 1;
         }
-        //
 
         //Передача массива полигонов в меш
         _bleacherMesh.triangles = _triangles;
-        Unwrapping.GenerateSecondaryUVSet(_bleacherMesh);
-        _bleacherMesh.uv = _bleacherMesh.uv2;
 
+        RecalculateUvMap();
         //пересчет нормалей. Не факт что будет работать без этого
         _bleacherMesh.RecalculateNormals();
     }
@@ -136,6 +138,29 @@ public class GenerateBleacher : MonoBehaviour
         edgeCollider.points = _edgeCollaiderVertices;
         // Установка толщины EdgeCollider2D
         edgeCollider.edgeRadius = radiusCollaider;
+    }
+
+    void RecalculateUvMap()
+    {
+        Vector2[] _myUV = new Vector2[_bleacherMesh.vertices.Length];
+        float counterIteration = 0;
+        float step = 1f / (_vertices.Length);
+        
+        // Расстановка вершин UV
+        for (int i = 0; i < (_vertices.Length - 2)/2 ; i++, counterIteration++)
+        {  
+            // Расстановка вершин UV в верхней части текстуры
+            _myUV[i]                              = new Vector2(step * counterIteration, 1);
+            // Расстановка вершин UV в нижней части текстуры
+            _myUV[i + (_vertices.Length - 2) / 2] = new Vector2(step * counterIteration, 0);
+        }
+
+        // Ручное размешение последних UV вершин друг под другом !!Без них криво!!
+        _myUV[^2] = new Vector2((step * counterIteration), 1);
+        _myUV[^1] = new Vector2((step * counterIteration), 0);
+
+        _bleacherMesh.uv = _myUV;
+        GetComponent<MeshFilter>().sharedMesh = _bleacherMesh;
     }
 
     // Сохранение меша !!Только во время разработки!!
