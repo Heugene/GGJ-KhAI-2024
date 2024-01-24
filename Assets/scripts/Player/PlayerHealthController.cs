@@ -102,9 +102,9 @@ public class PlayerHealthController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject healthBar = GameObject.FindGameObjectWithTag("HealthBar");
         numOfParts = health;
-        parts = player.GetComponentsInChildren<Image>();
+        parts = healthBar.GetComponentsInChildren<Image>();
     }
 
     // Update is called once per frame
