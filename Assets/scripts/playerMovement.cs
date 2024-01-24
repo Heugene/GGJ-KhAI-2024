@@ -149,12 +149,8 @@ public class Movement : MonoBehaviour
         // ¬ычисл€ем вектор направлени€ от текущей позиции до позиции мыши
         Vector2 direction = mousePosition - (Vector2)transform.position;
 
-        // ≈сли длина вектора меньше 5, то не измен€ем его, иначе ограничиваем до 5
-        if (direction.magnitude > 5f)
-            direction = direction.normalized * 5f;
-
         // ѕримен€ем MoveTowards дл€ движени€ к курсору
-        transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction, DashSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction.normalized, DashSpeed * Time.deltaTime);
 
         // ќбновл€ем LastMousePosition
         LastMousePosition = transform.position;
