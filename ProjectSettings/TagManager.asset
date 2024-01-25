@@ -7,14 +7,15 @@ TagManager:
   - Enemy
   - grid
   - HealthBar
+  - Banana
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

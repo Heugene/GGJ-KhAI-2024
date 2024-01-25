@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class InventorySlot 
 {
-    [SerializeField] private SOItems itemData;
+    [SerializeField] public SOItems itemData;
     [SerializeField] private int stackSize;
 
     public SOItems ItemData=> itemData;
@@ -43,13 +43,7 @@ public class InventorySlot
         else return false;
     }
 
-    public void AddToStack(int amount)
-    {
-        stackSize += amount;
-    }
+    public void AddToStack(int amount) => stackSize += amount;
 
-    public void RemoveFromStack(int amount)
-    {
-        stackSize -= amount;
-    }
+    public void RemoveFromStack(int amount) => stackSize -= amount;
 }
