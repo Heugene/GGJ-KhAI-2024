@@ -7,14 +7,15 @@ TagManager:
   - Enemy
   - grid
   - HealthBar
+  - Banana
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
@@ -43,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Trail Layer
+    uniqueID: 2495614263
     locked: 0

@@ -47,6 +47,24 @@ public class InventorySystem
         return false;
     }
 
+    public void RemoveItemsFromInventory(SOItems data, int amount)
+    {
+        if (ContainsItem(data, out List<InventorySlot> invSlot))
+        {
+            foreach (var slot in invSlot)
+            {
+                var stackSize = slot.StackSize;
+                if (stackSize > amount) slot.RemoveFromStack(amount);
+                else
+                {
+                    slot.RemoveFromStack(stackSize);
+                    amount -= stackSize;
+                }
+
+                OnInventorySlotChanged?.Invoke(slot);
+            }
+        }
+    }
     public bool ContainsItem(SOItems itemToAdd, out List<InventorySlot> invSlot)
     {
         invSlot = InventorySlots.Where(i => i.ItemData == itemToAdd).ToList();
