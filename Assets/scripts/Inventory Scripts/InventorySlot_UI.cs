@@ -8,7 +8,7 @@ public class InventorySlot_UI : MonoBehaviour
 {
     [SerializeField] private Image itemSprite;
     [SerializeField] private TextMeshProUGUI itemCount;
-    [SerializeField] private InventorySlot assignedInventorySlot;
+    [SerializeField] public InventorySlot assignedInventorySlot;
     [SerializeField] private Image selectedIndicator;
 
     private Button button;

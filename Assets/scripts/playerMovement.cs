@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -17,8 +19,7 @@ public class Movement : MonoBehaviour
     private float DashCooldownTemp = 0;
     [SerializeField]
     private float DashSpeedReducer = 0.05f;
-    [SerializeField]
-    private ItemType item = ItemType.None;
+
 
     private Vector2 mousePosition; // Координати миші
     private Vector2 LastMousePosition; // Останні координати миші
@@ -40,22 +41,21 @@ public class Movement : MonoBehaviour
         // Получаем позицию мыши в мировых координатах
         mousePosition = GetMouseWorldPosition();
 
-        if (item == ItemType.Ketchup)
-        {
-            if(isCanDash)
-                MakeDash();
+        // если у нас екипирован правильный предмет то мы можем делать деш
+        if(isCanDash)
+            MakeDash();
 
-            if (isDashing)
-            {
-                CalculateDash();
-                CalculateDashReload();
-            }
+        if (isDashing)
+        {
+            CalculateDash();
+            CalculateDashReload();
         }
 
+        // считает дистанцию прыжка
         CalculateJumpDistance();
 
         if (IsMoving && !isPlayerHitEnemy && isCanDash == false)
-            MoveToTarget(LastMousePosition);// Перемещаем персонаж}
+            MoveToTarget(LastMousePosition);// прыжок персонажа
     }
 
     // input процесы
@@ -82,16 +82,18 @@ public class Movement : MonoBehaviour
             // Вычисляем вектор направления от текущей позиции до позиции мыши
             Vector2 direction = (mousePosition - (Vector2)transform.position);
 
-            // Ограничиваем длину вектора до maxJumpDistance
+            // Ограничиваем длину вектора до chargedJumpDistance
             LastMousePosition = (Vector2)transform.position + Vector2.ClampMagnitude(direction, chargedJumpDistance);
             chargedJumpDistance = 0;
         }
 
+        // если игрок подходит очень близко к позиции прыжка то IsMoving = false (нужно для анимаций)
         var diraction = (Vector2)transform.position - LastMousePosition;
         if (diraction.magnitude < 0.1)
             IsMoving = false;
 
-        if (Input.GetKeyUp(KeyCode.Mouse1) && item == ItemType.Ketchup && !isDashing)
+        // начало деша
+        if (Input.GetKeyUp(KeyCode.Mouse1) && !isDashing)
         {
             isCanDash = true;
             isDashing = true;
@@ -119,6 +121,7 @@ public class Movement : MonoBehaviour
             if(DashSpeed <= 0)
             {
                 isCanDash = false;
+                isDashing = false;
                 DashSpeed = DashSpeedTemp;
             }
         }
