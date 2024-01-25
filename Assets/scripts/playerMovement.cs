@@ -18,7 +18,9 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private float DashSpeedReducer = 0.05f;
     [SerializeField]
-    private ItemType item = ItemType.None;
+    private ItemType currentItemItemType;
+    private InventoryDisplay inventoryDisplay;
+
 
     private Vector2 mousePosition; // Координати миші
     private Vector2 LastMousePosition; // Останні координати миші
@@ -32,7 +34,30 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         DashSpeedTemp = DashSpeed;
+
+        inventoryDisplay = InventoryDisplay.Instance;
+
+        if (inventoryDisplay != null)
+        {
+            inventoryDisplay.OnCurrentItemChanged += HandleCurrentItemChanged;
+        }
+        else
+        {
+            Debug.LogError("InventoryDisplay not found.");
+        }
     }
+    private void HandleCurrentItemChanged(SOItems newItem)
+    {
+        if (newItem == null || newItem.ItemType == null)
+        {
+            currentItemItemType = ItemType.None;
+        }
+        else
+        {
+            currentItemItemType = newItem.ItemType;
+        }
+    }
+
 
     // логика
     void FixedUpdate()
@@ -40,7 +65,7 @@ public class Movement : MonoBehaviour
         // Получаем позицию мыши в мировых координатах
         mousePosition = GetMouseWorldPosition();
 
-        if (item == ItemType.Ketchup)
+        if (currentItemItemType == ItemType.Ketchup)
         {
             if(isCanDash)
                 MakeDash();
@@ -91,7 +116,7 @@ public class Movement : MonoBehaviour
         if (diraction.magnitude < 0.1)
             IsMoving = false;
 
-        if (Input.GetKeyUp(KeyCode.Mouse1) && item == ItemType.Ketchup && !isDashing)
+        if (Input.GetKeyUp(KeyCode.Mouse1) && currentItemItemType == ItemType.Ketchup && !isDashing)
         {
             isCanDash = true;
             isDashing = true;
