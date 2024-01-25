@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b4515d1f52b4fb54ea8c3e92a00242c6
+guid: 8ebebe44ab385914a83c50ac83bff7b9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,12 +48,12 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 48
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -81,7 +81,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -94,7 +94,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Standalone
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,12 +123,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sausage_dash-Sheet_0
+      name: sausage_death_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -137,19 +137,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8981e4eac4b52db4694a857f150f7e5e
-      internalID: 802014491
+      spriteID: 3a92a5cd5affceb4c8aca36794e605a7
+      internalID: -2054840393
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sausage_dash-Sheet_1
+      name: sausage_death_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 38
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -158,19 +158,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2005e7c023dcdc43a0b6842f69f2403
-      internalID: -1053675894
+      spriteID: 6aca639c3f3db304d86c2b3fbdddd4a8
+      internalID: 1272651967
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sausage_dash-Sheet_2
+      name: sausage_death_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 76
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -179,19 +179,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 632f7db2ecbe02441b1a8d8a8102d3ef
-      internalID: 494510997
+      spriteID: 140f744c239826f419bf3c732c4ae697
+      internalID: -641403464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sausage_dash-Sheet_3
+      name: sausage_death_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 114
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -200,19 +200,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbba53bbcce57424ab3a50ced6ed9c55
-      internalID: -1939410465
+      spriteID: a6d3412cca4d9a543b0ce20fce2b13e0
+      internalID: -2043885715
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sausage_dash-Sheet_4
+      name: sausage_death_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 152
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -221,19 +221,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 847cc0392b2ed4a4492c676696fa3fe2
-      internalID: 610013799
+      spriteID: 08300e6fa6d10fb40bbf7a64bfbec308
+      internalID: -870021167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sausage_dash-Sheet_5
+      name: sausage_death_5
       rect:
         serializedVersion: 2
-        x: 320
+        x: 190
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -242,19 +242,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d94780ea398a09a43b7e9472c5d640dd
-      internalID: 1649115841
+      spriteID: d2f3a918cedf34d48b3b96798ee7bb0f
+      internalID: -2130445459
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sausage_dash-Sheet_6
+      name: sausage_death_6
       rect:
         serializedVersion: 2
-        x: 384
+        x: 228
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -263,19 +263,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ea1cf50d9749b44f84737187edbbca2
-      internalID: -333201825
+      spriteID: 36acd728866f0bf41927c71c5d6009c9
+      internalID: -1067809697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sausage_dash-Sheet_7
+      name: sausage_death_7
       rect:
         serializedVersion: 2
-        x: 448
+        x: 266
         y: 0
-        width: 64
+        width: 36
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -284,31 +284,115 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c4eb43d34fc7c2439965fb3415b763e
-      internalID: 1039525322
+      spriteID: 56c309285465e4943a6f7984091d67d3
+      internalID: 1889862619
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline: []
+    - serializedVersion: 2
+      name: sausage_death_8
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 0
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 586694bc3c509994593512cf0ba2cc7d
+      internalID: 2030705395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sausage_death_9
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 0
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db44a1892e133164a9c57b565d97b162
+      internalID: 299885876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -189, y: -32}
+      - {x: -189, y: 32}
+      - {x: -153, y: 32}
+      - {x: -153, y: -32}
+    - - {x: -151, y: -32}
+      - {x: -151, y: 32}
+      - {x: -115, y: 32}
+      - {x: -115, y: -32}
+    - - {x: -113, y: -32}
+      - {x: -113, y: 32}
+      - {x: -77, y: 32}
+      - {x: -77, y: -32}
+    - - {x: -75, y: -32}
+      - {x: -75, y: 32}
+      - {x: -39, y: 32}
+      - {x: -39, y: -32}
+    - - {x: -37, y: -32}
+      - {x: -37, y: 32}
+      - {x: -1, y: 32}
+      - {x: -1, y: -32}
+    - - {x: 1, y: -32}
+      - {x: 1, y: 32}
+      - {x: 37, y: 32}
+      - {x: 37, y: -32}
+    - - {x: 39, y: -32}
+      - {x: 39, y: 32}
+      - {x: 75, y: 32}
+      - {x: 75, y: -32}
+    - - {x: 77, y: -32}
+      - {x: 77, y: 32}
+      - {x: 113, y: 32}
+      - {x: 113, y: -32}
+    - - {x: 115, y: -32}
+      - {x: 115, y: 32}
+      - {x: 151, y: 32}
+      - {x: 151, y: -32}
+    - - {x: 153, y: -32}
+      - {x: 153, y: 32}
+      - {x: 189, y: 32}
+      - {x: 189, y: -32}
     physicsShape: []
     bones: []
-    spriteID: cdde45a16e5f5e645935b2bb7e457055
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sausage_dash-Sheet_0: 802014491
-      sausage_dash-Sheet_1: -1053675894
-      sausage_dash-Sheet_2: 494510997
-      sausage_dash-Sheet_3: -1939410465
-      sausage_dash-Sheet_4: 610013799
-      sausage_dash-Sheet_5: 1649115841
-      sausage_dash-Sheet_6: -333201825
-      sausage_dash-Sheet_7: 1039525322
+      sausage_death_0: -2054840393
+      sausage_death_1: 1272651967
+      sausage_death_2: -641403464
+      sausage_death_3: -2043885715
+      sausage_death_4: -870021167
+      sausage_death_5: -2130445459
+      sausage_death_6: -1067809697
+      sausage_death_7: 1889862619
+      sausage_death_8: 2030705395
+      sausage_death_9: 299885876
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
