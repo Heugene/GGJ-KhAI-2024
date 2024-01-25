@@ -150,14 +150,14 @@ public class GenerateBleacher : MonoBehaviour
         for (int i = 0; i < (_vertices.Length - 2)/2 ; i++, counterIteration++)
         {  
             // Расстановка вершин UV в верхней части текстуры
-            _myUV[i]                              = new Vector2(step * counterIteration, 1);
+            _myUV[i]                              = new Vector2(step * counterIteration, 0);
             // Расстановка вершин UV в нижней части текстуры
-            _myUV[i + (_vertices.Length - 2) / 2] = new Vector2(step * counterIteration, 0);
+            _myUV[i + (_vertices.Length - 2) / 2] = new Vector2(step * counterIteration, 1);
         }
 
         // Ручное размешение последних UV вершин друг под другом !!Без них криво!!
-        _myUV[^2] = new Vector2((step * counterIteration), 1);
-        _myUV[^1] = new Vector2((step * counterIteration), 0);
+        _myUV[^2] = new Vector2((step * counterIteration), 0);
+        _myUV[^1] = new Vector2((step * counterIteration), 1);
 
         _bleacherMesh.uv = _myUV;
         GetComponent<MeshFilter>().sharedMesh = _bleacherMesh;

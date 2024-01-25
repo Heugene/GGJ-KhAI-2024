@@ -1,24 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealthController : MonoBehaviour
 {
-    public int health = 5; // Поточне ХП
+    public int health { get; private set; } = 5; // Поточне ХП
     private int numOfParts; // Кількість частинок сосиски, яка репрезентує кількість ХП;
+    private Image[] parts; // Массив частинок сосиски
 
-    public Image[] parts; // Массив частинок сосиски
-
-    public Sprite fullBodyPart; // Спрайт заповненої основної частинки
-    public Sprite emptyBodyPart; // Спрайт порожньої основної частинки
-    public Sprite fullTailPart; // Спрайт заповненої хвостової частинки
-    public Sprite emptyTailPart; // Спрайт порожньої хвостової частинки
-    public Sprite fullHeadPart; // Спрайт заповненої головної частинки
-    public Sprite emptyHeadPart; // Спрайт порожньої головної частинки
+    [SerializeField] private Sprite fullBodyPart; // Спрайт заповненої основної частинки
+    [SerializeField] private Sprite emptyBodyPart; // Спрайт порожньої основної частинки
+    [SerializeField] private Sprite fullTailPart; // Спрайт заповненої хвостової частинки
+    [SerializeField] private Sprite emptyTailPart; // Спрайт порожньої хвостової частинки
+    [SerializeField] private Sprite fullHeadPart; // Спрайт заповненої головної частинки
+    [SerializeField] private Sprite emptyHeadPart; // Спрайт порожньої головної частинки
 
 
     // Метод отримання дамагу
@@ -105,11 +99,5 @@ public class PlayerHealthController : MonoBehaviour
         GameObject healthBar = GameObject.FindGameObjectWithTag("HealthBar");
         numOfParts = health;
         parts = healthBar.GetComponentsInChildren<Image>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
