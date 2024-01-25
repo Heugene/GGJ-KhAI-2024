@@ -45,3 +45,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Trail Layer
+    uniqueID: 2495614263
+    locked: 0

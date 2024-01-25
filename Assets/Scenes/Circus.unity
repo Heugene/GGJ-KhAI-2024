@@ -1073,6 +1073,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1090842219235781572, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_Name
+      value: Trail
+      objectReference: {fileID: 0}
     - target: {fileID: 2503303829473104109, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1097,17 +1101,33 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5777508953834315495, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_Size.x
+      value: 0.36624432
+      objectReference: {fileID: 0}
+    - target: {fileID: 5777508953834315495, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_Size.y
+      value: 0.93061495
+      objectReference: {fileID: 0}
+    - target: {fileID: 5777508953834315495, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.18946862
+      objectReference: {fileID: 0}
+    - target: {fileID: 5967180619024927084, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 7398494408611137613, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7473518790332836064, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.71
       objectReference: {fileID: 0}
     - target: {fileID: 7473518790332836064, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.08
       objectReference: {fileID: 0}
     - target: {fileID: 7473518790332836064, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1140,6 +1160,50 @@ PrefabInstance:
     - target: {fileID: 7473518790332836064, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_HDR
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_AllowMSAA
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: far clip plane
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_RenderingPath
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: orthographic size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.16037738
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.14881979
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.14146496
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285208995829842909, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_AllowDynamicResolution
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -144,6 +144,7 @@ public class Movement : MonoBehaviour
             if(DashSpeed <= 0)
             {
                 isCanDash = false;
+                isDashing = false;
                 DashSpeed = DashSpeedTemp;
             }
         }
