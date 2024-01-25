@@ -1094,9 +1094,12 @@ MonoBehaviour:
   isAttaking: 0
   isStanding: 0
   isMoving: 0
+  player: {fileID: 1769159047}
+  moveSpeed: 2
   attackCooldown: 2
   clownDamage: 1
-  player: {fileID: 1769159047}
+  attackRange: 4
+  drawAtackRange: 0
 --- !u!61 &1116388757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1328,7 +1331,7 @@ NavMeshAgent:
   m_Acceleration: 16
   avoidancePriority: 1
   m_AngularSpeed: 0
-  m_StoppingDistance: 8
+  m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
