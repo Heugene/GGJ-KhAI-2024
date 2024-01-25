@@ -103,7 +103,7 @@ public class Movement : MonoBehaviour
         CalculateJumpDistance();
 
         if (IsMoving && !isPlayerHitEnemy && isCanDash == false)
-            MoveToTarget(LastMousePosition);// Перемещаем персонаж}
+            MoveToTarget(LastMousePosition);// Перемещаем персонажа
     }
 
     // input процесы
@@ -112,15 +112,54 @@ public class Movement : MonoBehaviour
         // Получаем позицию мыши в мировых координатах
         mousePosition = GetMouseWorldPosition();
 
-        // Додали підтримку ЛКМ
-        // Якщо натискаємо кнопку пересування
+        // зарядка прыжка при зажатом пробеле или LKM
+        MouseChargingInput();
+
+        // Если отпустить LKM то начинаем прыжок
+        JumpWhenMouseUP();
+
+        // когда очень близко к точке то заканчиваем Dash
+        StopDashWhenCloseToPosition();
+
+        // если отпустить RKM и выбран соус то начинаем деш
+        StartDash();
+    }
+
+    void StartDash()
+    {
+        if (Input.GetKeyUp(KeyCode.Mouse1) && ItemTypeForDash.Contains(currentItemType) && !isDashing)
+        {
+            isCanDash = true;
+            isDashing = true;
+
+            SOItems currentItem = inventoryDisplay.GetCurrentItem();
+
+            if (currentItem != null)
+            {
+                if (currentItemType == ItemType.Ketchup)
+                    trailRenderer.emitting = true;
+                else if (currentItemType == ItemType.Mayonnaise)
+                    trailRendererMayonnaise.emitting = true;
+
+                inventoryDisplay.InventorySystem.RemoveItemsFromInventory(currentItem, 1);
+                RemoveCurrentItemInSlot(currentItem);
+            }
+        }
+    }
+
+    // зарядка прыжка при зажатом пробеле или LKM
+    void MouseChargingInput()
+    {
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))
         {
             IsMoving = false;
             IsButtonJumpPressed = true;
         }
+    }
 
-        // Якщо відпустили кнопку пересування
+    // Если отпустить LKM то начинаем прыжок
+    void JumpWhenMouseUP()
+    {
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0) && isDashing == false)
         {
             isCanDash = false;
@@ -135,29 +174,27 @@ public class Movement : MonoBehaviour
             LastMousePosition = (Vector2)transform.position + Vector2.ClampMagnitude(direction, chargedJumpDistance);
             chargedJumpDistance = 0;
         }
-        if (Input.GetKeyUp(KeyCode.Mouse1) && ItemTypeForDash.Contains(currentItemType) && !isDashing)
+    }
+
+    // остановить деш когда близко к последней позиции курсора
+    void StopDashWhenCloseToPosition()
+    {
+        var Direction = LastMousePosition - (Vector2)transform.position;
+        if (Direction.magnitude < 0.1)
         {
-            SOItems currentItem = inventoryDisplay.GetCurrentItem();
-            if (currentItem != null)
-            {
-                isCanDash = true;
-                isDashing = true;
-                if(currentItemType==ItemType.Ketchup)
-                {
-                    trailRenderer.emitting = true;
-                }
-                else if(currentItemType==ItemType.Mayonnaise)
-                {
-                    trailRendererMayonnaise.emitting = true;
-                }    
-                inventoryDisplay.InventorySystem.RemoveItemsFromInventory(currentItem, 1);
-                InventorySlot_UI currentSlotUI = inventoryDisplay.SlotDictionary.FirstOrDefault(slot => slot.Value.ItemData == currentItem).Key;
-                if (currentSlotUI != null && currentSlotUI.AssignedInventorySlot.StackSize == 0)
-                {
-                    currentSlotUI.ClearSlot();
-                    currentItemType = ItemType.None;
-                }
-            }
+            IsMoving = false;
+        }
+    }
+
+    // убрать предмет из слота
+    void RemoveCurrentItemInSlot(SOItems currentItem)
+    {
+        InventorySlot_UI currentSlotUI = inventoryDisplay.SlotDictionary.FirstOrDefault(slot => slot.Value.ItemData == currentItem).Key;
+
+        if (currentSlotUI != null && currentSlotUI.AssignedInventorySlot.StackSize == 0)
+        {
+            currentSlotUI.ClearSlot();
+            currentItemType = ItemType.None;
         }
     }
 
@@ -176,17 +213,14 @@ public class Movement : MonoBehaviour
     // уменьшение скорости деша на заданое значение DashSpeedReducer
     void CalculateDash()
     {
-        if (isCanDash && isDashing)
+        DashSpeed -= DashSpeedReducer;
+        if(DashSpeed <= 0)
         {
-            DashSpeed -= DashSpeedReducer;
-            if(DashSpeed <= 0)
-            {
-                isCanDash = false;
-                isDashing = false;
-                trailRenderer.emitting = false;
-                trailRendererMayonnaise.emitting = false;
-                DashSpeed = DashSpeedTemp;
-            }
+            isCanDash = false;
+            isDashing = false;
+            trailRenderer.emitting = false;
+            trailRendererMayonnaise.emitting = false;
+            DashSpeed = DashSpeedTemp;
         }
     }
 
@@ -199,7 +233,7 @@ public class Movement : MonoBehaviour
             if (DashCooldownTemp >= DashCooldown)
             {
                 DashCooldownTemp = 0;
-                isDashing = false;
+                isCanDash = true;
             }
         }
     }
@@ -225,24 +259,17 @@ public class Movement : MonoBehaviour
     }
 
     // Функція, що повертає світові координати миші
-    public Vector2 GetMouseWorldPosition()
-    {
-        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    }
+    public Vector2 GetMouseWorldPosition() => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
     // остановка игрока когда он сталкиваеться с противником
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Enemy")
-        {
             isPlayerHitEnemy = true;
-        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.tag == "Enemy")
-        {
             isPlayerHitEnemy = true;
-        }
     }
 }
