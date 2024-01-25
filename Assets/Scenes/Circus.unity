@@ -902,11 +902,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3356566, y: 0.4020319}
   m_EdgeRadius: 0
---- !u!4 &1116909984 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7473518790332836064, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
-  m_PrefabInstance: {fileID: 5571647718929371384}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1116388762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1065,7 +1060,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d3a22331ad4dcd468b33f350d4b15a0, type: 3}
-
 --- !u!1 &2077174848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,10 +1378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7473518790332836064, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1529360341}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
 --- !u!1660057539 &9223372036854775807
