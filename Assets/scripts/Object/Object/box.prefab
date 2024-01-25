@@ -115,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 5025086781343388784, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9a920a49b1b565245b116ee38babc14c, type: 3}
+      objectReference: {fileID: 21300000, guid: c8c790fed31bd9444827ff0d1254685c, type: 3}
     - target: {fileID: 5025086781343388784, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7144595706589932369, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_Name
-      value: Barrel
+      value: box
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
