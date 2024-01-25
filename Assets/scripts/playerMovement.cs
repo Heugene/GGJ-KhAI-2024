@@ -5,12 +5,12 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 7f; // Швидкість польоту у стрибку
+    private float moveSpeed = 7f; // ГГўГЁГ¤ГЄВіГ±ГІГј ГЇГ®Г«ГјГ®ГІГі Гі Г±ГІГ°ГЁГЎГЄГі
     [SerializeField]
-    private float maxJumpDistance = 5f; // Максимальна дальність стрибку
-    private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
+    private float maxJumpDistance = 5f; // ГЊГ ГЄГ±ГЁГ¬Г Г«ГјГ­Г  Г¤Г Г«ГјГ­ВіГ±ГІГј Г±ГІГ°ГЁГЎГЄГі
+    private float chargedJumpDistance = 0; // ГЏГ®ГІГ®Г·Г­ГЁГ© Г§Г Г°ГїГ¤ Г±ГІГ°ГЁГЎГЄГі (Г“ ГҐГЄГўВіГўГ Г«ГҐГ­ГІВі ГўВіГ¤Г±ГІГ Г­Ві)
     [SerializeField]
-    private float chargedJumpDistanceMultiplier = 0.4f; // Приріст заряду
+    private float chargedJumpDistanceMultiplier = 0.4f; // ГЏГ°ГЁГ°ВіГ±ГІ Г§Г Г°ГїГ¤Гі
     [SerializeField]
     private float DashSpeed = 12;
     private float DashSpeedTemp = 0;
@@ -20,28 +20,50 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private float DashSpeedReducer = 0.05f;
 
-
-    private Vector2 mousePosition; // Координати миші
-    private Vector2 LastMousePosition; // Останні координати миші
-    public bool IsMoving = false; // Прапорець стану руху
-    public bool IsButtonJumpPressed = false; // Прапорець утримання кнопки руху
-    public bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
-    public bool isCanDash = false; // может ли игрок сделать деш
-    public bool isDashing = false; // делает ли игрок деш
+    private Vector2 mousePosition; // ГЉГ®Г®Г°Г¤ГЁГ­Г ГІГЁ Г¬ГЁГёВі
+    private Vector2 LastMousePosition; // ГЋГ±ГІГ Г­Г­Ві ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГЁ Г¬ГЁГёВі
+    public bool IsMoving = false; // ГЏГ°Г ГЇГ®Г°ГҐГ¶Гј Г±ГІГ Г­Гі Г°ГіГµГі
+    public bool IsButtonJumpPressed = false; // ГЏГ°Г ГЇГ®Г°ГҐГ¶Гј ГіГІГ°ГЁГ¬Г Г­Г­Гї ГЄГ­Г®ГЇГЄГЁ Г°ГіГµГі
+    public bool isPlayerHitEnemy = false; // Г§Г¬ВіГ­Г­Г  Г¤Г«Гї ГўГЁГ§Г­Г Г·ГҐГ­Г­Гї Г·ГЁ ГЈГ°Г ГўГҐГ¶Гј Г§ВіГІГЄГ­ГіГўГ±Гї Г§ ГўГ®Г°Г®ГЈГ®Г¬
+    public bool isCanDash = false; // Г¬Г®Г¦ГҐГІ Г«ГЁ ГЁГЈГ°Г®ГЄ Г±Г¤ГҐГ«Г ГІГј Г¤ГҐГё
+    public bool isDashing = false; // Г¤ГҐГ«Г ГҐГІ Г«ГЁ ГЁГЈГ°Г®ГЄ Г¤ГҐГё
 
 
     private void Start()
     {
         DashSpeedTemp = DashSpeed;
+
+        inventoryDisplay = InventoryDisplay.Instance;
+
+        if (inventoryDisplay != null)
+        {
+            inventoryDisplay.OnCurrentItemChanged += HandleCurrentItemChanged;
+        }
+        else
+        {
+            Debug.LogError("InventoryDisplay not found.");
+        }
+    }
+    private void HandleCurrentItemChanged(SOItems newItem)
+    {
+        if (newItem == null || newItem.ItemType == null)
+        {
+            currentItemItemType = ItemType.None;
+        }
+        else
+        {
+            currentItemItemType = newItem.ItemType;
+        }
     }
 
-    // логика
+
+    // Г«Г®ГЈГЁГЄГ 
     void FixedUpdate()
     {
-        // Получаем позицию мыши в мировых координатах
+        // ГЏГ®Г«ГіГ·Г ГҐГ¬ ГЇГ®Г§ГЁГ¶ГЁГѕ Г¬Г»ГёГЁ Гў Г¬ГЁГ°Г®ГўГ»Гµ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ Гµ
         mousePosition = GetMouseWorldPosition();
 
-        // если у нас екипирован правильный предмет то мы можем делать деш
+        // ГҐГ±Г«ГЁ Гі Г­Г Г± ГҐГЄГЁГЇГЁГ°Г®ГўГ Г­ ГЇГ°Г ГўГЁГ«ГјГ­Г»Г© ГЇГ°ГҐГ¤Г¬ГҐГІ ГІГ® Г¬Г» Г¬Г®Г¦ГҐГ¬ Г¤ГҐГ«Г ГІГј Г¤ГҐГё
         if(isCanDash)
             MakeDash();
 
@@ -51,48 +73,48 @@ public class Movement : MonoBehaviour
             CalculateDashReload();
         }
 
-        // считает дистанцию прыжка
+        // Г±Г·ГЁГІГ ГҐГІ Г¤ГЁГ±ГІГ Г­Г¶ГЁГѕ ГЇГ°Г»Г¦ГЄГ 
         CalculateJumpDistance();
 
         if (IsMoving && !isPlayerHitEnemy && isCanDash == false)
-            MoveToTarget(LastMousePosition);// прыжок персонажа
+            MoveToTarget(LastMousePosition);// ГЇГ°Г»Г¦Г®ГЄ ГЇГҐГ°Г±Г®Г­Г Г¦Г 
     }
 
-    // input процесы
+    // input ГЇГ°Г®Г¶ГҐГ±Г»
     void Update()
     {
-        // Получаем позицию мыши в мировых координатах
+        // ГЏГ®Г«ГіГ·Г ГҐГ¬ ГЇГ®Г§ГЁГ¶ГЁГѕ Г¬Г»ГёГЁ Гў Г¬ГЁГ°Г®ГўГ»Гµ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ Гµ
         mousePosition = GetMouseWorldPosition();
 
-        // Додали підтримку ЛКМ
-        // Якщо натискаємо кнопку пересування
+        // Г„Г®Г¤Г Г«ГЁ ГЇВіГ¤ГІГ°ГЁГ¬ГЄГі Г‹ГЉГЊ
+        // ГџГЄГ№Г® Г­Г ГІГЁГ±ГЄГ ВєГ¬Г® ГЄГ­Г®ГЇГЄГі ГЇГҐГ°ГҐГ±ГіГўГ Г­Г­Гї
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))
         {
             IsMoving = false;
             IsButtonJumpPressed = true;
         }
 
-        // Якщо відпустили кнопку пересування
+        // ГџГЄГ№Г® ГўВіГ¤ГЇГіГ±ГІГЁГ«ГЁ ГЄГ­Г®ГЇГЄГі ГЇГҐГ°ГҐГ±ГіГўГ Г­Г­Гї
         if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0) && isDashing == false)
         {
             isCanDash = false;
             IsMoving = true;
             IsButtonJumpPressed = false;
             isPlayerHitEnemy = false;
-            // Вычисляем вектор направления от текущей позиции до позиции мыши
+            // Г‚Г»Г·ГЁГ±Г«ГїГҐГ¬ ГўГҐГЄГІГ®Г° Г­Г ГЇГ°Г ГўГ«ГҐГ­ГЁГї Г®ГІ ГІГҐГЄГіГ№ГҐГ© ГЇГ®Г§ГЁГ¶ГЁГЁ Г¤Г® ГЇГ®Г§ГЁГ¶ГЁГЁ Г¬Г»ГёГЁ
             Vector2 direction = (mousePosition - (Vector2)transform.position);
 
-            // Ограничиваем длину вектора до chargedJumpDistance
+            // ГЋГЈГ°Г Г­ГЁГ·ГЁГўГ ГҐГ¬ Г¤Г«ГЁГ­Гі ГўГҐГЄГІГ®Г°Г  Г¤Г® chargedJumpDistance
             LastMousePosition = (Vector2)transform.position + Vector2.ClampMagnitude(direction, chargedJumpDistance);
             chargedJumpDistance = 0;
         }
 
-        // если игрок подходит очень близко к позиции прыжка то IsMoving = false (нужно для анимаций)
+        // ГҐГ±Г«ГЁ ГЁГЈГ°Г®ГЄ ГЇГ®Г¤ГµГ®Г¤ГЁГІ Г®Г·ГҐГ­Гј ГЎГ«ГЁГ§ГЄГ® ГЄ ГЇГ®Г§ГЁГ¶ГЁГЁ ГЇГ°Г»Г¦ГЄГ  ГІГ® IsMoving = false (Г­ГіГ¦Г­Г® Г¤Г«Гї Г Г­ГЁГ¬Г Г¶ГЁГ©)
         var diraction = (Vector2)transform.position - LastMousePosition;
         if (diraction.magnitude < 0.1)
             IsMoving = false;
 
-        // начало деша
+        // Г­Г Г·Г Г«Г® Г¤ГҐГёГ 
         if (Input.GetKeyUp(KeyCode.Mouse1) && !isDashing)
         {
             isCanDash = true;
@@ -100,7 +122,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // зарядка прыжка
+    // Г§Г Г°ГїГ¤ГЄГ  ГЇГ°Г»Г¦ГЄГ 
     void CalculateJumpDistance()
     {
         if (!IsMoving && IsButtonJumpPressed)
@@ -112,7 +134,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // уменьшение скорости деша на заданое значение DashSpeedReducer
+    // ГіГ¬ГҐГ­ГјГёГҐГ­ГЁГҐ Г±ГЄГ®Г°Г®Г±ГІГЁ Г¤ГҐГёГ  Г­Г  Г§Г Г¤Г Г­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ DashSpeedReducer
     void CalculateDash()
     {
         if (isCanDash && isDashing)
@@ -127,7 +149,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // перезарядка деша в секундах
+    // ГЇГҐГ°ГҐГ§Г Г°ГїГ¤ГЄГ  Г¤ГҐГёГ  Гў Г±ГҐГЄГіГ­Г¤Г Гµ
     void CalculateDashReload()
     {
         if (!isCanDash)
@@ -141,33 +163,33 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // Метод пересування до заданої точки
+    // ГЊГҐГІГ®Г¤ ГЇГҐГ°ГҐГ±ГіГўГ Г­Г­Гї Г¤Г® Г§Г Г¤Г Г­Г®Вї ГІГ®Г·ГЄГЁ
     void MoveToTarget(Vector2 LastMousePosition)
     {
-        // Применяем перемещение вдоль вектора направления с постоянной скоростью
+        // ГЏГ°ГЁГ¬ГҐГ­ГїГҐГ¬ ГЇГҐГ°ГҐГ¬ГҐГ№ГҐГ­ГЁГҐ ГўГ¤Г®Г«Гј ГўГҐГЄГІГ®Г°Г  Г­Г ГЇГ°Г ГўГ«ГҐГ­ГЁГї Г± ГЇГ®Г±ГІГ®ГїГ­Г­Г®Г© Г±ГЄГ®Г°Г®Г±ГІГјГѕ
         transform.position = Vector2.MoveTowards(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
     }
 
-    // Создание деша
+    // Г‘Г®Г§Г¤Г Г­ГЁГҐ Г¤ГҐГёГ 
     void MakeDash()
     {
-        // Вычисляем вектор направления от текущей позиции до позиции мыши
+        // Г‚Г»Г·ГЁГ±Г«ГїГҐГ¬ ГўГҐГЄГІГ®Г° Г­Г ГЇГ°Г ГўГ«ГҐГ­ГЁГї Г®ГІ ГІГҐГЄГіГ№ГҐГ© ГЇГ®Г§ГЁГ¶ГЁГЁ Г¤Г® ГЇГ®Г§ГЁГ¶ГЁГЁ Г¬Г»ГёГЁ
         Vector2 direction = mousePosition - (Vector2)transform.position;
 
-        // Применяем MoveTowards для движения к курсору
+        // ГЏГ°ГЁГ¬ГҐГ­ГїГҐГ¬ MoveTowards Г¤Г«Гї Г¤ГўГЁГ¦ГҐГ­ГЁГї ГЄ ГЄГіГ°Г±Г®Г°Гі
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction.normalized, DashSpeed * Time.deltaTime);
 
-        // Обновляем LastMousePosition
+        // ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ LastMousePosition
         LastMousePosition = transform.position;
     }
 
-    // Функція, що повертає світові координати миші
+    // Г”ГіГ­ГЄГ¶ВіГї, Г№Г® ГЇГ®ГўГҐГ°ГІГ Вє Г±ГўВіГІГ®ГўВі ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГЁ Г¬ГЁГёВі
     public Vector2 GetMouseWorldPosition()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    // остановка игрока когда он сталкиваеться с противником
+    // Г®Г±ГІГ Г­Г®ГўГЄГ  ГЁГЈГ°Г®ГЄГ  ГЄГ®ГЈГ¤Г  Г®Г­ Г±ГІГ Г«ГЄГЁГўГ ГҐГІГјГ±Гї Г± ГЇГ°Г®ГІГЁГўГ­ГЁГЄГ®Г¬
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Enemy")
