@@ -47,6 +47,7 @@ public class EnemyClown : MonoBehaviour
     {
         isMoving = true;
         isStanding = false;
+        isAttaking = false;
         Vector2 direction = (player.position - transform.position).normalized;
 
         transform.Translate(direction * moveSpeed * Time.deltaTime);
