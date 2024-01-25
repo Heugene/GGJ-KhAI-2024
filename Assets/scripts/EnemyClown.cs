@@ -11,8 +11,11 @@ public class EnemyClown : MonoBehaviour
     [SerializeField, Header("Показати радіус атаки?")]
     private bool drawAtackRange = false;
 
-    private Transform player; // Посилання на трансформ гравця
+    public Transform player; // Посилання на трансформ гравця
     private bool canAttack = true; // Флаг для дозвілу атаки
+    public bool isAttaking = false;
+    public bool isStanding = false;
+    public bool isMoving = false;
 
     private void Start()
     {
@@ -29,6 +32,8 @@ public class EnemyClown : MonoBehaviour
             // Якщо атака не на перезарядці атакуємо гравця
             if (canAttack) 
                 StartCoroutine(AttackWithCooldown());
+            isMoving = false;
+            isStanding = true;
         }
         else
         {
@@ -40,6 +45,8 @@ public class EnemyClown : MonoBehaviour
     // Слідувати за гравцем
     void ChasePlayer()
     {
+        isMoving = true;
+        isStanding = false;
         Vector2 direction = (player.position - transform.position).normalized;
 
         transform.Translate(direction * moveSpeed * Time.deltaTime);
@@ -52,12 +59,15 @@ public class EnemyClown : MonoBehaviour
         if (canAttack)
         {
             canAttack = false;
+            isAttaking = true;
+            isStanding = true;
             player.GetComponent<PlayerHealthController>().TakeDamage(clownDamage);
         }
 
         // Блокуємо атаку до моменту, поки не пройде час перезарядки
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
+        isAttaking = false;
     }
 
     // Відображення радіусу атаки клоуна
