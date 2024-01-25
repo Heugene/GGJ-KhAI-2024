@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -23,6 +24,8 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private List<ItemType> ItemTypeForDash;
     private InventoryDisplay inventoryDisplay;
+    private TrailRenderer trailRenderer;
+    private TrailRenderer trailRendererMayonnaise;
 
 
     private Vector2 mousePosition; // Координати миші
@@ -47,6 +50,26 @@ public class Movement : MonoBehaviour
         else
         {
             Debug.LogError("InventoryDisplay not found.");
+        }
+        Transform trailObject = transform.Find("Trail");
+        Transform trailObject1 = transform.Find("Mayonnaise");
+        if (trailObject != null || trailObject1 != null)
+        {
+            trailRenderer = trailObject.GetComponent<TrailRenderer>();
+            trailRendererMayonnaise = trailObject1.GetComponent<TrailRenderer>();
+            if (trailRenderer != null || trailRendererMayonnaise != null)
+            {
+                trailRenderer.emitting = false;
+                trailRendererMayonnaise.emitting = false;
+            }
+            else
+            {
+                Debug.LogError("TrailRenderer not found on the child object with the 'Trail' tag.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Child object with the 'Trail' tag not found.");
         }
     }
     private void HandleCurrentItemChanged(SOItems newItem)
@@ -104,6 +127,7 @@ public class Movement : MonoBehaviour
             IsMoving = true;
             IsButtonJumpPressed = false;
             isPlayerHitEnemy = false;
+
             // Вычисляем вектор направления от текущей позиции до позиции мыши
             Vector2 direction = (mousePosition - (Vector2)transform.position);
 
@@ -111,15 +135,29 @@ public class Movement : MonoBehaviour
             LastMousePosition = (Vector2)transform.position + Vector2.ClampMagnitude(direction, chargedJumpDistance);
             chargedJumpDistance = 0;
         }
-
-        var diraction = (Vector2)transform.position - LastMousePosition;
-        if (diraction.magnitude < 0.1)
-            IsMoving = false;
-
         if (Input.GetKeyUp(KeyCode.Mouse1) && ItemTypeForDash.Contains(currentItemType) && !isDashing)
         {
-            isCanDash = true;
-            isDashing = true;
+            SOItems currentItem = inventoryDisplay.GetCurrentItem();
+            if (currentItem != null)
+            {
+                isCanDash = true;
+                isDashing = true;
+                if(currentItemType==ItemType.Ketchup)
+                {
+                    trailRenderer.emitting = true;
+                }
+                else if(currentItemType==ItemType.Mayonnaise)
+                {
+                    trailRendererMayonnaise.emitting = true;
+                }    
+                inventoryDisplay.InventorySystem.RemoveItemsFromInventory(currentItem, 1);
+                InventorySlot_UI currentSlotUI = inventoryDisplay.SlotDictionary.FirstOrDefault(slot => slot.Value.ItemData == currentItem).Key;
+                if (currentSlotUI != null && currentSlotUI.AssignedInventorySlot.StackSize == 0)
+                {
+                    currentSlotUI.ClearSlot();
+                    currentItemType = ItemType.None;
+                }
+            }
         }
     }
 
@@ -145,6 +183,8 @@ public class Movement : MonoBehaviour
             {
                 isCanDash = false;
                 isDashing = false;
+                trailRenderer.emitting = false;
+                trailRendererMayonnaise.emitting = false;
                 DashSpeed = DashSpeedTemp;
             }
         }
