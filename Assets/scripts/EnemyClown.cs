@@ -1,55 +1,57 @@
 using UnityEngine;
 using System.Collections;
+using NavMeshPlus;
+using UnityEngine.AI;
+
 
 public class EnemyClown : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 2f; // Швидкість руху клоуна
-    [SerializeField] float attackRange = 4f; // Радіус атаки врогів
-    [SerializeField] float attackCooldown = 2f; // Час між атаками
-    [SerializeField] int clownDamage = 1; // Значення дамагу
-
-    [SerializeField, Header("Показати радіус атаки?")]
-    private bool drawAtackRange = false;
-
-    public Transform player; // Посилання на трансформ гравця
-    private bool canAttack = true; // Флаг для дозвілу атаки
     public bool isAttaking = false;
     public bool isStanding = false;
     public bool isMoving = false;
+    public Transform player;           // Посилання на трансформ гравця
 
-    private void Start()
+    [SerializeField] float moveSpeed = 2f;      // Швидкість руху клоуна
+    [SerializeField] float attackCooldown = 2f; // Час між атаками
+    [SerializeField] int clownDamage = 1;       // Значення дамагу
+    [SerializeField] float attackRange = 4f;    // Радіус атаки врогів
+    [SerializeField, Header("Показати радіус атаки?")]
+    private bool drawAtackRange = false;
+
+    private bool canAttack = true;
+    private NavMeshAgent navMeshAgent;  // Посилання на NavMeshAgent
+
+
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updateUpAxis = false;
+        navMeshAgent.speed = moveSpeed;
+
     }
 
     private void Update()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float distanceToTarget = Vector3.Distance(transform.position, player.position);
 
-        // Перевірка, чи гравець перебуває в радіусі атаки
-        if (distanceToPlayer <= attackRange)
+        // Если игрок в радиусе атаки, начинаем атаку
+        if (distanceToTarget <= navMeshAgent.stoppingDistance)
         {
-            // Якщо атака не на перезарядці атакуємо гравця
-            if (canAttack) 
+            if (canAttack)
                 StartCoroutine(AttackWithCooldown());
+
             isMoving = false;
             isStanding = true;
         }
         else
         {
-            // Якщо знаходиться в радіусі слідувати за гравцем
-            ChasePlayer();
+            // Иначе двигаемся к целевой позиции
+            isMoving = true;
+            isStanding = false;
+            navMeshAgent.SetDestination(player.position);
         }
-    }
-
-    // Слідувати за гравцем
-    void ChasePlayer()
-    {
-        isMoving = true;
-        isStanding = false;
-        Vector2 direction = (player.position - transform.position).normalized;
-
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
     }
 
     IEnumerator AttackWithCooldown()
@@ -70,7 +72,7 @@ public class EnemyClown : MonoBehaviour
         isAttaking = false;
     }
 
-    // Відображення радіусу атаки клоуна
+    //// Відображення радіусу атаки клоуна
     private void OnDrawGizmosSelected()
     {
         if (drawAtackRange)
