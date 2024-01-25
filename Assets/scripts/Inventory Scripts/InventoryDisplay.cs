@@ -4,16 +4,26 @@ using System.Linq;
 using System.Net.WebSockets;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public abstract class InventoryDisplay : MonoBehaviour
 {
+    public static InventoryDisplay Instance { get; private set; }
     protected InventorySystem inventorySystem;
     protected Dictionary<InventorySlot_UI, InventorySlot> slotDictionary;
     public InventorySystem InventorySystem => inventorySystem;
     public Dictionary<InventorySlot_UI, InventorySlot> SlotDictionary => slotDictionary;
     protected int selectedSlotIndex = 0; 
     public UnityEvent<int> OnSelectedSlotChanged = new UnityEvent<int>();
+    [SerializeField]private SOItems currentItem;
+    public event Action<SOItems> OnCurrentItemChanged;
+    public void SetCurrentItem(SOItems newItem)
+    {
+        currentItem = newItem;
 
+        // Вызов события для уведомления других скриптов о изменении текущего элемента
+        OnCurrentItemChanged?.Invoke(currentItem);
+    }
     protected virtual void Start()
     {
 
@@ -26,21 +36,46 @@ public abstract class InventoryDisplay : MonoBehaviour
             ChangeSelectedSlot(scrollDelta);
         }
     }
+    public SOItems GetCurrentItem()
+    {
+        return currentItem;
+    }
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         OnSelectedSlotChanged.AddListener(OnSelectedSlotChange);
     }
     private void OnSelectedSlotChange(int newIndex)
     {
-        //Debug.Log("Selected Slot Index: " + newIndex);
-
         foreach (var slot in SlotDictionary)
         {
             InventorySlot_UI slotUI = slot.Key;
             InventorySlot inventorySlot = slot.Value;
+
             if (slotUI != null)
             {
-                slotUI.SetSelected(newIndex == slotUI.transform.GetSiblingIndex());
+                bool isSelected = newIndex == slotUI.transform.GetSiblingIndex();
+                slotUI.SetSelected(isSelected);
+
+                if (isSelected)
+                {
+                    if (inventorySlot != null && inventorySlot.ItemData != null)
+                    {
+                        SetCurrentItem(inventorySlot.ItemData);
+                    }
+                    else
+                    {
+                        // Если предмет отсутствует, присвоить ItemType.None
+                        SetCurrentItem(null);
+                    }
+                }
             }
         }
     }
