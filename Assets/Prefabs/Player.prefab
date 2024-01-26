@@ -1428,8 +1428,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 12
   maxJumpDistance: 5
-  maxJumpReload: 0.5
+  maxJumpReload: 0.25
   chargedJumpDistanceMultiplier: 0.4
+  chargedJumpDistance: 0
   isCanMove: 1
   IsMoving: 0
   IsButtonJumpPressed: 0
