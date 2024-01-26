@@ -10,7 +10,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private float chargedJumpDistanceMultiplier = 0.4f; // Приріст заряду
 
     private float currentJumpReloadValue = 0f;
-    private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
+    [SerializeField] private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
 
     private Vector2 mousePosition; // Координати миші
     private Vector2 LastMousePosition; // Останні координати миші
@@ -28,8 +28,8 @@ public class PlayerJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CalculateJumpDistance();
         CalculateJumpReload();
+        CalculateJumpDistance();
 
         if (!isCanMove && IsMoving && !isPlayerHitEnemy && playerDash.isCanDash == false)
             MoveToTarget(LastMousePosition);// Перемещаем персонажа
@@ -38,18 +38,19 @@ public class PlayerJump : MonoBehaviour
     private void Update()
     {
         mousePosition = GetMouseWorldPosition();
+
         MouseChargingInput();
+
         JumpWhenMouseUP();
+
         StopMoveWhenCloseToPosition();
     }
 
     // зарядка прыжка при зажатом пробеле или LKM
     void MouseChargingInput()
     {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0) && IsMoving == false && isCanMove == true)
-        {
+        if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0)) && isCanMove)
             IsButtonJumpPressed = true;
-        }
     }
 
     // остановить деш когда близко к последней позиции курсора
@@ -58,15 +59,13 @@ public class PlayerJump : MonoBehaviour
         var Direction = LastMousePosition - (Vector2)transform.position;
 
         if (Direction.magnitude < 0.1)
-        { 
             IsMoving = false;
-        }
     }
 
     // Если отпустить LKM то начинаем прыжок
     void JumpWhenMouseUP()
     {
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0) && playerDash.isDashing == false && IsMoving == false && isCanMove == true)
+        if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0)) && playerDash.isDashing == false && IsMoving == false && isCanMove == true)
         {
             playerDash.isCanDash = false;
             isCanMove = false;
@@ -98,7 +97,7 @@ public class PlayerJump : MonoBehaviour
     // перезарядка прыжка
     void CalculateJumpReload()
     {
-        if (!IsMoving)
+        if (!IsMoving && !isCanMove)
         {
             currentJumpReloadValue += Time.fixedDeltaTime;
             if (currentJumpReloadValue >= maxJumpReload)
