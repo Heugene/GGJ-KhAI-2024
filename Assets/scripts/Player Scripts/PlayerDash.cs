@@ -2,43 +2,34 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class PlayerDash : MonoBehaviour
 {
-    [SerializeField]
-    private float moveSpeed = 7f; // Швидкість польоту у стрибку
-    [SerializeField]
-    private float maxJumpDistance = 5f; // Максимальна дальність стрибку
-    private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
-    [SerializeField]
-    private float chargedJumpDistanceMultiplier = 0.4f; // Приріст заряду
-    [SerializeField]
-    private float DashSpeed = 12;
-    private float DashSpeedTemp = 0;
-    [SerializeField]
-    private float DashCooldown = 1;
-    private float DashCooldownTemp = 0;
-    [SerializeField]
-    private float DashSpeedReducer = 0.05f;
-    [SerializeField]
-    private ItemType currentItemType;
-    [SerializeField]
-    private List<ItemType> ItemTypeForDash;
+    PlayerJump playerJump;
+
+    [SerializeField] private float DashSpeed = 12;
+    [SerializeField] private float DashCooldown = 1;
+    [SerializeField] private float DashSpeedReducer = 0.05f;
+
+    [SerializeField] private ItemType currentItemType;
+    [SerializeField] private List<ItemType> ItemTypeForDash;
+
     private InventoryDisplay inventoryDisplay;
     private TrailRenderer trailRenderer;
     private TrailRenderer trailRendererMayonnaise;
 
+    private float DashSpeedTemp = 0;
+    private float DashCooldownTemp = 0;
 
     private Vector2 mousePosition; // Координати миші
-    private Vector2 LastMousePosition; // Останні координати миші
-    public bool IsMoving = false; // Прапорець стану руху
-    public bool IsButtonJumpPressed = false; // Прапорець утримання кнопки руху
-    public bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
+
     public bool isCanDash = false; // может ли игрок сделать деш
     public bool isDashing = false; // делает ли игрок деш
 
 
     private void Start()
     {
+        playerJump = GetComponent<PlayerJump>();
+
         DashSpeedTemp = DashSpeed;
 
         inventoryDisplay = InventoryDisplay.Instance;
@@ -84,12 +75,11 @@ public class Movement : MonoBehaviour
         }
     }
 
-
     // логика
     void FixedUpdate()
     {
         // Получаем позицию мыши в мировых координатах
-        mousePosition = GetMouseWorldPosition();
+        mousePosition = playerJump.GetMouseWorldPosition();
 
         if(isCanDash)
             MakeDash();
@@ -99,27 +89,13 @@ public class Movement : MonoBehaviour
             CalculateDash();
             CalculateDashReload();
         }
-
-        CalculateJumpDistance();
-
-        if (IsMoving && !isPlayerHitEnemy && isCanDash == false)
-            MoveToTarget(LastMousePosition);// Перемещаем персонажа
     }
 
     // input процесы
     void Update()
     {
         // Получаем позицию мыши в мировых координатах
-        mousePosition = GetMouseWorldPosition();
-
-        // зарядка прыжка при зажатом пробеле или LKM
-        MouseChargingInput();
-
-        // Если отпустить LKM то начинаем прыжок
-        JumpWhenMouseUP();
-
-        // когда очень близко к точке то заканчиваем Dash
-        StopDashWhenCloseToPosition();
+        mousePosition = playerJump.GetMouseWorldPosition();
 
         // если отпустить RKM и выбран соус то начинаем деш
         StartDash();
@@ -147,45 +123,6 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // зарядка прыжка при зажатом пробеле или LKM
-    void MouseChargingInput()
-    {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0))
-        {
-            IsMoving = false;
-            IsButtonJumpPressed = true;
-        }
-    }
-
-    // Если отпустить LKM то начинаем прыжок
-    void JumpWhenMouseUP()
-    {
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0) && isDashing == false)
-        {
-            isCanDash = false;
-            IsMoving = true;
-            IsButtonJumpPressed = false;
-            isPlayerHitEnemy = false;
-
-            // Вычисляем вектор направления от текущей позиции до позиции мыши
-            Vector2 direction = (mousePosition - (Vector2)transform.position);
-
-            // Ограничиваем длину вектора до maxJumpDistance
-            LastMousePosition = (Vector2)transform.position + Vector2.ClampMagnitude(direction, chargedJumpDistance);
-            chargedJumpDistance = 0;
-        }
-    }
-
-    // остановить деш когда близко к последней позиции курсора
-    void StopDashWhenCloseToPosition()
-    {
-        var Direction = LastMousePosition - (Vector2)transform.position;
-        if (Direction.magnitude < 0.1)
-        {
-            IsMoving = false;
-        }
-    }
-
     // убрать предмет из слота
     void RemoveCurrentItemInSlot(SOItems currentItem)
     {
@@ -195,18 +132,6 @@ public class Movement : MonoBehaviour
         {
             currentSlotUI.ClearSlot();
             currentItemType = ItemType.None;
-        }
-    }
-
-    // зарядка прыжка
-    void CalculateJumpDistance()
-    {
-        if (!IsMoving && IsButtonJumpPressed)
-        {
-            if (maxJumpDistance > chargedJumpDistance)
-                chargedJumpDistance += chargedJumpDistanceMultiplier;
-            else
-                chargedJumpDistance = maxJumpDistance;
         }
     }
 
@@ -238,13 +163,6 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // Метод пересування до заданої точки
-    void MoveToTarget(Vector2 LastMousePosition)
-    {
-        // Применяем перемещение вдоль вектора направления с постоянной скоростью
-        transform.position = Vector2.MoveTowards(transform.position, LastMousePosition, moveSpeed * Time.deltaTime);
-    }
-
     // Создание деша
     void MakeDash()
     {
@@ -253,23 +171,5 @@ public class Movement : MonoBehaviour
 
         // Применяем MoveTowards для движения к курсору
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction.normalized, DashSpeed * Time.deltaTime);
-
-        // Обновляем LastMousePosition
-        LastMousePosition = transform.position;
-    }
-
-    // Функція, що повертає світові координати миші
-    public Vector2 GetMouseWorldPosition() => Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-    // остановка игрока когда он сталкиваеться с противником
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.tag == "Enemy")
-            isPlayerHitEnemy = true;
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.transform.tag == "Enemy")
-            isPlayerHitEnemy = true;
     }
 }
