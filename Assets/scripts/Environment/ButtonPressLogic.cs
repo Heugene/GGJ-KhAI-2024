@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonPressLogic : MonoBehaviour
 {
-    private bool isPressed = false; // Чи натиснута кнопка
+    internal bool isPressed { get; private set; } = false; // Чи натиснута кнопка
     private Animator anim;
 
     private void Start()
@@ -18,7 +18,7 @@ public class ButtonPressLogic : MonoBehaviour
     {
         // Змінюємо відповідний прапорець на true 
         isPressed = true;
-        Debug.Log("Button state = " + isPressed);
+        //Debug.Log("Button state = " + isPressed);
 
         // Підключаємо тут анімацію
         anim.SetBool("Pressed", isPressed);
@@ -29,7 +29,7 @@ public class ButtonPressLogic : MonoBehaviour
     {
         // Змінюємо відповідний прапорець на false
         isPressed = false;
-        Debug.Log("Button state = " + isPressed);
+        //Debug.Log("Button state = " + isPressed);
 
         // Підключаємо тут анімацію
         anim.SetBool("Pressed", isPressed);
