@@ -1424,7 +1424,7 @@ MonoBehaviour:
   DashCooldown: 1
   DashSpeedReducer: 0.05
   currentItemType: 0
-  ItemTypeForDash: 
+  ItemTypeForDash: 0100000003000000
   isCanDash: 0
   isDashing: 0
 --- !u!114 &4141748530770180888
@@ -1441,7 +1441,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 12
   maxJumpDistance: 5
+  maxJumpReload: 0.5
   chargedJumpDistanceMultiplier: 0.4
+  isCanMove: 1
   IsMoving: 0
   IsButtonJumpPressed: 0
   isPlayerHitEnemy: 0
