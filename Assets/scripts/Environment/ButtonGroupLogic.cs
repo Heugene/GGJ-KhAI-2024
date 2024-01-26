@@ -22,7 +22,7 @@ public class ButtonGroupLogic : MonoBehaviour
         if (Activated && Passed == false) 
         {
             Passed = true;
-            LevelCompleted.Invoke();
+            LevelCompleted?.Invoke();
         }
     }
 }
