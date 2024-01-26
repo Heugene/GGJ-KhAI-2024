@@ -6,6 +6,7 @@ public class PlayerHealthController : MonoBehaviour
     public int health { get; private set; } = 5; // Поточне ХП
     private int numOfParts; // Кількість частинок сосиски, яка репрезентує кількість ХП;
     private Image[] parts; // Массив частинок сосиски
+    private Animator anim; // Аніматор плеєра
 
     [SerializeField] private Sprite fullBodyPart; // Спрайт заповненої основної частинки
     [SerializeField] private Sprite emptyBodyPart; // Спрайт порожньої основної частинки
@@ -90,6 +91,7 @@ public class PlayerHealthController : MonoBehaviour
     internal void Die()
     {
         // Виконуємо якісь дії після смерті
+        anim.SetBool("isDead", true);
     }
 
 
@@ -99,5 +101,6 @@ public class PlayerHealthController : MonoBehaviour
         GameObject healthBar = GameObject.FindGameObjectWithTag("HealthBar");
         numOfParts = health;
         parts = healthBar.GetComponentsInChildren<Image>();
+        anim = GetComponent<Animator>();
     }
 }
