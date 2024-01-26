@@ -13,10 +13,12 @@ public abstract class InventoryDisplay : MonoBehaviour
     protected Dictionary<InventorySlot_UI, InventorySlot> slotDictionary;
     public InventorySystem InventorySystem => inventorySystem;
     public Dictionary<InventorySlot_UI, InventorySlot> SlotDictionary => slotDictionary;
-    protected int selectedSlotIndex = 0; 
+    protected int selectedSlotIndex = -2; 
     public UnityEvent<int> OnSelectedSlotChanged = new UnityEvent<int>();
     [SerializeField]private SOItems currentItem;
     public event Action<SOItems> OnCurrentItemChanged;
+    protected bool hasStarted = false;
+
     public void SetCurrentItem(SOItems newItem)
     {
         currentItem = newItem;
@@ -30,11 +32,18 @@ public abstract class InventoryDisplay : MonoBehaviour
     }
     private void Update()
     {
+        if (!hasStarted)
+        {
+            ChangeSelectedSlot(1); // Индекс первого слота, который вы хотите выбрать
+            hasStarted = true;
+        }
         float scrollDelta = Input.mouseScrollDelta.y;
         if (scrollDelta != 0)
         {
             ChangeSelectedSlot(scrollDelta);
         }
+        OnSelectedSlotChange(selectedSlotIndex);
+
     }
     public SOItems GetCurrentItem()
     {
@@ -51,34 +60,43 @@ public abstract class InventoryDisplay : MonoBehaviour
             Destroy(gameObject);
         }
         OnSelectedSlotChanged.AddListener(OnSelectedSlotChange);
-    }
-    private void OnSelectedSlotChange(int newIndex)
-    {
-        foreach (var slot in SlotDictionary)
+        if (inventorySystem != null)
         {
-            InventorySlot_UI slotUI = slot.Key;
-            InventorySlot inventorySlot = slot.Value;
-
-            if (slotUI != null)
-            {
-                bool isSelected = newIndex == slotUI.transform.GetSiblingIndex();
-                slotUI.SetSelected(isSelected);
-
-                if (isSelected)
-                {
-                    if (inventorySlot != null && inventorySlot.ItemData != null)
-                    {
-                        SetCurrentItem(inventorySlot.ItemData);
-                    }
-                    else
-                    {
-                        // Если предмет отсутствует, присвоить ItemType.None
-                        SetCurrentItem(null);
-                    }
-                }
-            }
+            inventorySystem.OnCurrentItemChangedInSystem += HandleCurrentItemChangedInSystem;
         }
     }
+    private void HandleCurrentItemChangedInSystem(SOItems newItem)
+    {
+        SetCurrentItem(newItem);
+    }
+     private void OnSelectedSlotChange(int newIndex)
+     {
+         foreach (var slot in SlotDictionary)
+         {
+             InventorySlot_UI slotUI = slot.Key;
+             InventorySlot inventorySlot = slot.Value;
+
+             if (slotUI != null)
+             {
+                 bool isSelected = newIndex == slotUI.transform.GetSiblingIndex();
+                 slotUI.SetSelected(isSelected);
+
+                 if (isSelected)
+                 {
+                     if (inventorySlot != null && inventorySlot.ItemData != null)
+                     {
+                         SetCurrentItem(inventorySlot.ItemData);
+
+                    }
+                    else
+                     {
+                         // Если предмет отсутствует, присвоить ItemType.None
+                         SetCurrentItem(null);
+                     }
+                 }
+             }
+         }
+     }
 
     protected void ChangeSelectedSlot(float delta)
     {
@@ -101,6 +119,7 @@ public abstract class InventoryDisplay : MonoBehaviour
         {
             InventorySlot_UI slotUI = slot.Key;
             InventorySlot inventorySlot = slot.Value;
+
         }
     }
     public abstract void AssignSlot(InventorySystem invToDisplay, int offset);
@@ -114,6 +133,7 @@ public abstract class InventoryDisplay : MonoBehaviour
                 slot.Key.UpdateUISlot(updatedSlot);
             }
         }
+
     }
 
 

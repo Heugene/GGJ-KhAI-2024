@@ -27,7 +27,6 @@ public class Movement : MonoBehaviour
     private TrailRenderer trailRenderer;
     private TrailRenderer trailRendererMayonnaise;
 
-
     private Vector2 mousePosition; // Координати миші
     private Vector2 LastMousePosition; // Останні координати миші
     public bool IsMoving = false; // Прапорець стану руху
@@ -42,7 +41,7 @@ public class Movement : MonoBehaviour
         DashSpeedTemp = DashSpeed;
 
         inventoryDisplay = InventoryDisplay.Instance;
-
+      
         if (inventoryDisplay != null)
         {
             inventoryDisplay.OnCurrentItemChanged += HandleCurrentItemChanged;
@@ -83,8 +82,6 @@ public class Movement : MonoBehaviour
             currentItemType = newItem.ItemType;
         }
     }
-
-
     // логика
     void FixedUpdate()
     {
