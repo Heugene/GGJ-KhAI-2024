@@ -1946,7 +1946,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttaking: 0
-  isStanding: 0
   isMoving: 0
   player: {fileID: 1769159047}
   moveSpeed: 2
