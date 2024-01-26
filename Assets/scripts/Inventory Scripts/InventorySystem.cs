@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using System;
 
 [System.Serializable]
 public class InventorySystem 
@@ -13,6 +14,8 @@ public class InventorySystem
     public int InventorySize => InventorySlots.Count;
 
     public UnityAction<InventorySlot> OnInventorySlotChanged;
+    public event Action<SOItems> OnCurrentItemChangedInSystem;
+    public event Action<SOItems> OnItemAddedToInventory;
 
     public InventorySystem(int size)
     {
@@ -33,6 +36,8 @@ public class InventorySystem
                 {
                     slot.AddToStack(amountToAdd);
                     OnInventorySlotChanged?.Invoke(slot);
+                    OnCurrentItemChangedInSystem?.Invoke(itemToAdd);
+                    OnItemAddedToInventory?.Invoke(itemToAdd);
                     return true;
                 }
             }
@@ -62,6 +67,7 @@ public class InventorySystem
                 }
 
                 OnInventorySlotChanged?.Invoke(slot);
+                OnCurrentItemChangedInSystem?.Invoke(slot.ItemData);
             }
         }
     }
