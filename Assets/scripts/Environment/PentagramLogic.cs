@@ -85,6 +85,7 @@ public class PentagramLogic : MonoBehaviour
                                             new Vector2(positionPoints[(i+3) % 5].x, positionPoints[(i+3) % 5].y)};
             EC2D.points = pointsLineCollaider;
             EC2D.edgeRadius = _width;
+            EC2D.isTrigger = true;
 
             linesCollaiders[i].SetActive(false);
         }
