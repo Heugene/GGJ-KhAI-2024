@@ -1,13 +1,11 @@
 using UnityEngine;
 using System.Collections;
-using NavMeshPlus;
 using UnityEngine.AI;
 
 
 public class EnemyClown : MonoBehaviour
 {
     public bool isAttaking = false;
-    public bool isStanding = false;
     public bool isMoving = false;
     public Transform player;           // Ïîñèëàííÿ íà òðàíñôîðì ãðàâöÿ
 
@@ -41,17 +39,12 @@ public class EnemyClown : MonoBehaviour
         {
             if (canAttack)
                 StartCoroutine(AttackWithCooldown());
-
-            isMoving = false;
-            isStanding = true;
         }
         else
         {
             // Èíà÷å äâèãàåìñÿ ê öåëåâîé ïîçèöèè
             isMoving = true;
-            isStanding = false;
-
-            if(navMeshAgent.enabled)
+            isAttaking = false;
             navMeshAgent.SetDestination(player.position);
         }
     }
@@ -60,18 +53,15 @@ public class EnemyClown : MonoBehaviour
     {
         Debug.Log("Attack!");  // TODO: Òóò ìàº áóòè ëîã³êà àí³ìêè.
 
-        if (canAttack)
-        {
-            canAttack = false;
-            isAttaking = true;
-            isStanding = true;
-            player.GetComponent<PlayerHealthController>().TakeDamage(clownDamage);
-        }
+        isMoving = false;
+        canAttack = false;
+        isAttaking = true;
+        player.GetComponent<PlayerHealthController>().TakeDamage(clownDamage);
 
         // Áëîêóºìî àòàêó äî ìîìåíòó, ïîêè íå ïðîéäå ÷àñ ïåðåçàðÿäêè
         yield return new WaitForSeconds(attackCooldown);
+
         canAttack = true;
-        isAttaking = false;
     }
 
     //// Â³äîáðàæåííÿ ðàä³óñó àòàêè êëîóíà

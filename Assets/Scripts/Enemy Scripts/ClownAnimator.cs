@@ -27,21 +27,12 @@ public class ClownAnimator : MonoBehaviour
         if(clown.isMoving)
         {
             animator.SetBool("isAttacking", false);
-            animator.SetBool("isStanding", false);
             animator.SetBool("isMoving", true);
         }
 
         if (clown.isAttaking)
         {
             animator.SetBool("isAttacking", true);
-            animator.SetBool("isStanding", false);
-            animator.SetBool("isMoving", false);
-        }
-
-        if(clown.isStanding)
-        {
-            animator.SetBool("isAttacking", true);
-            animator.SetBool("isStanding", true);
             animator.SetBool("isMoving", false);
         }
     }
