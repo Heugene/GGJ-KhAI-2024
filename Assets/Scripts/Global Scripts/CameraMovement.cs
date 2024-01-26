@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class cameraMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 3f;
+    [SerializeField] float speed = 2f;
     [SerializeField] Transform player;
     private Vector3? targetPosition = null;
 

@@ -45,7 +45,9 @@ public class EnemyClown : MonoBehaviour
             // Èíà÷å äâèãàåìñÿ ê öåëåâîé ïîçèöèè
             isMoving = true;
             isAttaking = false;
-            navMeshAgent.SetDestination(player.position);
+
+            if(navMeshAgent.isActiveAndEnabled)
+                navMeshAgent.SetDestination(player.position);
         }
     }
 
