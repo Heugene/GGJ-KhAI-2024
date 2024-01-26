@@ -50,6 +50,8 @@ public class EnemyClown : MonoBehaviour
             // Èíà÷å äâèãàåìñÿ ê öåëåâîé ïîçèöèè
             isMoving = true;
             isStanding = false;
+
+            if(navMeshAgent.enabled)
             navMeshAgent.SetDestination(player.position);
         }
     }
