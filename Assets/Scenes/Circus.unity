@@ -398,8 +398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e571c8e4c3a8a584d98a0bcc3c423b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numOfCorners: 32
-  _radius: 25
+  _numOfCorners: 58
+  _radius: 44
   _delete: 0
   _save: 1
 --- !u!23 &68101381
