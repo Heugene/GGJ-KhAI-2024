@@ -15,6 +15,10 @@ public class InventorySlot_UI : MonoBehaviour
     private bool isSelected = false;
 
     public InventorySlot AssignedInventorySlot => assignedInventorySlot;
+    private InventorySlot currentSelectedSlot;  
+
+    public InventorySlot CurrentSelectedSlot => currentSelectedSlot;
+
     public InventoryDisplay ParentDisplay { get; private set; }
 
     private void Awake()
@@ -24,6 +28,7 @@ public class InventorySlot_UI : MonoBehaviour
         button = GetComponent<Button>();
         button?.onClick.AddListener(OnUISlotClick);
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>();
+
     }
 
     public void Init(InventorySlot slot)
@@ -33,21 +38,20 @@ public class InventorySlot_UI : MonoBehaviour
         SetSelected(false);
     }
 
-    public void SetSelected(bool isSelected)
-    {
-        this.isSelected = isSelected;
+     public void SetSelected(bool isSelected)
+     {
+         this.isSelected = isSelected;
 
-        if (selectedIndicator != null)
-        {
-            Image imageComponent = selectedIndicator.GetComponent<Image>();
-            if (imageComponent != null)
-            {
-                imageComponent.enabled = isSelected;
-            }
-        }
-
-        UpdateUISlot();
-    }
+         if (selectedIndicator != null)
+         {
+             Image imageComponent = selectedIndicator.GetComponent<Image>();
+             if (imageComponent != null)
+             {
+                 imageComponent.enabled = isSelected;
+             }
+         }
+         UpdateUISlot();
+     }
 
     public void UpdateUISlot(InventorySlot slot)
     {
@@ -55,10 +59,8 @@ public class InventorySlot_UI : MonoBehaviour
         {
             itemSprite.sprite = slot.ItemData.ItemImage;
             itemSprite.color = Color.white;
-
             if (slot.StackSize > 1) itemCount.text = slot.StackSize.ToString();
             else itemCount.text = "";
-
         }
         else
         {
