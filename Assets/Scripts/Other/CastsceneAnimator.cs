@@ -54,7 +54,7 @@ public class CastsceneAnimator : MonoBehaviour
 
     private void GameFreeze(bool freezed) // TODO: Переделать на ивенты
     {
-        Player.GetComponent<Movement>().enabled = !freezed;
+        Player.GetComponent<cameraMovement>().enabled = !freezed;
         Clown.GetComponent<NavMeshAgent>().enabled = !freezed;
         Clown.GetComponent<BoxCollider2D>().enabled = !freezed;
     }
