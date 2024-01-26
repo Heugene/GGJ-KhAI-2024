@@ -11,13 +11,15 @@ public class PlayerAnimationController : MonoBehaviour
     bool isStanding;
     bool isJumping;
     bool isDashing;
-    Movement movement;
+    PlayerDash playerDash;
+    PlayerJump playerJump;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        movement = GetComponent<Movement>();
+        playerDash = GetComponent<PlayerDash>();
+        playerJump = GetComponent<PlayerJump>();
     }
 
     // Update is called once per frame
@@ -25,19 +27,19 @@ public class PlayerAnimationController : MonoBehaviour
     {
         PlayerRotation();
 
-        if (movement.IsMoving)
+        if (playerJump.IsMoving)
         {
             isJumping = true;
             isStanding = false;
         }
-        else if(!movement.isDashing)
+        else if(!playerDash.isDashing)
         {
             isJumping = false;
             isStanding = true;
             isDashing = false;
         }
 
-        if (movement.isDashing)
+        if (playerDash.isDashing)
         {
             isJumping = false;
             isStanding = false;
@@ -51,7 +53,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void PlayerRotation()
     {
-        if(movement.GetMouseWorldPosition().x < transform.position.x)
+        if(playerJump.GetMouseWorldPosition().x < transform.position.x)
             sr.flipX = true;
         else
             sr.flipX = false;
