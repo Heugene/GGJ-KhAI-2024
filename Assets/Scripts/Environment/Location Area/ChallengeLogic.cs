@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChallengeLogic : MonoBehaviour
 {
     internal bool Solved { get; private set; }
+    private GameObject player; // Плеєр
     
     // Об'єкти скриптів для зон з кнопками, щоб можна було з них витягувати стан проходження зони
     [SerializeField] private ButtonGroupLogic Area1; 
@@ -15,6 +16,9 @@ public class ChallengeLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().End += EndGame;
+        player = GameObject.FindGameObjectWithTag("Player");
+
         Area1.LevelCompleted += Area1_CompleteActions;
         Area2.LevelCompleted += Area2_CompleteActions;
         Area3.LevelCompleted += Area3_CompleteActions;
@@ -67,5 +71,15 @@ public class ChallengeLogic : MonoBehaviour
         // ЯК подолати клоуна.пнг Джоджореференс.джипег, стартуємо малювання пентаграми ЛЕТСФАКІНГОООООООО
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
 
+        // Ставимо великий час існування трейлу, щоб встигнути намалювати пентаграму.
+        player.GetComponentInChildren<TrailRenderer>().time = 45;
+
+    }
+    private void EndGame()
+    {
+        //Дії після зарахування пентаграми
+
+        // Повертаємо назад час існування трейлу
+        player.GetComponentInChildren<TrailRenderer>().time = 5;
     }
 }

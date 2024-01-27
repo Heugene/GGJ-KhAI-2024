@@ -24,6 +24,7 @@ public class PlayerDash : MonoBehaviour
 
     public bool isCanDash = false; // может ли игрок сделать деш
     public bool isDashing = false; // делает ли игрок деш
+    public bool isFreezed = false; // останавливает логику скрипта
 
 
     private void Start()
@@ -78,6 +79,8 @@ public class PlayerDash : MonoBehaviour
     // логика
     void FixedUpdate()
     {
+        if (isFreezed) return;
+
         // ѕолучаем позицию мыши в мировых координатах
         mousePosition = playerJump.GetMouseWorldPosition();
 
@@ -94,6 +97,8 @@ public class PlayerDash : MonoBehaviour
     // input процесы
     void Update()
     {
+        if (isFreezed) return;
+
         // ѕолучаем позицию мыши в мировых координатах
         mousePosition = playerJump.GetMouseWorldPosition();
 
