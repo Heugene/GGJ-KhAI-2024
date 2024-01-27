@@ -8,11 +8,13 @@ public class ClownAnimator : MonoBehaviour
     private Animator animator; // Посилання на аніматок данного обєкту
     private EnemyClown clown;  // Посилання на компонент EnemyClown данного обєкту
     private Transform player;  // Посилання на гравця
+    [SerializeField] private Transform fireballSpawnPoint;
 
 
     void Start()
     {
         // Пошук необхідних об'єктів
+        fireballSpawnPoint = GameObject.FindWithTag("fireball Spawn Point").transform;
         animator = GetComponent<Animator>();
         clown = GetComponent<EnemyClown>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -45,10 +47,12 @@ public class ClownAnimator : MonoBehaviour
         if (player.transform.position.x < transform.position.x)
         {
             spriteRenderer.flipX = true;
+            fireballSpawnPoint.localPosition = new Vector2(-1.3f, -0.9f);
         }
         else
         {
             spriteRenderer.flipX = false;
+            fireballSpawnPoint.localPosition = new Vector2(1.3f, -0.9f);
         }    
     }
 }

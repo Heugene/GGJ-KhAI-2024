@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingBarrel
       objectReference: {fileID: 0}
+    - target: {fileID: 1381088076113684287, guid: cca18e82643b24440a6a5b3103271ca8, type: 3}
+      propertyPath: m_TagString
+      value: obstacles
+      objectReference: {fileID: 0}
     - target: {fileID: 3868766305261819934, guid: cca18e82643b24440a6a5b3103271ca8, type: 3}
       propertyPath: m_Size.x
       value: 0.32

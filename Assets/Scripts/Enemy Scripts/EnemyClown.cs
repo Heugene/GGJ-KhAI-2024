@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using System;
 
 /// <summary>
 /// Компонент який реалізує поведення клоуна
 /// </summary>
 public class EnemyClown : MonoBehaviour
 {
+    spawnFireball _spawnFireball;
+
     public bool isAttaking = false;             // Макер який характеризує чи атакує клоун
     public bool isMoving = false;               // Макер який характеризує чи переміщується клоун
 
@@ -24,6 +27,7 @@ public class EnemyClown : MonoBehaviour
 
     void Start()
     {
+        _spawnFireball = GameObject.FindWithTag("fireball Spawn Point").GetComponent<spawnFireball>();
         // Пошук необхідних об'єктів
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -41,6 +45,8 @@ public class EnemyClown : MonoBehaviour
         // Якщо гравець в радіусі атаки обєкта 
         if (distanceToTarget <= navMeshAgent.stoppingDistance)
         {
+            isAttaking = true;
+            isMoving = false;
             if (canAttack)
                 StartCoroutine(AttackWithCooldown());
         }
@@ -60,10 +66,8 @@ public class EnemyClown : MonoBehaviour
     {
         isMoving = false;
         canAttack = false;
-        isAttaking = true;
-
-        player.GetComponent<PlayerHealthController>().TakeDamage(clownDamage);
         yield return new WaitForSeconds(attackCooldown);
+        StartCoroutine(_spawnFireball.SpawnFireballs());
         canAttack = true;
     }
 
