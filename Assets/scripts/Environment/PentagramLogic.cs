@@ -22,6 +22,7 @@ public class PentagramLogic : MonoBehaviour
     GameObject[] _paintPoints;
     GameObject[] _lineCollaiders;
     float _sector;
+    int index = 1;
 
     void Start()
     {
@@ -110,10 +111,9 @@ public class PentagramLogic : MonoBehaviour
 
     public void NextPath()
     {
-        int index = 1;
         _paintPoints[index-1].SetActive(false);
         _lineCollaiders[index-1].SetActive(true);
-        _paintPoints[index+2].SetActive(true);
+        _paintPoints[(index+2) % 5].SetActive(true);
 
         if (index > _paintPoints.Length)
         {
