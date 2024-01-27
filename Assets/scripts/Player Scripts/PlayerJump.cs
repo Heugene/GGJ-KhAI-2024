@@ -4,6 +4,8 @@ public class PlayerJump : MonoBehaviour
 {
     PlayerDash playerDash;
     Rigidbody2D rb;
+    public AudioClip[] sausageSounds; // Здесь вы можете указать свой звуковой файл
+    public AudioSource audioSource;
 
     [SerializeField] private float moveSpeed = 7f; // Швидкість польоту у стрибку
     [SerializeField] private float maxJumpDistance = 5f; // Максимальна дальність стрибку
@@ -77,6 +79,8 @@ public class PlayerJump : MonoBehaviour
     {
         if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Mouse0)) && playerDash.isDashing == false && IsMoving == false && isCanMove == true)
         {
+            audioSource.clip = sausageSounds[0];
+            audioSource.Play();
             playerDash.isCanDash = false;
             isCanMove = false;
             IsMoving = true;

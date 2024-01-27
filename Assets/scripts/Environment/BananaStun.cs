@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 
-public class StunEnemy : MonoBehaviour
+public class BananaStun : MonoBehaviour
 {
     [SerializeField]
     float TimeOfStun = 3f;
