@@ -9,6 +9,10 @@ TagManager:
   - HealthBar
   - Banana
   - barrel
+  - wall
+  - fireball
+  - fireball Spawn Point
+  - obstacles
   layers:
   - Default
   - TransparentFX

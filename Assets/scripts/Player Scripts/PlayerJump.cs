@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     PlayerDash playerDash;
+    Rigidbody2D rb;
 
     [SerializeField] private float moveSpeed = 7f; // Швидкість польоту у стрибку
     [SerializeField] private float maxJumpDistance = 5f; // Максимальна дальність стрибку
@@ -10,7 +11,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private float chargedJumpDistanceMultiplier = 0.4f; // Приріст заряду
 
     private float currentJumpReloadValue = 0f;
-    [SerializeField] private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
+    private float chargedJumpDistance = 0; // Поточний заряд стрибку (У еквіваленті відстані)
 
     private Vector2 mousePosition; // Координати миші
     private Vector2 LastMousePosition; // Останні координати миші
@@ -24,6 +25,7 @@ public class PlayerJump : MonoBehaviour
     private void Start()
     {
         playerDash = GetComponent<PlayerDash>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -37,6 +39,8 @@ public class PlayerJump : MonoBehaviour
 
     private void Update()
     {
+        rb.velocity = Vector2.zero;
+
         mousePosition = GetMouseWorldPosition();
 
         MouseChargingInput();
@@ -127,8 +131,7 @@ public class PlayerJump : MonoBehaviour
             IsMoving = false;
         }
 
-        if (collision.transform.tag == "barrel")
+        if (collision.transform.tag == "obstacles")
             IsMoving = false;
     }
-
 }

@@ -11,6 +11,7 @@ public class StunEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         bool objectDetected = collision.transform.GetComponents<BoxCollider2D>().Where(bc => bc.isTrigger == true).FirstOrDefault();
 
         if (collision.transform.tag == "Enemy" && objectDetected)
