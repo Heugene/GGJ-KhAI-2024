@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnSause : MonoBehaviour
@@ -18,10 +19,10 @@ public class SpawnSause : MonoBehaviour
         while(true)
         {
             if (transform.childCount < 1) {
+                yield return new WaitForSeconds(cooldownTime);
+
                 GameObject newObject = Instantiate(spawnItem, transform.position, Quaternion.identity);
                 newObject.transform.parent = transform;
-
-                yield return new WaitForSeconds(cooldownTime);
             }
             yield return new WaitForSeconds(2f);
         }
