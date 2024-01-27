@@ -1,13 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 public class StunEnemy : MonoBehaviour
 {
     [SerializeField]
     float TimeOfStun = 3f;
+    private Animator clownAnimator;
+    private EnemyClown clownComponent;
+
+    private void Start()
+    {
+        GameObject clownObj = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault();
+        clownComponent = clownObj.GetComponent<EnemyClown>();
+        clownAnimator = clownObj.GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,17 +25,21 @@ public class StunEnemy : MonoBehaviour
 
         if (collision.transform.tag == "Enemy" && objectDetected)
         {
-            collision.transform.GetComponent<EnemyClown>().enabled = false;
-            collision.transform.GetComponent<NavMeshAgent>().enabled = false;
             StartCoroutine(StunEnemyForTime(collision));
         }
     }
 
     private IEnumerator StunEnemyForTime(Collider2D collision)
     {
+        clownAnimator.SetBool("isFall", true);
+        clownComponent.Freeze(true);
+
         yield return new WaitForSeconds(TimeOfStun);
-        collision.transform.GetComponent<EnemyClown>().enabled = true;
-        collision.transform.GetComponent<NavMeshAgent>().enabled = true;
+        clownAnimator.SetBool("isFall", false);
+
+        yield return new WaitForSeconds(0.5f);
+        clownComponent.Freeze(false);
+
         Destroy(gameObject);
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1853878459948478417}
   m_Layer: 0
   m_Name: mayonnaise
-  m_TagString: Untagged
+  m_TagString: sauce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUpRadius: 0.2
   ItemData: {fileID: 11400000, guid: 03e7fbfb91d718d49a010cf752e41f2b, type: 2}
+  playerHealthController: {fileID: 0}
 --- !u!58 &1853878459948478417
 CircleCollider2D:
   m_ObjectHideFlags: 0

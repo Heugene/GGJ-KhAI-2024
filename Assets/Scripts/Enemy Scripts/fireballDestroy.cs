@@ -1,18 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class fireballDestroy : MonoBehaviour
 {
     [SerializeField] private float TimeForDestroy = 2f;
-    [SerializeField] private PlayerHealthController player;
+
+    private PlayerHealthController player;
+    private int clownDamage;
+
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerHealthController>();
+        clownDamage = GameObject.FindWithTag("Enemy").GetComponent<EnemyClown>().clownDamage;
     }
 
     private void Update()
@@ -30,7 +30,7 @@ public class fireballDestroy : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            player.TakeDamage(1);
+            player.TakeDamage(clownDamage);
             Destroy(gameObject);
         }
 
