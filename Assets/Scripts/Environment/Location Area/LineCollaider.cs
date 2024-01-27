@@ -1,5 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -11,10 +13,10 @@ public class LineCollaider : MonoBehaviour
     [Range(0, 100)]
     public int needDistant = 1;
 
-    bool _flag;
+    bool _playerDashingInCollaider;
     float _distant;
     float _lenght;
-    Vector3 _startPoint;
+    Vector3 _lastPoint;
     PlayerDash _playerDash;
     public GameObject _paintPoint;
 
@@ -24,6 +26,7 @@ public class LineCollaider : MonoBehaviour
         _lenght = Vector2.Distance(ED2D.points[0], ED2D.points[1]);
         _player = GameObject.FindGameObjectWithTag("Player");
         _playerDash = _player.GetComponent<PlayerDash>();
+        CreatePoint();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,9 +35,9 @@ public class LineCollaider : MonoBehaviour
         {
             if (_playerDash.isDashing)
             {
-                StartPlayerDash();
+                _playerDashingInCollaider = true;
             }
-            else _flag = false;
+            else _playerDashingInCollaider = false;
 
         } 
     }
@@ -43,7 +46,7 @@ public class LineCollaider : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && _playerDash.isDashing)
         {
-            EndPlayerDash();
+            _playerDashingInCollaider = false;
         }
     }
 
@@ -51,31 +54,66 @@ public class LineCollaider : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (_playerDash == true && _flag == false)
+            _distant += Vector3.Distance(_player.transform.position, _lastPoint);
+            _lastPoint = _player.transform.position;
+            if (_playerDash == true)
             {
-                StartPlayerDash();
-            }
+                if (_playerDashingInCollaider == false)
+                {
+                    _playerDashingInCollaider = true;
+                }
+                else
+                {
+                    _distant += Vector3.Distance(_player.transform.position, _lastPoint);
+                }
 
-            if (_playerDash == false && _flag == true)
+            }
+            if (_playerDash == false && _playerDashingInCollaider == true)
             {
-                EndPlayerDash();
+                _playerDashingInCollaider = false;
             }
             if (_distant >= _lenght * (needDistant / 100f))
             {
-                _paintPoint.GetComponent<PaintPoint>().DistanceComplete();
+                DistanceComplete();
             }
         }
     }
 
+    void PathEnd()
+    {
+        LineComplete?.Invoke(gameObject);
+        gameObject.SetActive(false);
+    }
+
     void StartPlayerDash()
     {
-        _flag = true;
-        _startPoint = _player.transform.position; 
+        _playerDashingInCollaider = true;
+  
     }
 
     void EndPlayerDash()
     {
-        _flag = false;
-        _distant += Vector3.Distance(_startPoint, _player.transform.position);
+        _playerDashingInCollaider = false;
     }
+
+    void CreatePoint()
+    {
+        Vector2[] _pointsCoord = GetComponent<EdgeCollider2D>().points;
+        GameObject _prefabPaintPoint = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/PaintPoint.prefab");
+
+        _paintPoint = GameObject.Instantiate(_prefabPaintPoint);
+        _paintPoint.name = "PaintPoint";
+        _paintPoint.tag = "PaintPoint";
+        _paintPoint.transform.parent = gameObject.transform;
+        _paintPoint.transform.position = gameObject.GetComponent<EdgeCollider2D>().points[1];
+        _paintPoint.GetComponent<CircleCollider2D>().radius = GetComponentInParent<PentagramLogic>()._radiusPointAndLine;
+
+        _paintPoint.GetComponent<PaintPoint>().IsPushed += PathEnd;
+        DistanceComplete += _paintPoint.GetComponent<PaintPoint>().DistanceComplete;
+    }
+
+    public delegate void LineCompleted(GameObject ths);
+    internal event LineCompleted LineComplete;
+
+    internal event Action DistanceComplete;
 }
