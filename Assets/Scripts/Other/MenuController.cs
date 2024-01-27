@@ -4,16 +4,17 @@ using UnityEngine;
 public class MenuController : MonoBehaviour
 {
     [SerializeField] GameObject settingsObj = null;
-    
-    public void ChangeVisibility(bool visible)
+
+
+    public void ChangeVisibility()
     {
         if (settingsObj != null)
         {
-            settingsObj.SetActive(visible);
+            settingsObj.SetActive(!settingsObj.activeSelf);
         }
         else
         {
-             throw new Exception("Объект Settings не найден.");
+             throw new Exception("Об'єект Settings не знайдений.");
         }
     }
 
