@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
+<<<<<<< Updated upstream
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+>>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2327,6 +2331,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1511192068}
     m_Modifications:
+    - target: {fileID: 766677951597616776, guid: d24e29782fd32fd42b1d417aae1370b1, type: 3}
+      propertyPath: m_Size.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 766677951597616776, guid: d24e29782fd32fd42b1d417aae1370b1, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.18
+      objectReference: {fileID: 0}
     - target: {fileID: 1200830196007952947, guid: d24e29782fd32fd42b1d417aae1370b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.89
@@ -4807,6 +4819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a80d27090eac1c40a389bbae2cf5e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
 --- !u!1001 &1545773878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4893,6 +4906,8 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1617013530
 GameObject:
   m_ObjectHideFlags: 0
