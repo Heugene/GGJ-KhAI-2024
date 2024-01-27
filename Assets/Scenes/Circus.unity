@@ -1742,6 +1742,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8948907985794944042, guid: 42603556a19202b4c9b8b5595583fb64, type: 3}
+      propertyPath: TimeOfStun
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4343,6 +4347,7 @@ MonoBehaviour:
   Area2: {fileID: 1817351785}
   Area3: {fileID: 1534350003}
   Area4: {fileID: 1970926292}
+  sauceSpawner: {fileID: 2053512497}
 --- !u!1001 &1300051508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6501,7 +6506,7 @@ Transform:
   m_GameObject: {fileID: 2053512495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.4, y: 4.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6525,6 +6530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn1: {fileID: 8428073506933274792, guid: 8d3a22331ad4dcd468b33f350d4b15a0, type: 3}
   prefabToSpawn2: {fileID: 4527191058487273558, guid: 7371c9e83ebe50242a4b269d2fa2b3cb, type: 3}
+  prefabToSpawn3: {fileID: 3639912017869125015, guid: 05ea8a0b8e2d46e43a5206de8e7e08b0, type: 3}
   numberOfPrefabs: 3
   spawnAreaSize: {x: 35, y: 35}
   randomScale: 1.5
