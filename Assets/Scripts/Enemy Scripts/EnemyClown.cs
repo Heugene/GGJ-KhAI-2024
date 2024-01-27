@@ -12,7 +12,7 @@ public class EnemyClown : MonoBehaviour
 
     public bool isAttaking = false;             // Макер який характеризує чи атакує клоун
     public bool isMoving = false;               // Макер який характеризує чи переміщується клоун
-    public int clownDamage = 1;       // Дамаг за удар
+    public int clownDamage = 1;                 // Дамаг за удар
 
     [SerializeField] float moveSpeed = 2f;      // Швидкість руху
     [SerializeField] float attackCooldown = 2f; // Час перезарядки удару
