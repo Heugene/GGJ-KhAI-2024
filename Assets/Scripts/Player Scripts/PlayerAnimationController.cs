@@ -51,6 +51,12 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool("isDashing", isDashing);
     }
 
+
+    public void Freeze()
+    {
+        //TODO: Do logic to freeze player
+    }
+
     private void PlayerRotation()
     {
         if(playerJump.GetMouseWorldPosition().x < transform.position.x)
