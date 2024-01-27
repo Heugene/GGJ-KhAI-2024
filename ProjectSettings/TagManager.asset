@@ -15,6 +15,7 @@ TagManager:
   - obstacles
   - Pentagram
   - PaintPoint
+  - sauce
   layers:
   - Default
   - TransparentFX
