@@ -7,10 +7,18 @@ public class ItemPickUp : MonoBehaviour
 {
     public float PickUpRadius = 1f;
     public SOItems ItemData;
+    public AudioClip pickUp;
+    AudioSource audioSource;
 
     private CircleCollider2D myCollider;
     [SerializeField]private PlayerHealthController playerHealthController;
 
+    private void Start()
+    {
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.clip = pickUp;
+    }
 
     private void Awake()
     {
@@ -38,8 +46,14 @@ public class ItemPickUp : MonoBehaviour
         var inventory = other.transform.GetComponent<InventoryHolder>();
 
         if (!inventory) return;
+        audioSource.Play();
+        StartCoroutine(onSoundEnd(audioSource.clip.length, inventory));
 
+    }
 
+    IEnumerator onSoundEnd(float seconds, InventoryHolder inventory)
+    {
+        yield return new WaitForSeconds(seconds);
         if (ItemData.ItemType == ItemType.Cheese)
         {
             playerHealthController.Heal(1);
@@ -53,5 +67,4 @@ public class ItemPickUp : MonoBehaviour
             }
         }
     }
-
 }
