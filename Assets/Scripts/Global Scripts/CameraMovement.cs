@@ -6,7 +6,7 @@ public class cameraMovement : MonoBehaviour
     [SerializeField] Transform player;
     private Vector3? targetPosition = null;
 
-    // Update is called once per frame
+
     void Update()
     {
         if (targetPosition != null)

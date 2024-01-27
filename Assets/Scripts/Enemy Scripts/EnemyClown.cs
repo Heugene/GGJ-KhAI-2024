@@ -5,36 +5,38 @@ using UnityEngine.AI;
 
 public class EnemyClown : MonoBehaviour
 {
-    public bool isAttaking = false;
-    public bool isMoving = false;
-    public Transform player;           // Ïîñèëàííÿ íà òðàíñôîðì ãðàâöÿ
+    public bool isAttaking = false;             // Макер який характеризує чи атакує клоун
+    public bool isMoving = false;               // Макер який характеризує чи переміщується клоун
 
-    [SerializeField] float moveSpeed = 2f;      // Øâèäê³ñòü ðóõó êëîóíà
-    [SerializeField] float attackCooldown = 2f; // ×àñ ì³æ àòàêàìè
-    [SerializeField] int clownDamage = 1;       // Çíà÷åííÿ äàìàãó
-    [SerializeField] float attackRange = 4f;    // Ðàä³óñ àòàêè âðîã³â
-    [SerializeField, Header("Ïîêàçàòè ðàä³óñ àòàêè?")]
-    private bool drawAtackRange = false;
+    [SerializeField] float moveSpeed = 2f;      // Швидкість руху
+    [SerializeField] float attackCooldown = 2f; // Час перезарядки удару
+    [SerializeField] int clownDamage = 1;       // Дамаг за удар
+    [SerializeField] float attackRange = 4f;    // Дистанція атаки
+    [SerializeField, Header("Показати дистацнію атаки?")]
 
-    private bool canAttack = true;
-    private NavMeshAgent navMeshAgent;  // Ïîñèëàííÿ íà NavMeshAgent
+    private bool drawAtackRange = false;      // Макер для відображення дистанції атаки в інспекторі
+    private bool canAttack = true;            // Макер для позначення перезарядки
+    private NavMeshAgent navMeshAgent;    // Посилання компонент який відповідає за переміщення
+    private Transform player;             // Посилання на гравця
 
 
     void Start()
     {
+        // Пошук необхыдних об'єктів
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        // Налаштування navMeshAgent
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
         navMeshAgent.speed = moveSpeed;
-
     }
 
     private void Update()
     {
         float distanceToTarget = Vector3.Distance(transform.position, player.position);
 
-        // Åñëè èãðîê â ðàäèóñå àòàêè, íà÷èíàåì àòàêó
+        // Якщо гравець в радіусі атаки обєкта 
         if (distanceToTarget <= navMeshAgent.stoppingDistance)
         {
             if (canAttack)
@@ -42,7 +44,7 @@ public class EnemyClown : MonoBehaviour
         }
         else
         {
-            // Èíà÷å äâèãàåìñÿ ê öåëåâîé ïîçèöèè
+            // Йти в сторону гравця
             isMoving = true;
             isAttaking = false;
 
@@ -51,22 +53,19 @@ public class EnemyClown : MonoBehaviour
         }
     }
 
+    // Нанасення атаки гравцю
     IEnumerator AttackWithCooldown()
     {
-        Debug.Log("Attack!");  // TODO: Òóò ìàº áóòè ëîã³êà àí³ìêè.
-
         isMoving = false;
         canAttack = false;
         isAttaking = true;
+
         player.GetComponent<PlayerHealthController>().TakeDamage(clownDamage);
-
-        // Áëîêóºìî àòàêó äî ìîìåíòó, ïîêè íå ïðîéäå ÷àñ ïåðåçàðÿäêè
         yield return new WaitForSeconds(attackCooldown);
-
         canAttack = true;
     }
 
-    //// Â³äîáðàæåííÿ ðàä³óñó àòàêè êëîóíà
+    // Відображення дистації атаки
     private void OnDrawGizmosSelected()
     {
         if (drawAtackRange)

@@ -3,18 +3,19 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 
-// Представляє собою логіку взаємодії з анімаціями
+// Представляє собою логіку відтворення анімацій для локацій
 public class CastsceneAnimator : MonoBehaviour
 {
+    public delegate void MyEventHandler();
+    public static MyEventHandler onCameraFocused;
+
     [SerializeField] Animator castsceneAnim; // Аніматор в якому находяться рамки для кастсцен
     private cameraMovement camera;
     private GameObject Player;
     private GameObject Clown;
-    public delegate void MyEventHandler();
-    public static MyEventHandler onCameraFocused;
+
 
     private void Awake()
     {
@@ -48,16 +49,21 @@ public class CastsceneAnimator : MonoBehaviour
         GameFreeze(false);
     }
 
+    // Паузить гравця й клоуна 
     private void GameFreeze(bool freezed) // TODO: Переделать на ивенты
     {
-        if (Player == null || Clown == null)
+        if ( Player == null)
         {
-            Debug.LogError("Player or Clown not found!");
-            return;
+            Player.GetComponent<PlayerJump>().enabled = !freezed;
         }
+        else throw new Exception ("CastsceneAnimator\\GameFreeze - Clown not found!");
 
-        Player.GetComponent<PlayerJump>().enabled = !freezed;
-        Clown.GetComponent<EnemyClown>().enabled = !freezed;
+        if( Clown == null)
+        {
+            Clown.GetComponent<EnemyClown>().enabled = !freezed;
+            Clown.GetComponent<NavMeshAgent>().enabled = !freezed;
+        } 
+        else throw new Exception("CastsceneAnimator\\GameFreeze - Player not found!");
     }
 
     // Метод для прерывания кастсцены
