@@ -9,6 +9,8 @@ TagManager:
   - HealthBar
   - Banana
   - barrel
+  - Pentagram
+  - PaintPoint
   layers:
   - Default
   - TransparentFX
