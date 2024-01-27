@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalScale.z
@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8.51
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.47
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.6627159
       objectReference: {fileID: 0}
     - target: {fileID: 178684959292213981, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -130,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7144595706589932369, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       propertyPath: m_TagString
-      value: obstacles
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -141,7 +141,7 @@ PrefabInstance:
       addedObject: {fileID: 9092104641247748345}
     - targetCorrespondingSourceObject: {fileID: 7144595706589932369, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5862129138748893220}
+      addedObject: {fileID: 8535159562091782679}
   m_SourcePrefab: {fileID: 100100000, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
 --- !u!1 &8211845822273176511 stripped
 GameObject:
@@ -180,7 +180,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.14403194}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -191,9 +191,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7119361}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &5862129138748893220
+--- !u!50 &8535159562091782679
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class ClownAnimator : MonoBehaviour
     private Transform player;  // Посилання на гравця
     [SerializeField] private Transform fireballSpawnPoint;
 
+    
 
     void Start()
     {
