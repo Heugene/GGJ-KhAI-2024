@@ -108,6 +108,7 @@ public class PentagramLogic : MonoBehaviour
         if (index == 5) 
         {
             Debug.Log("Пентаграма зарахована");
+            Instantiate(SuperBananaPrefab);
             End?.Invoke();
         }
 

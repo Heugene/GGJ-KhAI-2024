@@ -45,6 +45,14 @@ public abstract class InventoryDisplay : MonoBehaviour
         OnSelectedSlotChange(selectedSlotIndex);
 
     }
+    public InventorySlot_UI GetCurrentSlot()
+    {
+        if (selectedSlotIndex >= 0 && selectedSlotIndex < slotDictionary.Count)
+        {
+            return slotDictionary.ElementAt(selectedSlotIndex).Key;
+        }
+        return null;
+    }
     public SOItems GetCurrentItem()
     {
         return currentItem;

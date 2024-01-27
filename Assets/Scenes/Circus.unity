@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -635,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!95 &92696306
 Animator:
   serializedVersion: 5
@@ -1173,7 +1174,7 @@ MonoBehaviour:
   _radius: 8
   _radiusPointAndLine: 2
   _width: 2
-  SuperBananaPrefab: {fileID: 0}
+  SuperBananaPrefab: {fileID: 4367529766173897791, guid: b8134696c0023774a933567608320db0, type: 3}
 --- !u!1001 &357810797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1304,6 +1305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &365606821
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1734,6 +1736,10 @@ PrefabInstance:
     - target: {fileID: 8103925448988222063, guid: 42603556a19202b4c9b8b5595583fb64, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948907985794944042, guid: 42603556a19202b4c9b8b5595583fb64, type: 3}
+      propertyPath: TimeOfStun
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2221,8 +2227,8 @@ MonoBehaviour:
   player: {fileID: 0}
   spawnSpeed: 5
   coneAngle: 25
-  numberOfFireballs: 5
-  timeBetweenSpawns: 0.25
+  numberOfFireballs: 10
+  timeBetweenSpawns: 0.1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,6 +2933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &987689104
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3617,6 +3624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1143192313
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4139,6 +4147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1280291971
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4334,6 +4343,7 @@ MonoBehaviour:
   Area3: {fileID: 1534350003}
   Area4: {fileID: 1970926292}
   Lever: {fileID: 1786927061}
+  sauceSpawner: {fileID: 2053512497}
 --- !u!1001 &1300051508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5116,6 +5126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1637993283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5471,6 +5482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1693001268
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5745,6 +5757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1772770930
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6517,6 +6530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2053512496}
+  - component: {fileID: 2053512497}
   m_Layer: 0
   m_Name: Sauces
   m_TagString: Untagged
@@ -6533,7 +6547,7 @@ Transform:
   m_GameObject: {fileID: 2053512495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.4, y: 4.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6543,6 +6557,24 @@ Transform:
   - {fileID: 1352685974}
   m_Father: {fileID: 1511192068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053512497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053512495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1ed70512ba6934eba62ed8e77c8c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn1: {fileID: 8428073506933274792, guid: 8d3a22331ad4dcd468b33f350d4b15a0, type: 3}
+  prefabToSpawn2: {fileID: 4527191058487273558, guid: 7371c9e83ebe50242a4b269d2fa2b3cb, type: 3}
+  prefabToSpawn3: {fileID: 3639912017869125015, guid: 05ea8a0b8e2d46e43a5206de8e7e08b0, type: 3}
+  numberOfPrefabs: 3
+  spawnAreaSize: {x: 35, y: 35}
+  randomScale: 1.5
 --- !u!1 &2061329398
 GameObject:
   m_ObjectHideFlags: 0
