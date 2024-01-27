@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChallengeLogic : MonoBehaviour
@@ -12,6 +13,7 @@ public class ChallengeLogic : MonoBehaviour
     [SerializeField] private ButtonGroupLogic Area2;
     [SerializeField] private ButtonGroupLogic Area3;
     [SerializeField] private ButtonGroupLogic Area4;
+    [SerializeField] private Transform Lever;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +71,9 @@ public class ChallengeLogic : MonoBehaviour
     {
         Debug.Log("Area4 COMPLETED");
         // ЯК подолати клоуна.пнг Джоджореференс.джипег, стартуємо малювання пентаграми ЛЕТСФАКІНГОООООООО
+        
+        Lever.gameObject.SetActive(true);
+
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
 
         // Ставимо великий час існування трейлу, щоб встигнути намалювати пентаграму.

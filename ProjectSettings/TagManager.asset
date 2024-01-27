@@ -16,6 +16,7 @@ TagManager:
   - Pentagram
   - PaintPoint
   - sauce
+  - Lever
   layers:
   - Default
   - TransparentFX
