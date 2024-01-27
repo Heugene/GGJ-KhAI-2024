@@ -3712,7 +3712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1cbe64de2042e4488092fa868b516d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thickness: 4
+  _thickness: 12
   _arena: {fileID: 68101380}
 --- !u!68 &2077174851
 EdgeCollider2D:
