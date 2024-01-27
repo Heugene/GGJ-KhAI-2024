@@ -38,7 +38,7 @@ public class ChallengeLogic : MonoBehaviour
         Area2.gameObject.SetActive(true);
 
         //Тест
-        GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
+        //GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
 
     }
 
