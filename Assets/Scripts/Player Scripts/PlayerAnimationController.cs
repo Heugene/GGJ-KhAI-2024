@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
     Animator animator;
-    Rigidbody2D rb;
     SpriteRenderer sr;
     bool isStanding;
     bool isJumping;
@@ -17,7 +14,6 @@ public class PlayerAnimationController : MonoBehaviour
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
     }
@@ -52,9 +48,12 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
 
-    public void Freeze()
+    public void Freeze(bool isFreeze)
     {
-        //TODO: Do logic to freeze player
+        playerDash.isFreezed = isFreeze;
+        playerJump.isFreezed = isFreeze;
+
+        //TODO: Do logic to remove fire
     }
 
     private void PlayerRotation()
