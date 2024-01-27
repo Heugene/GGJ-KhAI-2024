@@ -112,7 +112,15 @@ public class PentagramLogic : MonoBehaviour
     public void NextPath()
     {
         _paintPoints[index-1].SetActive(false);
-        _lineCollaiders[index-1].SetActive(true);
+        try
+        {
+            _lineCollaiders[index - 1].SetActive(false);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[{e.Message}] Все идет по плану");
+        }
+        _lineCollaiders[index].SetActive(true);
         _paintPoints[(index+2) % 5].SetActive(true);
 
         if (index > _paintPoints.Length)

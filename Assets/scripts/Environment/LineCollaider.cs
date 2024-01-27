@@ -22,15 +22,14 @@ public class LineCollaider : MonoBehaviour
     {
         EdgeCollider2D ED2D = GetComponent<EdgeCollider2D>();
         _lenght = Vector2.Distance(ED2D.points[0], ED2D.points[1]);
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _playerDash = _player.GetComponent<PlayerDash>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _player = collision.gameObject;
-            _playerDash = _player.GetComponent<PlayerDash>();
-
             if (_playerDash.isDashing)
             {
                 StartPlayerDash();
@@ -42,7 +41,7 @@ public class LineCollaider : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && _playerDash.isDashing)
         {
             EndPlayerDash();
         }

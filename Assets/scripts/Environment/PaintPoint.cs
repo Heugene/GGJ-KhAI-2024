@@ -11,6 +11,8 @@ public class PaintPoint : MonoBehaviour
         if (collision.gameObject.tag == "Player" && _distanceComlete)
         {
             GetComponentInParent<Transform>().parent.parent.GetComponent<PentagramLogic>().NextPath();
+            _distanceComlete = false;
+            gameObject.SetActive(false);
         }
     }
 
