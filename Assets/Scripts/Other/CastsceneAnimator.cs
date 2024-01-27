@@ -1,45 +1,73 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
-// Представляє собою логіку взаємодії з анімаціями
+/// <summary>
+/// Представляє собою логіку відтворення анімацій для локацій
+/// </summary>
 public class CastsceneAnimator : MonoBehaviour
 {
-    private Animator animator; // Аніматор в якому находяться рамки для кастсцен
+    public delegate void MyEventHandler();         // Делегат до події
+    public static MyEventHandler onCameraFocused;  // Подія для програвання кастсцени
 
-    void Start()
+    [SerializeField] Animator castsceneAnim; // Аніматор в якому находяться рамки для кастсцен
+    private cameraMovement cameraScript;  // Посилання на cкріпт до камери     
+    private GameObject Player;            // Посилання на гравця
+    private GameObject Clown;             // Посилання на клоуна
+
+
+    private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        Player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();
+        Clown = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault();
+        cameraScript = FindObjectOfType<cameraMovement>();
     }
 
-    /// <summary>
-    /// Проигрывание каст сцены
-    /// </summary>
-    /// <exception cref="Exception"></exception>
-    public IEnumerator PlayCastscene(Animator animCast, string titleAnimation)
+    // Переміщеня камери на кастсцену з її прогрванням
+    public IEnumerator Play(Transform cameraPoint, float waitingTime)
     {
-        if (animCast != null)
-        {
-            // Показ рамок для кастсцены
-            animator.Play("StartCastscene");
+        GameFreeze(true);
 
-            // Проигрывание кастсцены
-            animCast.Play(titleAnimation);
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        // Показ рамок для кастсцены
+        castsceneAnim.Play("StartCastscene");
+        cameraScript.SetTarget(cameraPoint.position);
+        yield return new WaitForSeconds(castsceneAnim.GetCurrentAnimatorStateInfo(0).length);
 
-            // Скрытие рамок для кастсцены
-            animator.Play("StopCastscene");
-        }
-        else
-        {
-            throw new Exception("Castscene animator is null");
-        }
+        // Проигрывание кастсцены
+        onCameraFocused?.Invoke();
+        yield return new WaitForSeconds(waitingTime);
+
+        // Скрытие рамок для кастсцены
+        cameraScript.FollowPlayer();
+        castsceneAnim.Play("StopCastscene");
+        yield return new WaitForSeconds(castsceneAnim.GetCurrentAnimatorStateInfo(0).length);
+
+        GameFreeze(false);
     }
 
-    // Метод для прерывания кастсцены
+    // Паузить гравця й клоуна 
+    private void GameFreeze(bool freezed) // TODO: Переделать на ивенты
+    {
+        if ( Player != null)
+        {
+            Player.GetComponent<PlayerJump>().enabled = !freezed;
+        }
+        else throw new Exception ("[CastsceneAnimator\\GameFreeze] - Clown not found!");
+
+        if( Clown != null)
+        {
+            Clown.GetComponent<EnemyClown>().enabled = !freezed;
+            Clown.GetComponent<NavMeshAgent>().enabled = !freezed;
+        } 
+        else throw new Exception("[CastsceneAnimator\\GameFreeze] - Player not found!");
+    }
+
+    // Переривання катсцени
     public void StopCastscene(Animator animCast, string titleAnimation)
     {
         animCast.StopPlayback();
-        animator.Play("StopCastscene");
+        castsceneAnim.Play("StopCastscene");
     }
 }
