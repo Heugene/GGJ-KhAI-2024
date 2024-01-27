@@ -4,37 +4,35 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-// Представляє собою логіку відтворення анімацій для локацій
+/// <summary>
+/// Представляє собою логіку відтворення анімацій для локацій
+/// </summary>
 public class CastsceneAnimator : MonoBehaviour
 {
-    public delegate void MyEventHandler();
-    public static MyEventHandler onCameraFocused;
+    public delegate void MyEventHandler();         // Делегат до події
+    public static MyEventHandler onCameraFocused;  // Подія для програвання кастсцени
 
     [SerializeField] Animator castsceneAnim; // Аніматор в якому находяться рамки для кастсцен
-    private cameraMovement camera;
-    private GameObject Player;
-    private GameObject Clown;
+    private cameraMovement cameraScript;  // Посилання на cкріпт до камери     
+    private GameObject Player;            // Посилання на гравця
+    private GameObject Clown;             // Посилання на клоуна
 
 
     private void Awake()
     {
         Player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();
         Clown = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault();
-        camera = FindObjectOfType<cameraMovement>();
+        cameraScript = FindObjectOfType<cameraMovement>();
     }
 
-    /// <summary>
-    /// Проигрывание каст сцены
-    /// </summary>
-    /// <exception cref="Exception"></exception>
+    // Переміщеня камери на кастсцену з її прогрванням
     public IEnumerator Play(Transform cameraPoint, float waitingTime)
     {
         GameFreeze(true);
 
         // Показ рамок для кастсцены
         castsceneAnim.Play("StartCastscene");
-        camera.ChangeTarget(cameraPoint.position);
+        cameraScript.SetTarget(cameraPoint.position);
         yield return new WaitForSeconds(castsceneAnim.GetCurrentAnimatorStateInfo(0).length);
 
         // Проигрывание кастсцены
@@ -42,7 +40,7 @@ public class CastsceneAnimator : MonoBehaviour
         yield return new WaitForSeconds(waitingTime);
 
         // Скрытие рамок для кастсцены
-        camera.FollowPlayer();
+        cameraScript.FollowPlayer();
         castsceneAnim.Play("StopCastscene");
         yield return new WaitForSeconds(castsceneAnim.GetCurrentAnimatorStateInfo(0).length);
 
@@ -66,7 +64,7 @@ public class CastsceneAnimator : MonoBehaviour
         else throw new Exception("CastsceneAnimator\\GameFreeze - Player not found!");
     }
 
-    // Метод для прерывания кастсцены
+    // Переривання катсцени
     public void StopCastscene(Animator animCast, string titleAnimation)
     {
         animCast.StopPlayback();

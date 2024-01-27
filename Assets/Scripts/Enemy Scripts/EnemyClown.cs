@@ -2,7 +2,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 
-
+/// <summary>
+/// Компонент який реалізує поведення клоуна
+/// </summary>
 public class EnemyClown : MonoBehaviour
 {
     public bool isAttaking = false;             // Макер який характеризує чи атакує клоун
@@ -22,7 +24,7 @@ public class EnemyClown : MonoBehaviour
 
     void Start()
     {
-        // Пошук необхыдних об'єктів
+        // Пошук необхідних об'єктів
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
 

@@ -1,19 +1,30 @@
 using UnityEngine;
 
+/// <summary>
+/// Комапонент що організовує переміщення камери за объєктом, або ж за гравцем якщо обєкт не заданий
+/// </summary>
 public class cameraMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 2f;
-    [SerializeField] Transform player;
-    private Vector3? targetPosition = null;
+    [SerializeField] float speed = 2f;       // Швидкість камери
 
+    private Transform player;                // Посилання на гравя
+    private Vector3? targetPosition = null;  // Позиція на яку має рухатися камера
+
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void Update()
     {
+        // Якщо не вибрана позиція для переміщення камери
         if (targetPosition != null)
         {
             Vector3 movePos = targetPosition.Value;
             transform.position = Vector3.Lerp(transform.position, movePos, speed * Time.deltaTime);
         }
+        // Якщо камера на гравці
         else if (transform.position != player.position)
         {
             Vector3 moveVector = new Vector3(player.position.x, player.position.y, transform.position.z);
@@ -21,17 +32,19 @@ public class cameraMovement : MonoBehaviour
         } 
     }
 
-    public void ChangeTarget(Vector3 movePoint)
+    // Задає позицію для переміщення камери
+    public void SetTarget(Vector3 movePoint)
     {
         targetPosition = new Vector3(movePoint.x, movePoint.y, -8f);
     }
 
+    // Повертає камеру на гравця
     public void FollowPlayer()
     {
-        targetPosition = null;
-        
+        targetPosition = null;  
     }
 
+    // Чи знаходиться камера на заданій позиції
     public bool isOnTarget()
     {
         return transform.position == targetPosition;
