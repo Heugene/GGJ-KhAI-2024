@@ -29,6 +29,7 @@ public class ClownAnimator : MonoBehaviour
         {
             animator.SetBool("isAttacking", false);
             animator.SetBool("isMoving", true);
+            animator.SetBool("isFall", false);
         }
 
         // якщо клоун атакуЇ
@@ -36,6 +37,14 @@ public class ClownAnimator : MonoBehaviour
         {
             animator.SetBool("isAttacking", true);
             animator.SetBool("isMoving", false);
+            animator.SetBool("isFall", false);
+        }
+
+        if(clown.enabled == false)
+        {
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isMoving", false);
+            animator.SetBool("isFall", true);
         }
     }
 
