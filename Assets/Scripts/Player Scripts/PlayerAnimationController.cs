@@ -10,12 +10,14 @@ public class PlayerAnimationController : MonoBehaviour
     bool isDashing;
     PlayerDash playerDash;
     PlayerJump playerJump;
+    PlayerHealthController playerHealthController;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
+        playerHealthController = GetComponent<PlayerHealthController>();
     }
 
     // Update is called once per frame
@@ -52,8 +54,7 @@ public class PlayerAnimationController : MonoBehaviour
     {
         playerDash.isFreezed = isFreeze;
         playerJump.isFreezed = isFreeze;
-
-        //TODO: Do logic to remove fire
+        playerHealthController.isImmuneToDamage = isFreeze;
     }
 
     private void PlayerRotation()

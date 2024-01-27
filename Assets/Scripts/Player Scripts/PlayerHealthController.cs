@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerHealthController : MonoBehaviour
 {
     public int health { get; private set; } = 5; // Поточне ХП
+    public bool isImmuneToDamage = false;
     private int numOfParts; // Кількість частинок сосиски, яка репрезентує кількість ХП;
     private Image[] parts; // Массив частинок сосиски
     private Animator anim; // Аніматор плеєра
@@ -19,6 +20,8 @@ public class PlayerHealthController : MonoBehaviour
     // Метод отримання дамагу
     internal void TakeDamage(int damage)
     {
+        if (isImmuneToDamage) return;
+
         if (health > 0)
         {
             health -= damage; // Віднімаємо дамаг від ХП
