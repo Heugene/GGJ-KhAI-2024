@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2160,7 +2160,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1116388755}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.15
+  m_Radius: 1.4
   m_Speed: 100
   m_Acceleration: 16
   avoidancePriority: 1
@@ -2169,8 +2169,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 3.45
-  m_BaseOffset: 2.5
+  m_Height: 3.2
+  m_BaseOffset: 2.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &1143192309
