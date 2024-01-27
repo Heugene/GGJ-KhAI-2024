@@ -12,6 +12,7 @@ public class ChallengeLogic : MonoBehaviour
     [SerializeField] private ButtonGroupLogic Area2;
     [SerializeField] private ButtonGroupLogic Area3;
     [SerializeField] private ButtonGroupLogic Area4;
+    [SerializeField] private RandomSauceSpawner sauceSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class ChallengeLogic : MonoBehaviour
     private void Area1_CompleteActions()
     {
         Debug.Log("Area1 COMPLETED");
+        sauceSpawner.SpawnMayonnaise();
 
         // Розблокуємо зону 2
         Area2.gameObject.SetActive(true);
@@ -50,7 +52,8 @@ public class ChallengeLogic : MonoBehaviour
     private void Area2_CompleteActions()
     {
         Debug.Log("Area2 COMPLETED");
-
+        sauceSpawner.SpawnKetchup();
+        sauceSpawner.SpawnMayonnaise();
         // Розблокуємо зону 3
         Area3.gameObject.SetActive(true);
     }
@@ -59,6 +62,10 @@ public class ChallengeLogic : MonoBehaviour
     private void Area3_CompleteActions()
     {
         Debug.Log("Area3 COMPLETED");
+        sauceSpawner.SpawnKetchup();
+        sauceSpawner.SpawnMayonnaise();
+        sauceSpawner.SpawnCheese();
+
 
         // Розблокуємо зону 4
         Area4.gameObject.SetActive(true);
@@ -68,6 +75,8 @@ public class ChallengeLogic : MonoBehaviour
     private void Area4_CompleteActions()
     {
         Debug.Log("Area4 COMPLETED");
+        sauceSpawner.SpawnKetchup();
+        sauceSpawner.SpawnKetchup();
         // ЯК подолати клоуна.пнг Джоджореференс.джипег, стартуємо малювання пентаграми ЛЕТСФАКІНГОООООООО
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
 
