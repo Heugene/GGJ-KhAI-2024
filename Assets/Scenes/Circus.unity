@@ -400,7 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _numOfCorners: 58
   _radius: 44
-  _delete: 0
+  _delete: 1
   _save: 1
 --- !u!23 &68101381
 MeshRenderer:
