@@ -50,18 +50,18 @@ public class CastsceneAnimator : MonoBehaviour
     // ѕаузить гравц€ й клоуна 
     private void GameFreeze(bool freezed) // TODO: ѕеределать на ивенты
     {
-        if ( Player == null)
+        if ( Player != null)
         {
             Player.GetComponent<PlayerJump>().enabled = !freezed;
         }
-        else throw new Exception ("CastsceneAnimator\\GameFreeze - Clown not found!");
+        else throw new Exception ("[CastsceneAnimator\\GameFreeze] - Clown not found!");
 
-        if( Clown == null)
+        if( Clown != null)
         {
             Clown.GetComponent<EnemyClown>().enabled = !freezed;
             Clown.GetComponent<NavMeshAgent>().enabled = !freezed;
         } 
-        else throw new Exception("CastsceneAnimator\\GameFreeze - Player not found!");
+        else throw new Exception("[CastsceneAnimator\\GameFreeze] - Player not found!");
     }
 
     // ѕерериванн€ катсцени
