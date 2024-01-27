@@ -16,22 +16,30 @@ public class ButtonPressLogic : MonoBehaviour
     // якщо тригеритьс€ колайдер кнопки
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // «м≥нюЇмо в≥дпов≥дний прапорець на true 
-        isPressed = true;
-        //Debug.Log("Button state = " + isPressed);
+        // якщо у кнопку прилет≥в не файрбол
+        if (collision.tag != "fireball")
+        {
+            // «м≥нюЇмо в≥дпов≥дний прапорець на true 
+            isPressed = true;
+            //Debug.Log("Button state = " + isPressed);
 
-        // ѕ≥дключаЇмо тут ан≥мац≥ю
-        anim.SetBool("Pressed", isPressed);
+            // ѕ≥дключаЇмо тут ан≥мац≥ю
+            anim.SetBool("Pressed", isPressed);
+        }
     }
 
     // якщо колайдер кнопки перестаЇ тригеритис€
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // «м≥нюЇмо в≥дпов≥дний прапорець на false
-        isPressed = false;
-        //Debug.Log("Button state = " + isPressed);
+        // якщо у кнопку прилет≥в не файрбол
+        if (collision.tag != "fireball")
+        {
+            // «м≥нюЇмо в≥дпов≥дний прапорець на false
+            isPressed = false;
+            //Debug.Log("Button state = " + isPressed);
 
-        // ѕ≥дключаЇмо тут ан≥мац≥ю
-        anim.SetBool("Pressed", isPressed);
+            // ѕ≥дключаЇмо тут ан≥мац≥ю
+            anim.SetBool("Pressed", isPressed);
+        }
     }
 }
