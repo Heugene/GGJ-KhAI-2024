@@ -17,6 +17,8 @@ public class PentagramLogic : MonoBehaviour
     public float _radiusPointAndLine = 2f;
     [SerializeField]
     float _width = 2f;
+    [SerializeField]
+    GameObject SuperBananaPrefab;
 
     GameObject _startPoint;
     GameObject[] _lineCollaiders;
