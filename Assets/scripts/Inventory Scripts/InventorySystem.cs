@@ -59,18 +59,24 @@ public class InventorySystem
             foreach (var slot in invSlot)
             {
                 var stackSize = slot.StackSize;
-                if (stackSize > amount) slot.RemoveFromStack(amount);
+                if (stackSize > amount)
+                {
+                    slot.RemoveFromStack(amount);
+                }
                 else
                 {
                     slot.RemoveFromStack(stackSize);
                     amount -= stackSize;
                 }
-
-                OnInventorySlotChanged?.Invoke(slot);
-                OnCurrentItemChangedInSystem?.Invoke(slot.ItemData);
             }
+
+            // Вызываем OnInventorySlotChanged после завершения цикла
+            OnInventorySlotChanged?.Invoke(invSlot.LastOrDefault());
+            OnCurrentItemChangedInSystem?.Invoke(data);
         }
     }
+
+
     public bool ContainsItem(SOItems itemToAdd, out List<InventorySlot> invSlot)
     {
         invSlot = InventorySlots.Where(i => i.ItemData == itemToAdd).ToList();
