@@ -14,7 +14,7 @@ public class ButtonPressLogic : MonoBehaviour
     }
 
     // якщо тригеритьс€ колайдер кнопки
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         // якщо у кнопку прилет≥в не файрбол
         if (collision.tag != "fireball")
