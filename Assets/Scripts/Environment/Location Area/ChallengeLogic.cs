@@ -66,5 +66,6 @@ public class ChallengeLogic : MonoBehaviour
         Debug.Log("Area4 COMPLETED");
         // ЯК подолати клоуна.пнг Джоджореференс.джипег, стартуємо малювання пентаграми ЛЕТСФАКІНГОООООООО
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
+
     }
 }
