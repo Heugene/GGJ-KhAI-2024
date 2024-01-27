@@ -12,15 +12,15 @@ public class CastsceneAnimator : MonoBehaviour
     public delegate void MyEventHandler();         // Делегат до події
     public static MyEventHandler onCameraFocused;  // Подія для програвання кастсцени
 
-    [SerializeField] Animator castsceneAnim; // Аніматор в якому находяться рамки для кастсцен
-    private cameraMovement cameraScript;  // Посилання на cкріпт до камери     
-    private GameObject Player;            // Посилання на гравця
+    [SerializeField] Animator castsceneAnim;    // Аніматор в якому находяться рамки для кастсцен
+    private cameraMovement cameraScript;        // Посилання на cкріпт до камери     
+    private PlayerAnimationController Player;   // Посилання на компонент анімацій гравця
     private EnemyClown Clown;             // Посилання на клоуна
 
 
     private void Awake()
     {
-        Player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();
+        Player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault().GetComponent<PlayerAnimationController>();
         Clown = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault().GetComponent<EnemyClown>();
         cameraScript = FindObjectOfType<cameraMovement>();
     }
@@ -52,13 +52,13 @@ public class CastsceneAnimator : MonoBehaviour
     {
         if ( Player != null)
         {
-            Player.GetComponent<PlayerJump>().enabled = !freezed;
+            Player.Freeze(freezed);
         }
         else throw new Exception ("[CastsceneAnimator\\GameFreeze] - Clown not found!");
 
         if( Clown != null)
         {
-            Clown.Freeze(!freezed);
+            Clown.Freeze(freezed);
         } 
         else throw new Exception("[CastsceneAnimator\\GameFreeze] - Player not found!");
     }

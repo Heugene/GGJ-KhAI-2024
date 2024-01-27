@@ -16,10 +16,12 @@ public class PlayerJump : MonoBehaviour
     private Vector2 mousePosition; // Координати миші
     private Vector2 LastMousePosition; // Останні координати миші
 
+    public bool isFreezed = false;
     public bool isCanMove = true;
     public bool IsMoving = false; // Прапорець стану руху
     public bool IsButtonJumpPressed = false; // Прапорець утримання кнопки руху
     public bool isPlayerHitEnemy = false; // змінна для визначення чи гравець зіткнувся з ворогом
+
 
 
     private void Start()
@@ -30,6 +32,8 @@ public class PlayerJump : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isFreezed) return;
+
         CalculateJumpReload();
         CalculateJumpDistance();
 
@@ -39,14 +43,16 @@ public class PlayerJump : MonoBehaviour
 
     private void Update()
     {
+        if (isFreezed) return;
+
         rb.velocity = Vector2.zero;
 
         mousePosition = GetMouseWorldPosition();
 
         MouseChargingInput();
-
+        
         JumpWhenMouseUP();
-
+        
         StopMoveWhenCloseToPosition();
     }
 

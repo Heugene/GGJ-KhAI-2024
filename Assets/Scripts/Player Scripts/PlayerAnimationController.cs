@@ -1,25 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
     Animator animator;
-    Rigidbody2D rb;
     SpriteRenderer sr;
     bool isStanding;
     bool isJumping;
     bool isDashing;
     PlayerDash playerDash;
     PlayerJump playerJump;
+    PlayerHealthController playerHealthController;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
+        playerHealthController = GetComponent<PlayerHealthController>();
     }
 
     // Update is called once per frame
@@ -52,9 +50,11 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
 
-    public void Freeze()
+    public void Freeze(bool isFreeze)
     {
-        //TODO: Do logic to freeze player
+        playerDash.isFreezed = isFreeze;
+        playerJump.isFreezed = isFreeze;
+        playerHealthController.isImmuneToDamage = isFreeze;
     }
 
     private void PlayerRotation()
