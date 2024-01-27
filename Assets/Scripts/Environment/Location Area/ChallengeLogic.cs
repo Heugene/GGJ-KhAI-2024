@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChallengeLogic : MonoBehaviour
 {
     internal bool Solved { get; private set; }
-    private GameObject player; // Плеєр
+    private GameObject player; // ДЋГ«ДєЕџД‘
     
-    // Об'єкти скриптів для зон з кнопками, щоб можна було з них витягувати стан проходження зони
+    // ГЋГЎ'ЕџД™Е€ДЌ Е„Д™Д‘ДЌДЏЕ€Е‚Гў Г¤Г«Л™ Г§Г®Г­ Г§ Д™Г­Г®ДЏД™Е•Д›ДЌ, ЕЇГ®ГЎ Д›Г®Д‡Г­Е• ГЎГіГ«Г® Г§ Г­ДЌЕ‘ ГўДЌЕ€Л™ДѓГіГўЕ•Е€ДЌ Е„Е€Е•Г­ ДЏД‘Г®Е‘Г®Г¤Д‡ДєГ­Г­Л™ Г§Г®Г­ДЌ
     [SerializeField] private ButtonGroupLogic Area1; 
     [SerializeField] private ButtonGroupLogic Area2;
     [SerializeField] private ButtonGroupLogic Area3;
     [SerializeField] private ButtonGroupLogic Area4;
+    [SerializeField] private Transform Lever;
     [SerializeField] private RandomSauceSpawner sauceSpawner;
 
     // Start is called before the first frame update
@@ -31,34 +33,34 @@ public class ChallengeLogic : MonoBehaviour
     }
 
 
-    // Додати перемикання камери, анімашки, розблокування соусів, видати соуси гравцю
+    // Г„Г®Г¤Е•Е€ДЌ ДЏДєД‘ДєД›ДЌД™Е•Г­Г­Л™ Д™Е•Д›ДєД‘ДЌ, Е•Г­Е‚Д›Е•Е™Д™ДЌ, Д‘Г®Г§ГЎГ«Г®Д™ГіГўЕ•Г­Г­Л™ Е„Г®ГіЕ„Е‚Гў, ГўДЌГ¤Е•Е€ДЌ Е„Г®ГіЕ„ДЌ ДѓД‘Е•ГўГ¶ЕЈ
 
 
-    // Дії, коли пройшли першу зону з кнопками
+    // Г„Е‚Еј, Д™Г®Г«ДЌ ДЏД‘Г®Г©Е™Г«ДЌ ДЏДєД‘Е™Гі Г§Г®Г­Гі Г§ Д™Г­Г®ДЏД™Е•Д›ДЌ
     private void Area1_CompleteActions()
     {
         Debug.Log("Area1 COMPLETED");
         sauceSpawner.SpawnMayonnaise();
 
-        // Розблокуємо зону 2
+        // ДђГ®Г§ГЎГ«Г®Д™ГіЕџД›Г® Г§Г®Г­Гі 2
         Area2.gameObject.SetActive(true);
 
-        //Тест
+        //Е‡ДєЕ„Е€
         //GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
 
     }
 
-    // Дії, коли пройшли другу зону з кнопками
+    // Г„Е‚Еј, Д™Г®Г«ДЌ ДЏД‘Г®Г©Е™Г«ДЌ Г¤Д‘ГіДѓГі Г§Г®Г­Гі Г§ Д™Г­Г®ДЏД™Е•Д›ДЌ
     private void Area2_CompleteActions()
     {
         Debug.Log("Area2 COMPLETED");
         sauceSpawner.SpawnKetchup();
         sauceSpawner.SpawnMayonnaise();
-        // Розблокуємо зону 3
+        // ДђГ®Г§ГЎГ«Г®Д™ГіЕџД›Г® Г§Г®Г­Гі 3
         Area3.gameObject.SetActive(true);
     }
 
-    // Дії, коли пройшли третю зону з кнопками
+    // Г„Е‚Еј, Д™Г®Г«ДЌ ДЏД‘Г®Г©Е™Г«ДЌ Е€Д‘ДєЕ€ЕЈ Г§Г®Г­Гі Г§ Д™Г­Г®ДЏД™Е•Д›ДЌ
     private void Area3_CompleteActions()
     {
         Debug.Log("Area3 COMPLETED");
@@ -67,28 +69,31 @@ public class ChallengeLogic : MonoBehaviour
         sauceSpawner.SpawnCheese();
 
 
-        // Розблокуємо зону 4
+        // ДђГ®Г§ГЎГ«Г®Д™ГіЕџД›Г® Г§Г®Г­Гі 4
         Area4.gameObject.SetActive(true);
     }
 
-    // Дії, коли пройшли четверту зону з кнопками
+    // Г„Е‚Еј, Д™Г®Г«ДЌ ДЏД‘Г®Г©Е™Г«ДЌ Г·ДєЕ€ГўДєД‘Е€Гі Г§Г®Г­Гі Г§ Д™Г­Г®ДЏД™Е•Д›ДЌ
     private void Area4_CompleteActions()
     {
         Debug.Log("Area4 COMPLETED");
         sauceSpawner.SpawnKetchup();
         sauceSpawner.SpawnKetchup();
-        // ЯК подолати клоуна.пнг Джоджореференс.джипег, стартуємо малювання пентаграми ЛЕТСФАКІНГОООООООО
+        // ГџД ДЏГ®Г¤Г®Г«Е•Е€ДЌ Д™Г«Г®ГіГ­Е•.ДЏГ­Дѓ Г„Д‡Г®Г¤Д‡Г®Д‘ДєГґДєД‘ДєГ­Е„.Г¤Д‡ДЌДЏДєДѓ, Е„Е€Е•Д‘Е€ГіЕџД›Г® Д›Е•Г«ЕЈГўЕ•Г­Г­Л™ ДЏДєГ­Е€Е•ДѓД‘Е•Д›ДЌ Г‹Д№Е‡ЕѓГ”Е”ДЛ›ГЌД‚ГЋГЋГЋГЋГЋГЋГЋГЋ
+        
+        Lever.gameObject.SetActive(true);
+
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
 
-        // Ставимо великий час існування трейлу, щоб встигнути намалювати пентаграму.
+        // ЕѓЕ€Е•ГўДЌД›Г® ГўДєГ«ДЌД™ДЌГ© Г·Е•Е„ Е‚Е„Г­ГіГўЕ•Г­Г­Л™ Е€Д‘ДєГ©Г«Гі, ЕЇГ®ГЎ ГўЕ„Е€ДЌДѓГ­ГіЕ€ДЌ Г­Е•Д›Е•Г«ЕЈГўЕ•Е€ДЌ ДЏДєГ­Е€Е•ДѓД‘Е•Д›Гі.
         player.GetComponentInChildren<TrailRenderer>().time = 45;
 
     }
     private void EndGame()
     {
-        //Дії після зарахування пентаграми
+        //Г„Е‚Еј ДЏЕ‚Е„Г«Л™ Г§Е•Д‘Е•Е‘ГіГўЕ•Г­Г­Л™ ДЏДєГ­Е€Е•ДѓД‘Е•Д›ДЌ
 
-        // Повертаємо назад час існування трейлу
+        // ДЋГ®ГўДєД‘Е€Е•ЕџД›Г® Г­Е•Г§Е•Г¤ Г·Е•Е„ Е‚Е„Г­ГіГўЕ•Г­Г­Л™ Е€Д‘ДєГ©Г«Гі
         player.GetComponentInChildren<TrailRenderer>().time = 5;
     }
 }

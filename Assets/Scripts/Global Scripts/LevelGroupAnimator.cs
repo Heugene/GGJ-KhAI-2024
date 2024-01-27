@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelGroupAnimator : MonoBehaviour 
 { 
     private CastsceneAnimator castsceneAnimator; // убедитесь, что эта ссылка присвоена в инспекторе Unity
-    private GameObject[] buttons;
+    private Transform[] objects;
 
 
     private void Start()
@@ -15,7 +15,9 @@ public class LevelGroupAnimator : MonoBehaviour
         {
             StartCoroutine(castsceneAnimator.Play(transform, 1.5F));
             CastsceneAnimator.onCameraFocused += HandleUnityEvent;
-            buttons = GetComponentsInChildren<ButtonPressLogic>(true).Select(component => component.gameObject).ToArray();
+            //buttons = GetComponentsInChildren<ButtonPressLogic>(true).Select(component => component.gameObject).ToArray();
+            objects = GetComponentsInChildren<Transform>(true).Where(t => t != transform).ToArray();
+
         }
         else
         {
@@ -25,9 +27,9 @@ public class LevelGroupAnimator : MonoBehaviour
 
     private void HandleUnityEvent()
     {
-        foreach (GameObject btn in buttons)
+        foreach (Transform btn in objects)
         {
-            btn.SetActive(true);
+            btn.gameObject.SetActive(true);
         }
     }
 }

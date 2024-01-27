@@ -12,7 +12,7 @@ public class PlayerAnimationController : MonoBehaviour
     PlayerJump playerJump;
     PlayerHealthController playerHealthController;
 
-    private void Start()
+    private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         playerDash = GetComponent<PlayerDash>();
