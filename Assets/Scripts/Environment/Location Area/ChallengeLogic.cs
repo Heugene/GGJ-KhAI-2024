@@ -36,6 +36,10 @@ public class ChallengeLogic : MonoBehaviour
 
         // Розблокуємо зону 2
         Area2.gameObject.SetActive(true);
+
+        //Тест
+        GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
+
     }
 
     // Дії, коли пройшли другу зону з кнопками
@@ -61,5 +65,6 @@ public class ChallengeLogic : MonoBehaviour
     {
         Debug.Log("Area4 COMPLETED");
         // ЯК подолати клоуна.пнг Джоджореференс.джипег, стартуємо малювання пентаграми ЛЕТСФАКІНГОООООООО
+        GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
     }
 }
