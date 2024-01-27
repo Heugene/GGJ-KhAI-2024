@@ -110,6 +110,10 @@ public class PlayerDash : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Mouse1) && ItemTypeForDash.Contains(currentItemType) && !isDashing)
         {
+            playerJump.audioSource.clip = playerJump.sausageSounds[1];
+            playerJump.audioSource.loop = true;
+            playerJump.audioSource.Play();
+
             isCanDash = true;
             isDashing = true;
 
@@ -144,10 +148,14 @@ public class PlayerDash : MonoBehaviour
     void CalculateDash()
     {
         DashSpeed -= DashSpeedReducer;
-        if(DashSpeed <= 0)
+        if (DashSpeed <= 0)
         {
+            playerJump.audioSource.Stop();
+            playerJump.audioSource.loop = false;
+
             isCanDash = false;
             isDashing = false;
+
             trailRenderer.emitting = false;
             trailRendererMayonnaise.emitting = false;
             DashSpeed = DashSpeedTemp;

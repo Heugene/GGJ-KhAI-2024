@@ -632,6 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!95 &92696306
 Animator:
   serializedVersion: 5
@@ -1170,7 +1171,7 @@ MonoBehaviour:
   _radius: 8
   _radiusPointAndLine: 2
   _width: 2
-  SuperBananaPrefab: {fileID: 0}
+  SuperBananaPrefab: {fileID: 4367529766173897791, guid: b8134696c0023774a933567608320db0, type: 3}
 --- !u!1001 &357810797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1301,6 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &365606821
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2218,8 +2220,8 @@ MonoBehaviour:
   player: {fileID: 0}
   spawnSpeed: 5
   coneAngle: 25
-  numberOfFireballs: 5
-  timeBetweenSpawns: 0.25
+  numberOfFireballs: 10
+  timeBetweenSpawns: 0.1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,6 +2867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &987689104
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3522,6 +3525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1143192313
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4044,6 +4048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1280291971
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5083,6 +5088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1637993283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5438,6 +5444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1693001268
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5712,6 +5719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba48e12e289f5c4c9f7903cbed69050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressedSound: {fileID: 8300000, guid: 24b7eae7b119ef041b382d2cb541580d, type: 3}
 --- !u!212 &1772770930
 SpriteRenderer:
   m_ObjectHideFlags: 0
