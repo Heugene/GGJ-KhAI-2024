@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 357be664c4cae844fb8982a9b65235fe
+guid: 8a7c778040acc1a4aa795d77a0d3247b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lightning-Sheet_0
+      name: lightning-Sheet 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bc9e8ec1cae8aa498583cdc37a8f646
-      internalID: -1809518518
+      spriteID: 917b2a768792dde48b5abebb891bd417
+      internalID: -753344459
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lightning-Sheet_1
+      name: lightning-Sheet 1_1
       rect:
         serializedVersion: 2
         x: 64
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40bc79280db1a9c44830d3b7b033f2e3
-      internalID: -246288421
+      spriteID: 6c9c9a1b21ebec4499f9a27943fd911d
+      internalID: -353876283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lightning-Sheet_2
+      name: lightning-Sheet 1_2
       rect:
         serializedVersion: 2
         x: 128
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a3df2fb21c7be44ebe4a775051376e0
-      internalID: 1409198323
+      spriteID: 5604c361abd557b45b0f5b64b6787065
+      internalID: -1248774903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lightning-Sheet_3
+      name: lightning-Sheet 1_3
       rect:
         serializedVersion: 2
         x: 192
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e0c4ae72f993fc45bd66dc389f576c3
-      internalID: -1643956387
+      spriteID: 4ef78a4358005524a8a8ff06e2a35121
+      internalID: 155528005
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lightning-Sheet_4
+      name: lightning-Sheet 1_4
       rect:
         serializedVersion: 2
         x: 256
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 371ced1dcb0d7104aaf9f8bbf9c53516
-      internalID: -635593442
+      spriteID: 3143b10c6dd4eb440a1e7a63dec100e6
+      internalID: 1229612228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lightning-Sheet_5
+      name: lightning-Sheet 1_5
       rect:
         serializedVersion: 2
         x: 320
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d57558faf2bc74b4aace1f74518f9ee9
-      internalID: -1157495503
+      spriteID: 3a97181457f096a4189fe383c8cf1197
+      internalID: 100643331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lightning-Sheet_6
+      name: lightning-Sheet 1_6
       rect:
         serializedVersion: 2
         x: 384
@@ -263,8 +263,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b464528692fba348a90964b38d242b5
-      internalID: -745489629
+      spriteID: 2eeac0c8f5625434ab2402f388afc80d
+      internalID: 369965591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lightning-Sheet 1_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2aee4ebe1fed8244a027ed3c49dd81b
+      internalID: 1019530063
       vertices: []
       indices: 
       edges: []
@@ -272,7 +293,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 42cb08a0b35175d409b879e2425b5332
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -280,13 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      lightning-Sheet_0: -1809518518
-      lightning-Sheet_1: -246288421
-      lightning-Sheet_2: 1409198323
-      lightning-Sheet_3: -1643956387
-      lightning-Sheet_4: -635593442
-      lightning-Sheet_5: -1157495503
-      lightning-Sheet_6: -745489629
+      lightning-Sheet 1_0: -753344459
+      lightning-Sheet 1_1: -353876283
+      lightning-Sheet 1_2: -1248774903
+      lightning-Sheet 1_3: 155528005
+      lightning-Sheet 1_4: 1229612228
+      lightning-Sheet 1_5: 100643331
+      lightning-Sheet 1_6: 369965591
+      lightning-Sheet 1_7: 1019530063
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -38,6 +38,15 @@ public class ClownAnimator : MonoBehaviour
             animator.SetBool("isAttacking", true);
             animator.SetBool("isMoving", false);
         }
+
+        if (clown.isDead)
+        {
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isMoving", false);
+            animator.SetBool("isFall", false);
+            animator.SetBool("isCanStandUp", false);
+            animator.SetBool("isDead", true);
+        }
     }
 
     // Встановлення напрямку погляду
