@@ -4211,6 +4211,7 @@ MonoBehaviour:
   hint: {fileID: 1671509552}
   lightningStrick: {fileID: 1025654901}
   cutsceneOfDeath: {fileID: 618837125}
+  winingWindow: {fileID: 1836357628}
   Lever: {fileID: 1786927061}
   sauceSpawner: {fileID: 2053512497}
 --- !u!1001 &1300051508
@@ -5863,6 +5864,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6507820458259578174, guid: 42603556a19202b4c9b8b5595583fb64, type: 3}
   m_PrefabInstance: {fileID: 1820446490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1836357628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6517523160664093245, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+  m_PrefabInstance: {fileID: 5571647718929371384}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1867182680 stripped
 GameObject:

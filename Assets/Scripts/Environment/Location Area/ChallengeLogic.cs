@@ -5,6 +5,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class ChallengeLogic : MonoBehaviour
 {
@@ -21,8 +22,12 @@ public class ChallengeLogic : MonoBehaviour
     [SerializeField] private GameObject hint;
     [SerializeField] private GameObject lightningStrick;
     [SerializeField] private GameObject cutsceneOfDeath;
+    [SerializeField] private GameObject winingWindow;
     [SerializeField] private Transform Lever;
     [SerializeField] private RandomSauceSpawner sauceSpawner;
+
+
+    private CastsceneAnimator castsceneAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +36,9 @@ public class ChallengeLogic : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         clown = GameObject.FindWithTag("Enemy").GetComponent<EnemyClown>();
         mesh = GameObject.FindWithTag("Enemy").GetComponent<NavMeshAgent>();
+        castsceneAnim = FindObjectOfType<CastsceneAnimator>();
 
-        Area1.LevelCompleted += Area1_CompleteActions;
+        Area1.LevelCompleted += Area4_CompleteActions;
         Area2.LevelCompleted += Area2_CompleteActions;
         Area3.LevelCompleted += Area3_CompleteActions;
         Area4.LevelCompleted += Area4_CompleteActions;
@@ -93,7 +99,9 @@ public class ChallengeLogic : MonoBehaviour
         Lever.gameObject.SetActive(true);
 
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
-        StartCoroutine(wait(3f));
+
+        //castsceneAnim.GameFreeze(true);
+        //StartCoroutine(wait(3f));
 
         player.GetComponentInChildren<TrailRenderer>().time = 45;
 
@@ -106,11 +114,26 @@ public class ChallengeLogic : MonoBehaviour
         lightningStrick.SetActive(true);
         clown.enabled = false;
         mesh.enabled = false;
+
+        StartCoroutine( ShowWinningWindow(2F) );
     }
 
     IEnumerator wait(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         hint.SetActive(true);
+        castsceneAnim.GameFreeze(false);
+    }
+
+    private IEnumerator ShowWinningWindow(float delay)
+    {
+        castsceneAnim.GameFreeze(true);
+        yield return new WaitForSeconds(delay);
+        winingWindow.SetActive(true);
+
+        Animator anim = winingWindow.GetComponent<Animator>();
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+
+        SceneManager.LoadScene(0);
     }
 }
