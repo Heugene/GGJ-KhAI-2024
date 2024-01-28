@@ -1,8 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -13,6 +9,7 @@ public class ChallengeLogic : MonoBehaviour
     private GameObject player; // Ďëĺşđ
     private EnemyClown clown;
     private NavMeshAgent mesh;
+    private float winingWindowTime = 2F;
 
     // Îá'şęňč ńęđčďňłâ äë˙ çîí ç ęíîďęŕěč, ůîá ěîćíŕ áóëî ç íčő âčň˙ăóâŕňč ńňŕí ďđîőîäćĺíí˙ çîíč
     [SerializeField] private ButtonGroupLogic Area1; 
@@ -38,7 +35,7 @@ public class ChallengeLogic : MonoBehaviour
         mesh = GameObject.FindWithTag("Enemy").GetComponent<NavMeshAgent>();
         castsceneAnim = FindObjectOfType<CastsceneAnimator>();
 
-        Area1.LevelCompleted += Area4_CompleteActions;
+        Area1.LevelCompleted += Area1_CompleteActions;
         Area2.LevelCompleted += Area2_CompleteActions;
         Area3.LevelCompleted += Area3_CompleteActions;
         Area4.LevelCompleted += Area4_CompleteActions;
@@ -115,7 +112,7 @@ public class ChallengeLogic : MonoBehaviour
         clown.enabled = false;
         mesh.enabled = false;
 
-        StartCoroutine( ShowWinningWindow(2F) );
+        StartCoroutine( ShowWinningWindow(winingWindowTime) );
     }
 
     IEnumerator wait(float seconds)
@@ -125,14 +122,14 @@ public class ChallengeLogic : MonoBehaviour
         castsceneAnim.GameFreeze(false);
     }
 
-    private IEnumerator ShowWinningWindow(float delay)
+    private IEnumerator ShowWinningWindow(float delayForClosing)
     {
         castsceneAnim.GameFreeze(true);
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(2F);
         winingWindow.SetActive(true);
 
         Animator anim = winingWindow.GetComponent<Animator>();
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + delayForClosing);
 
         SceneManager.LoadScene(0);
     }

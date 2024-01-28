@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4430892880283066238}
   - component: {fileID: 2394659325309385597}
   - component: {fileID: 6594944383811828056}
-  - component: {fileID: 5608201976884978066}
   m_Layer: 0
   m_Name: MegaBANAN
   m_TagString: Banana
@@ -145,15 +144,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeOfStun: 100
---- !u!114 &5608201976884978066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 607198660333304354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bacb63bc04efdc149a50306691c07784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
