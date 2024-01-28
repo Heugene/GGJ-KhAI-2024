@@ -19,6 +19,7 @@ TagManager:
   - Lever
   - pentagramHint
   - Challenge
+  - end_cutscene
   layers:
   - Default
   - TransparentFX
