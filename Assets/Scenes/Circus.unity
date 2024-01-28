@@ -480,6 +480,8 @@ MonoBehaviour:
   _radius: 44
   _delete: 1
   _save: 1
+  _vertices: []
+  _mesh: {fileID: 0}
 --- !u!23 &68101381
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1105,7 +1107,7 @@ MonoBehaviour:
   _radius: 8
   _radiusPointAndLine: 2
   _width: 2
-  _startPoint: {fileID: 0}
+  _prefabPaintPoint: {fileID: 192146660570239452, guid: 81403b91ced84e24899fcece5624ee3b, type: 3}
 --- !u!1001 &357810797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6658,6 +6660,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thickness: 16
   _arena: {fileID: 68101380}
+  _bleacherMesh: {fileID: 0}
+  _edgeCollaiderVertices: []
+  _radius: 0
+  _sector: 0
+  _numOfCorners: 0
+  _vertices: []
 --- !u!68 &2077174851
 EdgeCollider2D:
   m_ObjectHideFlags: 0
