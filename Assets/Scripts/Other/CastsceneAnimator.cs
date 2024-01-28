@@ -48,7 +48,7 @@ public class CastsceneAnimator : MonoBehaviour
     }
 
     // ѕаузить гравц€ й клоуна 
-    private void GameFreeze(bool freezed) // TODO: ѕеределать на ивенты
+    public void GameFreeze(bool freezed) // TODO: ѕеределать на ивенты
     {
         if ( Player != null)
         {

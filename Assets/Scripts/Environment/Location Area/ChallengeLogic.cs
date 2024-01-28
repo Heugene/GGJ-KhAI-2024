@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class ChallengeLogic : MonoBehaviour
 {
@@ -12,6 +9,7 @@ public class ChallengeLogic : MonoBehaviour
     private GameObject player; // Ďëĺşđ
     private EnemyClown clown;
     private NavMeshAgent mesh;
+    private float winingWindowTime = 2F;
 
     // Îá'şęňč ńęđčďňłâ äë˙ çîí ç ęíîďęŕěč, ůîá ěîćíŕ áóëî ç íčő âčň˙ăóâŕňč ńňŕí ďđîőîäćĺíí˙ çîíč
     [SerializeField] private ButtonGroupLogic Area1; 
@@ -21,8 +19,12 @@ public class ChallengeLogic : MonoBehaviour
     [SerializeField] private GameObject hint;
     [SerializeField] private GameObject lightningStrick;
     [SerializeField] private GameObject cutsceneOfDeath;
+    [SerializeField] private GameObject winingWindow;
     [SerializeField] private Transform Lever;
     [SerializeField] private RandomSauceSpawner sauceSpawner;
+
+
+    private CastsceneAnimator castsceneAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,7 @@ public class ChallengeLogic : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         clown = GameObject.FindWithTag("Enemy").GetComponent<EnemyClown>();
         mesh = GameObject.FindWithTag("Enemy").GetComponent<NavMeshAgent>();
+        castsceneAnim = FindObjectOfType<CastsceneAnimator>();
 
         Area1.LevelCompleted += Area1_CompleteActions;
         Area2.LevelCompleted += Area2_CompleteActions;
@@ -93,7 +96,9 @@ public class ChallengeLogic : MonoBehaviour
         Lever.gameObject.SetActive(true);
 
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
-        StartCoroutine(wait(3f));
+
+        //castsceneAnim.GameFreeze(true);
+        //StartCoroutine(wait(3f));
 
         player.GetComponentInChildren<TrailRenderer>().time = 45;
 
@@ -106,11 +111,26 @@ public class ChallengeLogic : MonoBehaviour
         lightningStrick.SetActive(true);
         clown.enabled = false;
         mesh.enabled = false;
+
+        StartCoroutine( ShowWinningWindow(winingWindowTime) );
     }
 
     IEnumerator wait(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         hint.SetActive(true);
+        castsceneAnim.GameFreeze(false);
+    }
+
+    private IEnumerator ShowWinningWindow(float delayForClosing)
+    {
+        castsceneAnim.GameFreeze(true);
+        yield return new WaitForSeconds(2F);
+        winingWindow.SetActive(true);
+
+        Animator anim = winingWindow.GetComponent<Animator>();
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + delayForClosing);
+
+        SceneManager.LoadScene(0);
     }
 }
