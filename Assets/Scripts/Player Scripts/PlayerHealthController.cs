@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealthController : MonoBehaviour
@@ -93,8 +95,23 @@ public class PlayerHealthController : MonoBehaviour
     // Помираєм
     internal void Die()
     {
-        // Виконуємо якісь дії після смерті
+        // Виконуємо анімацію смерті
         anim.SetBool("isDead", true);
+
+        // Зупиняємо логіку гравця
+        GetComponent<PlayerAnimationController>().Freeze(true);
+
+       StartCoroutine( BackToMenu() );
+    }
+
+    // Перехід в меню з затримкою
+    private IEnumerator BackToMenu()
+    {
+        // Дістаємо затримку анімації
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        
+        // Відтворюємо перехід в меню
+        SceneManager.LoadScene(0);
     }
 
 

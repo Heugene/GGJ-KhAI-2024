@@ -23,10 +23,17 @@ public class ButtonPressLogic : MonoBehaviour
     // якщо тригеритьс€ колайдер кнопки
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // якщо у кнопку прилет≥в не файрбол
         if (collision.tag != "fireball")
         {
             audioSource.Play();
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // якщо у кнопку прилет≥в не файрбол
+        if (collision.tag != "fireball")
+        {
             // «м≥нюЇмо в≥дпов≥дний прапорець на true 
             isPressed = true;
             //Debug.Log("Button state = " + isPressed);
