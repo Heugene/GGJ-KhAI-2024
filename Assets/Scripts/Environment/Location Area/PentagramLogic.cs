@@ -18,7 +18,6 @@ public class PentagramLogic : MonoBehaviour
     [SerializeField]
     float _width = 2f;
     [SerializeField]
-    GameObject SuperBananaPrefab;
 
     GameObject _startPoint;
     GameObject[] _lineCollaiders;
@@ -108,7 +107,6 @@ public class PentagramLogic : MonoBehaviour
         if (index == 5) 
         {
             Debug.Log("Пентаграма зарахована");
-            Instantiate(SuperBananaPrefab);
             End?.Invoke();
         }
 
