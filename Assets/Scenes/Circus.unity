@@ -7245,6 +7245,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.55
       objectReference: {fileID: 0}
+    - target: {fileID: 6262782032232156612, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262782032232156612, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_Size.y
+      value: 0.56396484
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262782032232156612, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517523160664093245, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7176695454499364111, guid: 777f3e90c6e3b7241befc2054a3d5b69, type: 3}
       propertyPath: ItemTypeForDash.Array.data[1]
       value: 3
