@@ -17,6 +17,8 @@ TagManager:
   - PaintPoint
   - sauce
   - Lever
+  - pentagramHint
+  - Challenge
   layers:
   - Default
   - TransparentFX

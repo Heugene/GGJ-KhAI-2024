@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChallengeLogic : MonoBehaviour
 {
     internal bool Solved { get; private set; }
     private GameObject player; // Ďëĺşđ
-    
+    private EnemyClown clown;
+    private NavMeshAgent mesh;
+
     // Îá'şęňč ńęđčďňłâ äë˙ çîí ç ęíîďęŕěč, ůîá ěîćíŕ áóëî ç íčő âčň˙ăóâŕňč ńňŕí ďđîőîäćĺíí˙ çîíč
     [SerializeField] private ButtonGroupLogic Area1; 
     [SerializeField] private ButtonGroupLogic Area2;
     [SerializeField] private ButtonGroupLogic Area3;
     [SerializeField] private ButtonGroupLogic Area4;
+    [SerializeField] private GameObject hint;
+    [SerializeField] private GameObject lightningStrick;
+    [SerializeField] private GameObject cutsceneOfDeath;
     [SerializeField] private Transform Lever;
     [SerializeField] private RandomSauceSpawner sauceSpawner;
 
@@ -21,6 +29,8 @@ public class ChallengeLogic : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().End += EndGame;
         player = GameObject.FindGameObjectWithTag("Player");
+        clown = GameObject.FindWithTag("Enemy").GetComponent<EnemyClown>();
+        mesh = GameObject.FindWithTag("Enemy").GetComponent<NavMeshAgent>();
 
         Area1.LevelCompleted += Area1_CompleteActions;
         Area2.LevelCompleted += Area2_CompleteActions;
@@ -79,21 +89,28 @@ public class ChallengeLogic : MonoBehaviour
         Debug.Log("Area4 COMPLETED");
         sauceSpawner.SpawnKetchup();
         sauceSpawner.SpawnKetchup();
-        // ßĘ ďîäîëŕňč ęëîóíŕ.ďíă Äćîäćîđĺôĺđĺíń.äćčďĺă, ńňŕđňóşěî ěŕëţâŕíí˙ ďĺíňŕăđŕěč ËĹŇŃÔŔĘ˛ÍĂÎÎÎÎÎÎÎÎ
         
         Lever.gameObject.SetActive(true);
 
         GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
+        StartCoroutine(wait(3f));
 
-        // Ńňŕâčěî âĺëčęčé ÷ŕń łńíóâŕíí˙ ňđĺéëó, ůîá âńňčăíóňč íŕěŕëţâŕňč ďĺíňŕăđŕěó.
         player.GetComponentInChildren<TrailRenderer>().time = 45;
 
     }
-    private void EndGame()
+    public void EndGame()
     {
-        //Äłż ďłńë˙ çŕđŕőóâŕíí˙ ďĺíňŕăđŕěč
-
-        // Ďîâĺđňŕşěî íŕçŕä ÷ŕń łńíóâŕíí˙ ňđĺéëó
+        clown.isDead = true;
         player.GetComponentInChildren<TrailRenderer>().time = 5;
+        cutsceneOfDeath.SetActive(true);
+        lightningStrick.SetActive(true);
+        clown.enabled = false;
+        mesh.enabled = false;
+    }
+
+    IEnumerator wait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        hint.SetActive(true);
     }
 }
