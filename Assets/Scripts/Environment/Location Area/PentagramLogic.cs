@@ -1,13 +1,7 @@
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PentagramLogic : MonoBehaviour
 {
@@ -106,7 +100,6 @@ public class PentagramLogic : MonoBehaviour
     {
         if (index == 5) 
         {
-            Debug.Log("Пентаграма зарахована");
             End?.Invoke();
         }
 

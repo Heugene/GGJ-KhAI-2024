@@ -18,11 +18,12 @@ public class EnemyClown : MonoBehaviour
     [SerializeField] float moveSpeed = 2f;      // Швидкість руху
     [SerializeField] float attackCooldown = 2f; // Час перезарядки удару
     [SerializeField] float attackRange = 4f;    // Дистанція атаки
-    [SerializeField, Header("Показати дистацнію атаки?")]
 
+    [SerializeField, Header("Показати дистацнію атаки?")]
     private bool drawAtackRange = false;      // Макер для відображення дистанції атаки в інспекторі
     private bool canAttack = true;            // Макер для позначення перезарядки
     private bool isStoped = false;
+    public bool isDead = false;
     private NavMeshAgent navMeshAgent;    // Посилання компонент який відповідає за переміщення
     private Transform player;             // Посилання на гравця
 
@@ -45,8 +46,7 @@ public class EnemyClown : MonoBehaviour
     {
         if (isStoped) return;
 
-        float distanceToTarget = Vector3.Distance(transform.position, player.position);
-
+        float distanceToTarget = Vector2.Distance(transform.position, player.position);
         // Якщо гравець в радіусі атаки обєкта 
         if (distanceToTarget <= navMeshAgent.stoppingDistance)
         {
@@ -70,8 +70,8 @@ public class EnemyClown : MonoBehaviour
     {
         isMoving = false;
         canAttack = false;
-        yield return new WaitForSeconds(attackCooldown);
         StartCoroutine(_spawnFireball.SpawnFireballs());
+        yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
 
