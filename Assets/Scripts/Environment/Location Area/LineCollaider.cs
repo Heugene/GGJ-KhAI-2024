@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -19,6 +19,7 @@ public class LineCollaider : MonoBehaviour
     Vector3 _lastPoint;
     PlayerDash _playerDash;
     public GameObject _paintPoint;
+    internal GameObject _prefabPaintPoint;
 
     private void Start()
     {
@@ -39,7 +40,7 @@ public class LineCollaider : MonoBehaviour
             }
             else _playerDashingInCollaider = false;
 
-        } 
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -88,7 +89,7 @@ public class LineCollaider : MonoBehaviour
     void StartPlayerDash()
     {
         _playerDashingInCollaider = true;
-  
+
     }
 
     void EndPlayerDash()
@@ -99,7 +100,6 @@ public class LineCollaider : MonoBehaviour
     void CreatePoint()
     {
         Vector2[] _pointsCoord = GetComponent<EdgeCollider2D>().points;
-        GameObject _prefabPaintPoint = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/PaintPoint.prefab");
 
         _paintPoint = GameObject.Instantiate(_prefabPaintPoint);
         _paintPoint.name = "PaintPoint";
