@@ -675,8 +675,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Game(test)
-  metroPackageVersion: 
+  metroPackageName: Gametest
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -684,7 +684,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Game(test)
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Game(test)
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

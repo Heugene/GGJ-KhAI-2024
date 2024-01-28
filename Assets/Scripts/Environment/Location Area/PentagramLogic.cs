@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 public class PentagramLogic : MonoBehaviour
@@ -11,7 +11,8 @@ public class PentagramLogic : MonoBehaviour
     public float _radiusPointAndLine = 2f;
     [SerializeField]
     float _width = 2f;
-    [SerializeField]
+
+    [SerializeField] GameObject _prefabPaintPoint;
 
     GameObject _startPoint;
     GameObject[] _lineCollaiders;
@@ -60,6 +61,7 @@ public class PentagramLogic : MonoBehaviour
             EdgeCollider2D EC2D = linesCollaiders[i].AddComponent<EdgeCollider2D>();
             Vector2[] pointsLineCollaider = new Vector2[] { new Vector2(positionPoints[i].x, positionPoints[i].y),
                                             new Vector2(positionPoints[(i+3) % 5].x, positionPoints[(i+3) % 5].y)};
+            linesCollaiders[i].GetComponent<LineCollaider>()._prefabPaintPoint = _prefabPaintPoint;
             EC2D.points = pointsLineCollaider;
             EC2D.edgeRadius = _width;
             EC2D.isTrigger = true;
@@ -74,7 +76,7 @@ public class PentagramLogic : MonoBehaviour
 
     GameObject CreateStartPoint(Vector3 _coordStartPoint)
     {
-        GameObject prefabPaintPoint = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/PaintPoint.prefab");
+        GameObject prefabPaintPoint = _prefabPaintPoint;
         GameObject startPaintPoint = GameObject.Instantiate(prefabPaintPoint);
         startPaintPoint.name = "Start PaintPoint";
         startPaintPoint.transform.position = _coordStartPoint;
