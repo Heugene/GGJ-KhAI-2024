@@ -1,12 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ConfigurationUsability : MonoBehaviour
 {
-    [SerializeField] List<AudioSource> tracks;
+    private AudioSource[] allSounds;
 
     void Awake()
     {
+        // Отримуємо всі гриб'єкти на сцені з компонентом AudioSource
+        allSounds = FindObjectsOfType<AudioSource>();
+
         SetupMusic();
     }
 
@@ -15,7 +17,7 @@ public class ConfigurationUsability : MonoBehaviour
         // Инициализация предыдущего значения при старте
         float musicValue = PlayerPrefs.GetFloat("MusicValue");
 
-        foreach (var track in tracks)
+        foreach (var track in allSounds)
         {
             track.volume = musicValue;
         }
