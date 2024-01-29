@@ -66,7 +66,7 @@ public class PlayerDash : MonoBehaviour
     }
     private void HandleCurrentItemChanged(SOItems newItem)
     {
-        if (newItem == null || newItem.ItemType == null)
+        if (newItem == null)
         {
             currentItemType = ItemType.None;
         }
