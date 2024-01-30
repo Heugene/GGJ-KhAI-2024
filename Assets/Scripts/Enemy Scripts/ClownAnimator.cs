@@ -5,12 +5,13 @@ using UnityEngine;
 /// </summary>
 public class ClownAnimator : MonoBehaviour
 {
+    [SerializeField] private Transform fireballSpawnPoint;
+
     private Animator animator; // ѕосиланн€ на ан≥маток данного обЇкту
     private EnemyClown clown;  // ѕосиланн€ на компонент EnemyClown данного обЇкту
     private Transform player;  // ѕосиланн€ на гравц€
-    [SerializeField] private Transform fireballSpawnPoint;
+    private bool isFreeze = false;
 
-    
 
     void Start()
     {
@@ -23,20 +24,23 @@ public class ClownAnimator : MonoBehaviour
 
     void Update()
     {
-        SettingDirection();
-
-        // якщо клоун перем≥щуЇтьс€
-        if (clown.isMoving)
+        if (isFreeze == false) 
         {
-            animator.SetBool("isAttacking", false);
-            animator.SetBool("isMoving", true);
-        }
+            SettingDirection();
 
-        // якщо клоун атакуЇ
-        if (clown.isAttaking)
-        {
-            animator.SetBool("isAttacking", true);
-            animator.SetBool("isMoving", false);
+            // якщо клоун перем≥щуЇтьс€
+            if (clown.isMoving)
+            {
+                animator.SetBool("isAttacking", false);
+                animator.SetBool("isMoving", true);
+            }
+
+            // якщо клоун атакуЇ
+            if (clown.isAttaking)
+            {
+                animator.SetBool("isAttacking", true);
+                animator.SetBool("isMoving", false);
+            }
         }
 
         if (clown.isDead)
@@ -64,5 +68,12 @@ public class ClownAnimator : MonoBehaviour
             spriteRenderer.flipX = false;
             fireballSpawnPoint.localPosition = new Vector2(1.3f, -0.9f);
         }    
+    }
+
+    // «упин€Ї та повертаЇ роботу лог≥ки клоуна
+    public void Freeze(bool isFreezed)
+    {
+        isFreeze = isFreezed;
+        clown.isStoped  = isFreezed;
     }
 }

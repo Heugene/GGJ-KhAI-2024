@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
-using System;
-using System.Threading.Tasks;
 
 /// <summary>
 /// Компонент який реалізує поведення клоуна
@@ -11,8 +9,10 @@ public class EnemyClown : MonoBehaviour
 {
     spawnFireball _spawnFireball;
 
-    public bool isAttaking = false;             // Макер який характеризує чи атакує клоун
-    public bool isMoving = false;               // Макер який характеризує чи переміщується клоун
+    public bool isAttaking = false;             // Маркер який характеризує чи атакує клоун
+    public bool isMoving = false;               // Маркер який характеризує чи переміщується клоун
+    public bool isDead = false;                 // Маркер який характеризує чи вмер клоун
+    public bool isStoped = false;               // Маркер який характеризує чи потрібно зупинити логіку скрипта
     public int clownDamage = 1;                 // Дамаг за удар
 
     [SerializeField] float moveSpeed = 2f;      // Швидкість руху
@@ -22,8 +22,6 @@ public class EnemyClown : MonoBehaviour
     [SerializeField, Header("Показати дистацнію атаки?")]
     private bool drawAtackRange = false;      // Макер для відображення дистанції атаки в інспекторі
     private bool canAttack = true;            // Макер для позначення перезарядки
-    private bool isStoped = false;
-    public bool isDead = false;
     private NavMeshAgent navMeshAgent;    // Посилання компонент який відповідає за переміщення
     private Transform player;             // Посилання на гравця
 
@@ -73,11 +71,6 @@ public class EnemyClown : MonoBehaviour
         StartCoroutine(_spawnFireball.SpawnFireballs());
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
-    }
-
-    public void Freeze(bool isFreezed)
-    {
-        isStoped = isFreezed;
     }
 
     // Відображення дистації атаки

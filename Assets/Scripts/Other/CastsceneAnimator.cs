@@ -15,13 +15,13 @@ public class CastsceneAnimator : MonoBehaviour
     [SerializeField] Animator castsceneAnim;    // Аніматор в якому находяться рамки для кастсцен
     private cameraMovement cameraScript;        // Посилання на cкріпт до камери     
     private PlayerAnimationController Player;   // Посилання на компонент анімацій гравця
-    private EnemyClown Clown;             // Посилання на клоуна
+    private ClownAnimator Clown;             // Посилання на клоуна
 
 
     private void Awake()
     {
         Player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault().GetComponent<PlayerAnimationController>();
-        Clown = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault().GetComponent<EnemyClown>();
+        Clown = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault().GetComponent<ClownAnimator>();
         cameraScript = FindObjectOfType<cameraMovement>();
     }
 
