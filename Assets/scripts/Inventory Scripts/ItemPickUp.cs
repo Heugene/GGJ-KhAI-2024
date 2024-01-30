@@ -8,10 +8,10 @@ public class ItemPickUp : MonoBehaviour
     public float PickUpRadius = 1f;
     public SOItems ItemData;
     public AudioClip pickUp;
-    AudioSource audioSource;
 
+    private AudioSource audioSource;
     private CircleCollider2D myCollider;
-    [SerializeField]private PlayerHealthController playerHealthController;
+    private PlayerHealthController playerHealthController;
 
     private void Start()
     {
