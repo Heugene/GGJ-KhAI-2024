@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
 public class LevelGroupAnimator : MonoBehaviour 
@@ -14,10 +13,10 @@ public class LevelGroupAnimator : MonoBehaviour
 
         if (castsceneAnimator != null)
         {
-            objects = GetComponentsInChildren<Transform>(true).Where(t => t != transform).ToArray();
-            CastsceneAnimator.onCameraFocused += HandleUnityEvent;
             StartCoroutine(castsceneAnimator.Play(transform, 1.5F));
-            //buttons = GetComponentsInChildren<ButtonPressLogic>(true).Select(component => component.gameObject).ToArray();
+            CastsceneAnimator.onCameraFocused += HandleUnityEvent;
+            objects = GetComponentsInChildren<Transform>(true).Where(t => t != transform).ToArray();
+
         }
         else
         {
@@ -27,12 +26,9 @@ public class LevelGroupAnimator : MonoBehaviour
 
     private void HandleUnityEvent()
     {
-        foreach (Transform obj in objects)
+        foreach (Transform btn in objects)
         {
-            if (obj != null)
-            {
-                obj.gameObject.SetActive(true);
-            }
+            btn.gameObject.SetActive(true);
         }
     }
 }
