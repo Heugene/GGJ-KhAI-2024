@@ -10,12 +10,12 @@ public class BananaStun : MonoBehaviour
     [SerializeField]
     float TimeOfStun = 3f;
     private Animator clownAnimator;
-    private EnemyClown clownComponent;
+    private ClownAnimator clownComponent;
 
     private void Start()
     {
         GameObject clownObj = GameObject.FindGameObjectsWithTag("Enemy").FirstOrDefault();
-        clownComponent = clownObj.GetComponent<EnemyClown>();
+        clownComponent = clownObj.GetComponent<ClownAnimator>();
         clownAnimator = clownObj.GetComponent<Animator>();
     }
 
