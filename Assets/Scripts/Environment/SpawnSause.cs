@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpawnSause : MonoBehaviour
 {
+    [SerializeField] Transform[] itemPoints;
     [SerializeField] GameObject spawnItem;
     [SerializeField] float cooldownTime;
 
@@ -10,20 +11,38 @@ public class SpawnSause : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnObject());
+        //StartCoroutine(SpawnObject());
+        StartCoroutine(SpawnAllSauces());
     }
 
-    private IEnumerator SpawnObject()
+    private IEnumerator SpawnAllSauces()
     {
-        while(true)
+        while (true)
         {
-            if (transform.childCount < 1) {
-                yield return new WaitForSeconds(cooldownTime);
+            foreach (var point in itemPoints)
+            {
+                //StartCoroutine(SpawnObject(point));
+                if (transform.childCount < 1)
+                {
+                    yield return new WaitForSeconds(cooldownTime);
 
-                GameObject newObject = Instantiate(spawnItem, transform.position, Quaternion.identity);
-                newObject.transform.parent = transform;
+                    GameObject newObject = Instantiate(spawnItem, transform.position, Quaternion.identity);
+                    newObject.transform.parent = point;
+                }
             }
+
             yield return new WaitForSeconds(2f);
+        }
+    }
+
+    private IEnumerator SpawnObject(Transform spawnPoint)
+    {
+        if (transform.childCount < 1)
+        {
+            yield return new WaitForSeconds(cooldownTime);
+
+            GameObject newObject = Instantiate(spawnItem, transform.position, Quaternion.identity);
+            newObject.transform.parent = spawnPoint;
         }
     }
 }

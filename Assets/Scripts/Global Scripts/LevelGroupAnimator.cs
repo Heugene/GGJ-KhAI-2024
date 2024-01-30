@@ -15,7 +15,6 @@ public class LevelGroupAnimator : MonoBehaviour
         {
             StartCoroutine(castsceneAnimator.Play(transform, 1.5F));
             CastsceneAnimator.onCameraFocused += HandleUnityEvent;
-            //buttons = GetComponentsInChildren<ButtonPressLogic>(true).Select(component => component.gameObject).ToArray();
             objects = GetComponentsInChildren<Transform>(true).Where(t => t != transform).ToArray();
 
         }
