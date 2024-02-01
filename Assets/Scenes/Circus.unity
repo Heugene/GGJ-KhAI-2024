@@ -4276,7 +4276,7 @@ MonoBehaviour:
   hint: {fileID: 1671509552}
   lightningStrick: {fileID: 1025654901}
   cutsceneOfDeath: {fileID: 618837125}
-  winingWindow: {fileID: 0}
+  winingWindow: {fileID: 1427953887}
   Lever: {fileID: 1786927061}
   sauceSpawner: {fileID: 2053512497}
 --- !u!1001 &1300051508
@@ -4556,6 +4556,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1744176298}
   m_SourcePrefab: {fileID: 100100000, guid: d24e29782fd32fd42b1d417aae1370b1, type: 3}
+--- !u!1 &1427953887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 280894888868384224, guid: 263e67a57350316439473cd420cbe400, type: 3}
+  m_PrefabInstance: {fileID: 2020811415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1434588768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6614,6 +6619,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 94126675753914615, guid: 263e67a57350316439473cd420cbe400, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 280894888868384224, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1014336005531862069, guid: 263e67a57350316439473cd420cbe400, type: 3}
