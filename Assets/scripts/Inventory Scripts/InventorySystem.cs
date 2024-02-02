@@ -56,32 +56,22 @@ public class InventorySystem
     {
         if (ContainsItem(data, out List<InventorySlot> invSlot))
         {
-            var lastSlot = invSlot.LastOrDefault();
+            var lastSlot = invSlot?.LastOrDefault();
 
-            // Видаляємо кількість предметів зі стопки, що була запитана
-            int itemsToRemove = Mathf.Min(lastSlot.StackSize, amount);
-            lastSlot.RemoveFromStack(itemsToRemove);
+            if(lastSlot != null)
+            {
+                // Видаляємо кількість предметів зі стопки, що була запитана
+                int itemsToRemove = Mathf.Min(lastSlot.StackSize, amount);
+                lastSlot.RemoveFromStack(itemsToRemove);
 
-            //// Віднімаємо вже видалені предмети з загальної кількості
-            //amount -= itemsToRemove;
-            if(lastSlot.StackSize <= 0)
-                lastSlot.ClearSlot();
+                // Якщо не залишилося предметів в слоті, очищаємо
+                if (lastSlot.StackSize <= 0)
+                    lastSlot.ClearSlot();
 
-            //// Перевіряємо, чи залишились ще предмети в стопці
-            //if (stackSize <= 0) 
-            //{
-            //    var lastSlotUI = InventoryDisplay.Instance.SlotDictionary.FirstOrDefault(slot => slot.Value == lastSlot);
-            //    if(lastSlotUI.Key == null)
-            //    {
-            //        Debug.LogError("lastSlotUI.Key is null. Unable to update UI for removed item.");
-            //    }
-
-            //    lastSlotUI.Key.UpdateUISlot(lastSlot);
-            //}
-
-            // Вызываем OnInventorySlotChanged после завершения цикла
-            OnInventorySlotChanged?.Invoke(lastSlot);
-            OnCurrentItemChangedInSystem?.Invoke(data);
+                // Вызываем OnInventorySlotChanged после завершения цикла
+                OnInventorySlotChanged?.Invoke(lastSlot);
+                OnCurrentItemChangedInSystem?.Invoke(data);
+            }
         }
     }
 
