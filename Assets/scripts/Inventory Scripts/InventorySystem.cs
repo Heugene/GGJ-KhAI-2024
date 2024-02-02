@@ -56,18 +56,29 @@ public class InventorySystem
     {
         if (ContainsItem(data, out List<InventorySlot> invSlot))
         {
-            foreach (var slot in invSlot)
+            var lastSlot = invSlot.LastOrDefault();
+            int stackSize = lastSlot.StackSize;
+
+            if (stackSize > amount)
             {
-                var stackSize = slot.StackSize;
-                if (stackSize > amount)
+                lastSlot.RemoveFromStack(amount);
+            }
+            else
+            {
+                lastSlot.RemoveFromStack(stackSize);
+                amount -= stackSize;
+            }
+
+            if (stackSize <= 0) 
+            {
+                var lastSlotUI = InventoryDisplay.Instance.SlotDictionary.FirstOrDefault(slot => slot.Value == lastSlot);
+                if(lastSlotUI.Key == null)
                 {
-                    slot.RemoveFromStack(amount);
+                    Debug.LogError("lastSlotUI.Key має значення null. Неможливо оновити інтерфейс для видаленого елемента.");
                 }
-                else
-                {
-                    slot.RemoveFromStack(stackSize);
-                    amount -= stackSize;
-                }
+
+                lastSlotUI.Key.UpdateUISlot(lastSlot);
+                lastSlot.ClearSlot();
             }
 
             // Вызываем OnInventorySlotChanged после завершения цикла
