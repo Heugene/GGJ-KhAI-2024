@@ -19,7 +19,7 @@ public class PlayerDash : MonoBehaviour
     private TrailRenderer trailRendererMayonnaise;
 
     private float DashSpeedTemp = 0;
-    private float DashCooldownTemp = 0;
+    private float DashCooldownTemp = 0; //#CAN BE MOVED IN TRASH
 
     private Vector2 mousePosition; // Координати миші
 
@@ -105,8 +105,8 @@ public class PlayerDash : MonoBehaviour
         // Получаем позицию мыши в мировых координатах
         mousePosition = playerJump.GetMouseWorldPosition();
 
-        if(isCanDash)
-            MakeDash();
+        if(isCanDash)   // #CAN BE MOVED IN TRASH
+            MakeDash(); //
 
         if (isDashing)
         {
@@ -171,18 +171,18 @@ public class PlayerDash : MonoBehaviour
     }
 
     // перезарядка деша в секундах
-    void CalculateDashReload()
-    {
-        if (!isCanDash)
-        {
-            DashCooldownTemp += Time.fixedDeltaTime;
-            if (DashCooldownTemp >= DashCooldown)
-            {
-                DashCooldownTemp = 0;
-                isCanDash = true;
-            }
-        }
-    }
+    void CalculateDashReload()                        // #CAN BE MOVED IN TRASH
+    {                                                 //
+        if (!isCanDash)                               //
+        {                                             //
+            DashCooldownTemp += Time.fixedDeltaTime;  //
+            if (DashCooldownTemp >= DashCooldown)     //
+            {                                         //
+                DashCooldownTemp = 0;                 //
+                isCanDash = true;                     //
+            }                                         //
+        }                                             //
+    }                                                 //
 
     // Создание деша
     void MakeDash()
