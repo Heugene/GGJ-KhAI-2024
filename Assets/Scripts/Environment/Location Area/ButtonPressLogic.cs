@@ -8,10 +8,19 @@ public class ButtonPressLogic : MonoBehaviour
     private Animator anim;
     public AudioClip pressedSound;
     AudioSource audioSource;
+    ParticleSystem particleSystem;
 
+    private void Update()
+    {
+        if (particleSystem.isPlaying)
+        {
+            particleSystem.Stop();
+        }
+    }
 
     private void Start()
     {
+        particleSystem = GetComponent<ParticleSystem>();
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
         audioSource.volume = 0.25f;
@@ -26,6 +35,7 @@ public class ButtonPressLogic : MonoBehaviour
         if (collision.tag != "fireball")
         {
             audioSource.Play();
+            particleSystem.Emit(25);
         }
     }
 
