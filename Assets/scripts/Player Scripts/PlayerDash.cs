@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -38,32 +39,46 @@ public class PlayerDash : MonoBehaviour
         if (inventoryDisplay != null)
         {
             inventoryDisplay.OnCurrentItemChanged += HandleCurrentItemChanged;
+            inventoryDisplay.InventorySystem.OnStackCleared += RemoveCurrentItemInSlot;
         }
         else
         {
             Debug.LogError("InventoryDisplay not found.");
         }
-        Transform trailObject = transform.Find("Trail");
-        Transform trailObject1 = transform.Find("Mayonnaise");
-        if (trailObject != null || trailObject1 != null)
+
+        trailRenderer = FindTrailRendererByName("Trail");
+        trailRendererMayonnaise = FindTrailRendererByName("Mayonnaise");
+
+        trailRenderer.emitting = false;
+        trailRendererMayonnaise.emitting = false;
+    }
+
+    // Шукає TrailRenderer об'єкту із вказаним ім'ям
+    public TrailRenderer FindTrailRendererByName(string objectName)
+    {
+        Transform trailObject = transform.Find(objectName);
+
+        if (trailObject != null)
         {
-            trailRenderer = trailObject.GetComponent<TrailRenderer>();
-            trailRendererMayonnaise = trailObject1.GetComponent<TrailRenderer>();
-            if (trailRenderer != null || trailRendererMayonnaise != null)
+            TrailRenderer trailRenderer = trailObject.GetComponent<TrailRenderer>();
+
+            if (trailRenderer != null)
             {
-                trailRenderer.emitting = false;
-                trailRendererMayonnaise.emitting = false;
+                return trailRenderer;
             }
             else
             {
-                Debug.LogError("TrailRenderer not found on the child object with the 'Trail' tag.");
+                Debug.LogError("TrailRenderer not found on the child object with the specified name.");
             }
         }
         else
         {
-            Debug.LogError("Child object with the 'Trail' tag not found.");
+            Debug.LogError($"Child object with the specified name '{objectName}' not found.");
         }
+
+        return null; // Повертаємо null у випадку невдачі
     }
+
     private void HandleCurrentItemChanged(SOItems newItem)
     {
         if (newItem == null)
@@ -74,6 +89,12 @@ public class PlayerDash : MonoBehaviour
         {
             currentItemType = newItem.ItemType;
         }
+    }
+
+    // убрать предмет из слота
+    void RemoveCurrentItemInSlot()
+    {
+        currentItemType = ItemType.None;
     }
 
     // логика
@@ -127,20 +148,7 @@ public class PlayerDash : MonoBehaviour
                     trailRendererMayonnaise.emitting = true;
 
                 inventoryDisplay.InventorySystem.RemoveItemsFromInventory(currentItem, 1);
-                RemoveCurrentItemInSlot(currentItem);
             }
-        }
-    }
-
-    // убрать предмет из слота
-    void RemoveCurrentItemInSlot(SOItems currentItem)
-    {
-        InventorySlot_UI currentSlotUI = inventoryDisplay.SlotDictionary.FirstOrDefault(slot => slot.Value.ItemData == currentItem).Key;
-
-        if (currentSlotUI != null && currentSlotUI.AssignedInventorySlot.StackSize == 0)
-        {
-            currentSlotUI.ClearSlot();
-            currentItemType = ItemType.None;
         }
     }
 

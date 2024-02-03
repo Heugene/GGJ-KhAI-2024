@@ -16,6 +16,7 @@ public class InventorySystem
     public UnityAction<InventorySlot> OnInventorySlotChanged;
     public event Action<SOItems> OnCurrentItemChangedInSystem;
     public event Action<SOItems> OnItemAddedToInventory;
+    public event Action OnStackCleared;
 
     public InventorySystem(int size)
     {
@@ -66,7 +67,11 @@ public class InventorySystem
 
                 // Якщо не залишилося предметів в слоті, очищаємо
                 if (lastSlot.StackSize <= 0)
+                {
                     lastSlot.ClearSlot();
+                    OnStackCleared?.Invoke();
+                }
+
 
                 // Вызываем OnInventorySlotChanged после завершения цикла
                 OnInventorySlotChanged?.Invoke(lastSlot);
