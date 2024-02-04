@@ -39,7 +39,7 @@ public class PlayerJump : MonoBehaviour
         CalculateJumpReload();
         CalculateJumpDistance();
 
-        if (!isCanMove && IsMoving && !isPlayerHitEnemy && playerDash.isCanDash == false)
+        if (!isCanMove && IsMoving && !isPlayerHitEnemy)
             MoveToTarget(LastMousePosition);// Перемещаем персонажа
     }
 
@@ -81,7 +81,6 @@ public class PlayerJump : MonoBehaviour
         {
             audioSource.clip = sausageSounds[0];
             audioSource.Play();
-            playerDash.isCanDash = false;
             isCanMove = false;
             IsMoving = true;
             IsButtonJumpPressed = false;
