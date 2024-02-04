@@ -1,39 +1,28 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
-    PlayerJump playerJump;
+    public bool isDashing = false;  // Позначає, чи виконує гравець деш
+    public bool isFreezed = false;  // Вказує, чи зупинена логіка скрипта
 
-    [SerializeField] private float DashSpeed = 12;
-    [SerializeField] private float DashCooldown = 1;
-    [SerializeField] private float DashSpeedReducer = 0.05f;
+    [SerializeField] private float DashSpeed = 12;              // Швидкість дешу
+    [SerializeField] private float DashSpeedReducer = 0.05f;    // Зменшення швидкості дешу
+    [SerializeField] private ItemType currentItemType;          // Поточний тип предмету для дешу
+    [SerializeField] private List<ItemType> itemTypesForDash;   // Список типів предметів, які можна використовувати для дешу
 
-    [SerializeField] private ItemType currentItemType;
-    [SerializeField] private List<ItemType> ItemTypeForDash;
+    private PlayerJump playerJump;                  // Зовнішній компонент гравця для використання в деші
+    private InventoryDisplay inventoryDisplay;      // Відображення інвентаря для управління предметами
+    private TrailRenderer trailRendererKetchup;     // Слід за гравцем для типу предмету Кетчуп
+    private TrailRenderer trailRendererMayonnaise;  // Слід за гравцем для типу предмету Майонез
 
-    private InventoryDisplay inventoryDisplay;
-    private TrailRenderer trailRenderer;
-    private TrailRenderer trailRendererMayonnaise;
-
-    private float DashSpeedTemp = 0;
-    private float DashCooldownTemp = 0; //#CAN BE MOVED IN TRASH
-
-    private Vector2 mousePosition; // Координати миші
-
-    public bool isCanDash = false; // может ли игрок сделать деш
-    public bool isDashing = false; // делает ли игрок деш
-    public bool isFreezed = false; // останавливает логику скрипта
+    private Vector2 mousePosition;   // Координати миші
+    private float InitialDashSpeed;  // Початкова швидкысть дешу
 
 
     private void Start()
     {
         playerJump = GetComponent<PlayerJump>();
-
-        DashSpeedTemp = DashSpeed;
-
         inventoryDisplay = InventoryDisplay.Instance;
 
         if (inventoryDisplay != null)
@@ -46,151 +35,160 @@ public class PlayerDash : MonoBehaviour
             Debug.LogError("InventoryDisplay not found.");
         }
 
-        trailRenderer = FindTrailRendererByName("Trail");
+        InitialDashSpeed = DashSpeed;
+
+        trailRendererKetchup = FindTrailRendererByName("Trail");
         trailRendererMayonnaise = FindTrailRendererByName("Mayonnaise");
 
-        trailRenderer.emitting = false;
+        trailRendererKetchup.emitting = false;
         trailRendererMayonnaise.emitting = false;
     }
 
-    // Шукає TrailRenderer об'єкту із вказаним ім'ям
+    // Пошук TrailRenderer об'єкту із вказаним ім'ям
     public TrailRenderer FindTrailRendererByName(string objectName)
     {
         Transform trailObject = transform.Find(objectName);
 
-        if (trailObject != null)
-        {
-            TrailRenderer trailRenderer = trailObject.GetComponent<TrailRenderer>();
-
-            if (trailRenderer != null)
-            {
-                return trailRenderer;
-            }
-            else
-            {
-                Debug.LogError("TrailRenderer not found on the child object with the specified name.");
-            }
-        }
-        else
+        if (trailObject == null)
         {
             Debug.LogError($"Child object with the specified name '{objectName}' not found.");
+            return null;
         }
 
-        return null; // Повертаємо null у випадку невдачі
-    }
+        TrailRenderer trailRenderer = trailObject.GetComponent<TrailRenderer>();
 
-    private void HandleCurrentItemChanged(SOItems newItem)
-    {
-        if (newItem == null)
+        if (trailRenderer == null)
         {
-            currentItemType = ItemType.None;
+            Debug.LogError("TrailRenderer not found on the child object with the specified name.");
+            return null;
         }
-        else
-        {
-            currentItemType = newItem.ItemType;
-        }
+
+        return trailRenderer;
     }
 
-    // убрать предмет из слота
-    void RemoveCurrentItemInSlot()
-    {
-        currentItemType = ItemType.None;
-    }
-
-    // логика
-    void FixedUpdate()
+    // Виконання дій
+    private void FixedUpdate()
     {
         if (isFreezed) return;
 
-        // Получаем позицию мыши в мировых координатах
         mousePosition = playerJump.GetMouseWorldPosition();
-
-        if(isCanDash)   // #CAN BE MOVED IN TRASH
-            MakeDash(); //
 
         if (isDashing)
         {
             CalculateDash();
-            CalculateDashReload();
+            MoveToMouse();
         }
     }
 
-    // input процесы
-    void Update()
+    // Считування Input процесів
+    private void Update()
     {
         if (isFreezed) return;
 
-        // Получаем позицию мыши в мировых координатах
         mousePosition = playerJump.GetMouseWorldPosition();
 
-        // если отпустить RKM и выбран соус то начинаем деш
-        StartDash();
-    }
-
-    void StartDash()
-    {
-        if (Input.GetKeyUp(KeyCode.Mouse1) && ItemTypeForDash.Contains(currentItemType) && !isDashing)
+        if (CanStartDash())
         {
-            playerJump.audioSource.clip = playerJump.sausageSounds[1];
-            playerJump.audioSource.loop = true;
-            playerJump.audioSource.Play();
-
-            isCanDash = true;
-            isDashing = true;
-
-            SOItems currentItem = inventoryDisplay.GetCurrentItem();
-
-            if (currentItem != null)
-            {
-                if (currentItemType == ItemType.Ketchup)
-                    trailRenderer.emitting = true;
-                else if (currentItemType == ItemType.Mayonnaise)
-                    trailRendererMayonnaise.emitting = true;
-
-                inventoryDisplay.InventorySystem.RemoveItemsFromInventory(currentItem, 1);
-            }
+            StartDash();
         }
     }
 
-    // уменьшение скорости деша на заданое значение DashSpeedReducer
-    void CalculateDash()
+    // Зменшення швидкості деша на вказане значення DashSpeedReducer
+    private void CalculateDash()
     {
         DashSpeed -= DashSpeedReducer;
         if (DashSpeed <= 0)
         {
-            playerJump.audioSource.Stop();
-            playerJump.audioSource.loop = false;
-
-            isCanDash = false;
-            isDashing = false;
-
-            trailRenderer.emitting = false;
-            trailRendererMayonnaise.emitting = false;
-            DashSpeed = DashSpeedTemp;
+            StopDash();
         }
     }
 
-    // перезарядка деша в секундах
-    void CalculateDashReload()                        // #CAN BE MOVED IN TRASH
-    {                                                 //
-        if (!isCanDash)                               //
-        {                                             //
-            DashCooldownTemp += Time.fixedDeltaTime;  //
-            if (DashCooldownTemp >= DashCooldown)     //
-            {                                         //
-                DashCooldownTemp = 0;                 //
-                isCanDash = true;                     //
-            }                                         //
-        }                                             //
-    }                                                 //
 
-    // Создание деша
-    void MakeDash()
+    // Переміщення гравця до позиції миші під час дешу
+    private void MoveToMouse()
     {
-        // Вычисляем вектор направления от текущей позиции до позиции мыши
         Vector2 direction = mousePosition - (Vector2)transform.position;
 
-        // Применяем MoveTowards для движения к курсору
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + direction.normalized, DashSpeed * Time.deltaTime);
     }
+
+    // Розпочаток дешу
+    private void StartDash()
+    {
+        PlayDashSound();
+        playerJump.IsMoving = false;
+        isDashing = true;
+
+        SOItems currentItem = inventoryDisplay.GetCurrentItem();
+
+        if (currentItem != null)
+        {
+            ActivateTrail(currentItemType);
+            inventoryDisplay.InventorySystem.RemoveItemsFromInventory(currentItem, 1);
+        }
+    }
+
+    // Активація слідів в залежності від типу предмету
+    private void ActivateTrail(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case ItemType.Ketchup:
+                trailRendererKetchup.emitting = true;
+                break;
+            case ItemType.Mayonnaise:
+                trailRendererMayonnaise.emitting = true;
+                break;
+
+            default: 
+                break;
+        }
+    }
+
+    // Завершення дешу
+    private void StopDash()
+    {
+        isDashing = false;
+        EndDashSound();
+        DeactivateTrails();
+        DashSpeed = InitialDashSpeed;
+    }
+
+    // Відтворення звуку дешу
+    private void PlayDashSound() => ControlDashSound(true);
+
+    // Завершення звуку дешу
+    private void EndDashSound() => ControlDashSound(false);
+
+    // Керує звуком дешу, відтворюючи або зупиняючи його
+    // в залежності від параметру isPlaying.
+    private void ControlDashSound(bool isPlaying)
+    {
+        playerJump.audioSource.clip = playerJump.sausageSounds[1];
+        playerJump.audioSource.loop = isPlaying;
+
+        if (isPlaying)
+            playerJump.audioSource.Play();
+        else
+            playerJump.audioSource.Stop();
+    }
+
+    // Вимкнення слідів
+    private void DeactivateTrails()
+    {
+        trailRendererKetchup.emitting = false;
+        trailRendererMayonnaise.emitting = false;
+    }
+
+    // Перевіряє можливість початку дії дешу
+    private bool CanStartDash()
+    {
+        return Input.GetKeyUp(KeyCode.Mouse1) && itemTypesForDash.Contains(currentItemType) && !isDashing;
+    }
+
+    // Обробник зміни поточного предмету
+    private void HandleCurrentItemChanged(SOItems newItem) => currentItemType = newItem?.ItemType ?? ItemType.None;
+
+    // Видалення поточного предмету із слоту
+    private void RemoveCurrentItemInSlot() => currentItemType = ItemType.None;
 }
