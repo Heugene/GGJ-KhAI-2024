@@ -129,7 +129,7 @@ public class PlayerDash : MonoBehaviour
 
     void StartDash()
     {
-        if (Input.GetKeyUp(KeyCode.Mouse1) && ItemTypeForDash.Contains(currentItemType) && !isDashing)
+        if (Input.GetKeyUp(KeyCode.Mouse1) && ItemTypeForDash.Contains(currentItemType) && !isDashing && !playerJump.IsMoving)
         {
             playerJump.audioSource.clip = playerJump.sausageSounds[1];
             playerJump.audioSource.loop = true;
