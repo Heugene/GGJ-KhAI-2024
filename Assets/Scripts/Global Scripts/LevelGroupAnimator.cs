@@ -28,7 +28,8 @@ public class LevelGroupAnimator : MonoBehaviour
     {
         foreach (Transform btn in objects)
         {
-            btn.gameObject.SetActive(true);
+            if(btn != null )
+                btn.gameObject.SetActive(true);
         }
     }
 }
