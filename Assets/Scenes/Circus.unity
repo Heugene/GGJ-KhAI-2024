@@ -6730,6 +6730,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4649788563201278632, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: itemTypesForDash.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4649788563201278632, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: itemTypesForDash.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4649788563201278632, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: itemTypesForDash.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4769319797269371077, guid: 263e67a57350316439473cd420cbe400, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
