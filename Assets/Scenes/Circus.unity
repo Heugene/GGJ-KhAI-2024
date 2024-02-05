@@ -4997,11 +4997,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab965778b57f0f4b869267644ca052f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpawnItems: 22
   itemPrefabs:
   - {fileID: 4527191058487273558, guid: 7371c9e83ebe50242a4b269d2fa2b3cb, type: 3}
   - {fileID: 3639912017869125015, guid: 05ea8a0b8e2d46e43a5206de8e7e08b0, type: 3}
   - {fileID: 8428073506933274792, guid: 8d3a22331ad4dcd468b33f350d4b15a0, type: 3}
-  maxSpawnItems: 16
   cooldownTime: 1
 --- !u!1001 &1247706181
 PrefabInstance:
@@ -5265,7 +5265,7 @@ MonoBehaviour:
   cutsceneOfDeath: {fileID: 618837125}
   winingWindow: {fileID: 1427953887}
   Lever: {fileID: 1786927061}
-  sauceSpawner: {fileID: 2053512497}
+  sauceSpawner: {fileID: 1242461229}
 --- !u!1001 &1300051508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8347,9 +8347,29 @@ PrefabInstance:
       propertyPath: particleSystem
       value: 
       objectReference: {fileID: 2020811418}
+    - target: {fileID: 3816705685836861061, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: ketchupMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b1dadb2010fa80f4493c6b8f89e95a70, type: 2}
+    - target: {fileID: 3816705685836861061, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: mayonnaiseMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 0eb54f65696db5a44889a73a9c08b07f, type: 2}
     - target: {fileID: 4437967205268421155, guid: 263e67a57350316439473cd420cbe400, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437967205268421155, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437967205268421155, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437967205268421155, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4649788563201278632, guid: 263e67a57350316439473cd420cbe400, type: 3}
       propertyPath: itemTypesForDash.Array.size
@@ -8372,8 +8392,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5169440322547698605, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169440322547698605, guid: 263e67a57350316439473cd420cbe400, type: 3}
       propertyPath: m_SortingOrder
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169440322547698605, guid: 263e67a57350316439473cd420cbe400, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5515384983378871767, guid: 263e67a57350316439473cd420cbe400, type: 3}
       propertyPath: m_SortingLayer
@@ -8472,7 +8500,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b1dadb2010fa80f4493c6b8f89e95a70, type: 2}
+  - {fileID: 2100000, guid: 0eb54f65696db5a44889a73a9c08b07f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
