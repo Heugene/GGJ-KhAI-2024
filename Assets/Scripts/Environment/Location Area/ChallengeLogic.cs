@@ -21,7 +21,8 @@ public class ChallengeLogic : MonoBehaviour
     [SerializeField] private GameObject cutsceneOfDeath;
     [SerializeField] private GameObject winingWindow;
     [SerializeField] private Transform Lever;
-    [SerializeField] private RandomSauceSpawner sauceSpawner;
+    //[SerializeField] private RandomSauceSpawner sauceSpawner;
+    [SerializeField] private PointSauceSpawner sauceSpawner;
 
 
     private CastsceneAnimator castsceneAnim;
@@ -53,34 +54,37 @@ public class ChallengeLogic : MonoBehaviour
     private void Area1_CompleteActions()
     {
         Debug.Log("Area1 COMPLETED");
-        sauceSpawner.SpawnMayonnaise();
+        //sauceSpawner.SpawnMayonnaise();
+        sauceSpawner.UnlockSauceSpawn("mayonnaise");
 
         // Đîçáëîęóşěî çîíó 2
         Area2.gameObject.SetActive(true);
-
-        //Ňĺńň
-        //GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
-
     }
 
     // Äłż, ęîëč ďđîéřëč äđóăó çîíó ç ęíîďęŕěč
     private void Area2_CompleteActions()
     {
         Debug.Log("Area2 COMPLETED");
-        sauceSpawner.SpawnKetchup();
-        sauceSpawner.SpawnMayonnaise();
+        //sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnMayonnaise();
+        sauceSpawner.UnlockSauceSpawn("cheese");
+
         // Đîçáëîęóşěî çîíó 3
         Area3.gameObject.SetActive(true);
+
     }
 
     // Äłż, ęîëč ďđîéřëč ňđĺňţ çîíó ç ęíîďęŕěč
     private void Area3_CompleteActions()
     {
         Debug.Log("Area3 COMPLETED");
-        sauceSpawner.SpawnKetchup();
-        sauceSpawner.SpawnMayonnaise();
-        sauceSpawner.SpawnCheese();
+        //sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnMayonnaise();
+        //sauceSpawner.SpawnCheese();
 
+        sauceSpawner.BlockSauceSpawn("mayonnaise");
+        sauceSpawner.UnlockSauceSpawn("ketchup");
+        sauceSpawner.maxSpawnItems = 26;
 
         // Đîçáëîęóşěî çîíó 4
         Area4.gameObject.SetActive(true);
@@ -90,8 +94,8 @@ public class ChallengeLogic : MonoBehaviour
     private void Area4_CompleteActions()
     {
         Debug.Log("Area4 COMPLETED");
-        sauceSpawner.SpawnKetchup();
-        sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnKetchup();
         
         Lever.gameObject.SetActive(true);
 

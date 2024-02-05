@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class PlayerDash : MonoBehaviour
 {
     public bool isDashing = false;  // Позначає, чи виконує гравець деш
     public bool isFreezed = false;  // Вказує, чи зупинена логіка скрипта
+    public Action<ItemType> onActivateTrail;
 
     [SerializeField] private float DashSpeed = 12;              // Швидкість дешу
     [SerializeField] private float DashSpeedReducer = 0.05f;    // Зменшення швидкості дешу
@@ -131,6 +133,8 @@ public class PlayerDash : MonoBehaviour
     // Активація слідів в залежності від типу предмету
     private void ActivateTrail(ItemType itemType)
     {
+        onActivateTrail.Invoke(itemType);
+
         switch (itemType)
         {
             case ItemType.Ketchup:
