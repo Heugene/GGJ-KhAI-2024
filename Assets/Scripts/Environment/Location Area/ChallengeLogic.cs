@@ -53,34 +53,34 @@ public class ChallengeLogic : MonoBehaviour
     private void Area1_CompleteActions()
     {
         Debug.Log("Area1 COMPLETED");
-        sauceSpawner.SpawnMayonnaise();
+        //sauceSpawner.SpawnMayonnaise();
+        PointSauceSpawner.UnlockSauceSpawn("mayonnaise");
 
         // Đîçáëîęóşěî çîíó 2
         Area2.gameObject.SetActive(true);
-
-        //Ňĺńň
-        //GameObject.FindGameObjectWithTag("Pentagram").GetComponent<PentagramLogic>().Activation();
-
     }
 
     // Äłż, ęîëč ďđîéřëč äđóăó çîíó ç ęíîďęŕěč
     private void Area2_CompleteActions()
     {
         Debug.Log("Area2 COMPLETED");
-        sauceSpawner.SpawnKetchup();
-        sauceSpawner.SpawnMayonnaise();
+        //sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnMayonnaise();
+        PointSauceSpawner.UnlockSauceSpawn("cheese");
+
         // Đîçáëîęóşěî çîíó 3
         Area3.gameObject.SetActive(true);
+
     }
 
     // Äłż, ęîëč ďđîéřëč ňđĺňţ çîíó ç ęíîďęŕěč
     private void Area3_CompleteActions()
     {
         Debug.Log("Area3 COMPLETED");
-        sauceSpawner.SpawnKetchup();
-        sauceSpawner.SpawnMayonnaise();
-        sauceSpawner.SpawnCheese();
-
+        //sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnMayonnaise();
+        //sauceSpawner.SpawnCheese();
+        PointSauceSpawner.UnlockSauceSpawn("ketchup");
 
         // Đîçáëîęóşěî çîíó 4
         Area4.gameObject.SetActive(true);

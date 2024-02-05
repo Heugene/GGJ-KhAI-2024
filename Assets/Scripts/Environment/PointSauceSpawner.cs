@@ -1,28 +1,48 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PointSauceSpawner : MonoBehaviour
 {
-    public GameObject itemPrefab;
+    [SerializeField] private GameObject[] itemPrefabs;
+    [SerializeField] private int maxSpawnItems = 1;
+    [SerializeField] private float cooldownTime = 5F;
+
     private Transform[] spawnPoints;
-    public int maxSpawnItems = 1;
-    public float cooldownTime = 5F;
+    private static Dictionary<string, bool> sauceSpawnBlockedDictionary = new Dictionary<string, bool>();
 
     private bool canSpawn = true;
 
 
-    private void Start()
+    private void Awake()
     {
-        if (itemPrefab == null)
-            throw new System.Exception($"Не встановлено префаб для спавну інпекторі обєкта {transform.gameObject.name}");
+        if (itemPrefabs.Length == 0)
+            throw new System.Exception($"Не встановлено додного префабу соусу для спавну інпекторі обєкта {transform.gameObject.name}");
 
         // Вибираємо всі дочірні елементи, крім самого об'єкта
         spawnPoints = GetComponentsInChildren<Transform>(true).Where(child => child != transform).ToArray();
         if (spawnPoints.Length <= 0)
             throw new System.Exception($"Не встановлено точки спавну соуів!! В {transform.gameObject.name} мають лежати елменти itemPoint");
+
+        foreach (var saucePrefab in itemPrefabs)
+        {
+            sauceSpawnBlockedDictionary[saucePrefab.name] = true;
+        }
+
         StartCoroutine(SpawnItemsRoutine());
     }
+
+    public static void BlockSauceSpawn(string sauceName)
+    {
+        sauceSpawnBlockedDictionary[sauceName] = true;
+    }
+
+    public static void UnlockSauceSpawn(string sauceName)
+    {
+        sauceSpawnBlockedDictionary[sauceName] = false;
+    }
+
 
     private IEnumerator SpawnItemsRoutine()
     {
@@ -32,30 +52,39 @@ public class PointSauceSpawner : MonoBehaviour
 
             if (canSpawn && getCountItems() < maxSpawnItems)
             {
-                int randomIndex = Random.Range(0, spawnPoints.Length);
-                Transform randomSpawnPoint = spawnPoints[randomIndex];
+                int randomIndex = Random.Range(0, itemPrefabs.Length);
+                var randomSaucePrefab = itemPrefabs[randomIndex];
 
-                if (randomSpawnPoint.childCount < 1)
+                if (!sauceSpawnBlockedDictionary[randomSaucePrefab.name])
                 {
-                    SpawnItem(itemPrefab, randomSpawnPoint);
-                    canSpawn = false;
-                    StartCoroutine(CooldownRoutine(itemPrefab));
+                    int randomSpawnIndex = Random.Range(0, spawnPoints.Length);
+                    Transform randomSpawnPoint = spawnPoints[randomSpawnIndex];
+
+                    if (randomSpawnPoint.childCount < 1)
+                    {
+                        SpawnItem(randomSaucePrefab, randomSpawnPoint);
+                        canSpawn = false;
+                        StartCoroutine(CooldownRoutine(randomSaucePrefab));
+                    }
                 }
             }
         }
     }
 
+    // Повертає кількість соусів на сцені
     private int getCountItems()
     {
         return spawnPoints.Count(spawnPoint => spawnPoint.childCount > 0);
     }
 
+    // Заспавнити предмет
     private void SpawnItem(GameObject spawnItem, Transform spawnPoint)
     {
         GameObject newObject = Instantiate(spawnItem, spawnPoint.position, Quaternion.identity);
         newObject.transform.parent = spawnPoint;
     }
 
+    // Перезарядка на спавн
     private IEnumerator CooldownRoutine(GameObject spawnItem)
     {
         yield return new WaitForSeconds(cooldownTime);
