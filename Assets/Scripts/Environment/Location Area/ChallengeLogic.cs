@@ -21,7 +21,8 @@ public class ChallengeLogic : MonoBehaviour
     [SerializeField] private GameObject cutsceneOfDeath;
     [SerializeField] private GameObject winingWindow;
     [SerializeField] private Transform Lever;
-    [SerializeField] private RandomSauceSpawner sauceSpawner;
+    //[SerializeField] private RandomSauceSpawner sauceSpawner;
+    [SerializeField] private PointSauceSpawner sauceSpawner;
 
 
     private CastsceneAnimator castsceneAnim;
@@ -54,7 +55,7 @@ public class ChallengeLogic : MonoBehaviour
     {
         Debug.Log("Area1 COMPLETED");
         //sauceSpawner.SpawnMayonnaise();
-        PointSauceSpawner.UnlockSauceSpawn("mayonnaise");
+        sauceSpawner.UnlockSauceSpawn("mayonnaise");
 
         // Đîçáëîęóşěî çîíó 2
         Area2.gameObject.SetActive(true);
@@ -66,7 +67,7 @@ public class ChallengeLogic : MonoBehaviour
         Debug.Log("Area2 COMPLETED");
         //sauceSpawner.SpawnKetchup();
         //sauceSpawner.SpawnMayonnaise();
-        PointSauceSpawner.UnlockSauceSpawn("cheese");
+        sauceSpawner.UnlockSauceSpawn("cheese");
 
         // Đîçáëîęóşěî çîíó 3
         Area3.gameObject.SetActive(true);
@@ -80,7 +81,10 @@ public class ChallengeLogic : MonoBehaviour
         //sauceSpawner.SpawnKetchup();
         //sauceSpawner.SpawnMayonnaise();
         //sauceSpawner.SpawnCheese();
-        PointSauceSpawner.UnlockSauceSpawn("ketchup");
+
+        sauceSpawner.BlockSauceSpawn("mayonnaise");
+        sauceSpawner.UnlockSauceSpawn("ketchup");
+        sauceSpawner.maxSpawnItems = 26;
 
         // Đîçáëîęóşěî çîíó 4
         Area4.gameObject.SetActive(true);
@@ -90,8 +94,8 @@ public class ChallengeLogic : MonoBehaviour
     private void Area4_CompleteActions()
     {
         Debug.Log("Area4 COMPLETED");
-        sauceSpawner.SpawnKetchup();
-        sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnKetchup();
+        //sauceSpawner.SpawnKetchup();
         
         Lever.gameObject.SetActive(true);
 

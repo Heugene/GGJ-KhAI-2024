@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class PointSauceSpawner : MonoBehaviour
 {
+    public int maxSpawnItems;
+
     [SerializeField] private GameObject[] itemPrefabs;
-    [SerializeField] private int maxSpawnItems = 1;
     [SerializeField] private float cooldownTime = 5F;
 
     private Transform[] spawnPoints;
@@ -33,12 +34,12 @@ public class PointSauceSpawner : MonoBehaviour
         StartCoroutine(SpawnItemsRoutine());
     }
 
-    public static void BlockSauceSpawn(string sauceName)
+    public void BlockSauceSpawn(string sauceName)
     {
         sauceSpawnBlockedDictionary[sauceName] = true;
     }
 
-    public static void UnlockSauceSpawn(string sauceName)
+    public void UnlockSauceSpawn(string sauceName)
     {
         sauceSpawnBlockedDictionary[sauceName] = false;
     }
