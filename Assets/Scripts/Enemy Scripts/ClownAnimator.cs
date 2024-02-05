@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Компонент, який передає стан клоуна в Animator цього об'єкту
@@ -7,9 +8,10 @@ public class ClownAnimator : MonoBehaviour
 {
     [SerializeField] private Transform fireballSpawnPoint;
 
-    private Animator animator; // Посилання на аніматок данного обєкту
-    private EnemyClown clown;  // Посилання на компонент EnemyClown данного обєкту
-    private Transform player;  // Посилання на гравця
+    private Animator animator;     // Посилання на аніматок данного обєкту
+    private EnemyClown clown;      // Посилання на компонент EnemyClown данного обєкту
+    private NavMeshAgent navMesh;  // Посилання на компонент NavMeshAgent данного обєкту
+    private Transform player;      // Посилання на гравця
     private bool isFreeze = false;
 
 
@@ -19,6 +21,7 @@ public class ClownAnimator : MonoBehaviour
         fireballSpawnPoint = GameObject.FindWithTag("fireball Spawn Point").transform;
         animator = GetComponent<Animator>();
         clown = GetComponent<EnemyClown>();
+        navMesh = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -75,5 +78,6 @@ public class ClownAnimator : MonoBehaviour
     {
         isFreeze = isFreezed;
         clown.isStoped  = isFreezed;
+        navMesh.enabled = !isFreezed;
     }
 }
