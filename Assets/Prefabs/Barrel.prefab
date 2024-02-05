@@ -138,9 +138,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7144595706589932369, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2819541668196277653}
-    - targetCorrespondingSourceObject: {fileID: 7144595706589932369, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6113848043510822477}
     - targetCorrespondingSourceObject: {fileID: 7144595706589932369, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
       insertIndex: -1
@@ -157,22 +154,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7144595706589932369, guid: 6c74bde0855b3894e8e17a69009afff6, type: 3}
   m_PrefabInstance: {fileID: 1355836055031163118}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2819541668196277653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8211845822273176511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
 --- !u!208 &6113848043510822477
 NavMeshObstacle:
   m_ObjectHideFlags: 0
