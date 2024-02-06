@@ -675,7 +675,6 @@ GameObject:
   - component: {fileID: 68101383}
   - component: {fileID: 68101382}
   - component: {fileID: 68101381}
-  - component: {fileID: 68101385}
   - component: {fileID: 68101387}
   m_Layer: 0
   m_Name: Arena
@@ -750,22 +749,6 @@ Transform:
   - {fileID: 2077174849}
   m_Father: {fileID: 1511192068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &68101385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 68101379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddb384cbcf97cd24b982b73c49a9949e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _numOfCorners: 40
-  _radius: 40
-  _delete: 0
-  _save: 1
 --- !u!114 &68101387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13557,8 +13540,8 @@ GameObject:
   - component: {fileID: 2077174853}
   - component: {fileID: 2077174852}
   - component: {fileID: 2077174851}
-  - component: {fileID: 2077174854}
   - component: {fileID: 2077174855}
+  - component: {fileID: 2077174856}
   m_Layer: 3
   m_Name: Bleacher
   m_TagString: obstacles
@@ -13672,20 +13655,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077174848}
   m_Mesh: {fileID: 4300000, guid: a25ed13fd260f194d81b46ad95a93e27, type: 2}
---- !u!114 &2077174854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2077174848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1bf114102104d47bc6be2751f506c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _thickness: 12
-  _arena: {fileID: 68101385}
 --- !u!114 &2077174855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13705,6 +13674,18 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &2077174856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077174848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d76c1eb6163ed34884516223b0bebfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2101296859
 GameObject:
   m_ObjectHideFlags: 0
