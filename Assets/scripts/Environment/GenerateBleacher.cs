@@ -51,7 +51,6 @@ public class GenerateBleacher : MonoBehaviour
             _numOfCorners = mesh.vertices.Length / 2;
             _sector = (Mathf.PI * 2) / _numOfCorners;
         }
-        GenerateEdgeCollaider();
     }
 
     void Update()
@@ -120,25 +119,6 @@ public class GenerateBleacher : MonoBehaviour
         _bleacherMesh.RecalculateNormals();
     }
 
-    // Генерация коллайдера на основе внутренних вершин меша трибуны
-    void GenerateEdgeCollaider()
-    {
-        EdgeCollider2D edgeCollider = GetComponent<EdgeCollider2D>();
-        float radiusCollaider = _thickness / 2;
-        _edgeCollaiderVertices = new Vector2[_numOfCorners + 1];
-
-        for(int i = 0; i < _numOfCorners; i++)
-        {
-            _edgeCollaiderVertices[i] =         new Vector2(Mathf.Sin(_sector * i) * (radiusCollaider + _radius),                         Mathf.Cos(_sector * i) * (radiusCollaider + _radius));
-        }
-        // Закрывающая вершина
-        _edgeCollaiderVertices[_numOfCorners] = new Vector2(Mathf.Sin(_sector * _numOfCorners) * (radiusCollaider + _radius), Mathf.Cos(_sector * _numOfCorners) * (radiusCollaider + _radius));
-
-        //Передача вершин в коллайдер
-        edgeCollider.points = _edgeCollaiderVertices;
-        // Установка толщины EdgeCollider2D
-        edgeCollider.edgeRadius = radiusCollaider;
-    }
 
     void RecalculateUvMap()
     {
